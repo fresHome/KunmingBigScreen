@@ -44,6 +44,7 @@ import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 import echarts from 'echarts'
+
 let tooltip = {
   trigger: 'axis',
   confine: true,
@@ -76,10 +77,11 @@ export default {
   data () {
     return {
       option: {
+        tooltip: tooltip,
         grid: {
           top: '0',
           left: '0',
-          right: '4.75%',
+          right: '0',
           bottom: '0',
           containLabel: true
         },
@@ -92,9 +94,9 @@ export default {
           },
           axisLabel: {
             color: '#fff',
-            fontSize: '16',
+            fontSize: convertRem(0.16),
             inside: true,
-            padding: [-80, 0, 10, -5]
+            padding: [-convertRem(0.8), 0]
           },
           axisLine: {
             show: false
@@ -152,10 +154,10 @@ export default {
               position: 'insideBottomRight',
               formatter: '{c}',
               distance: 0,
-              padding: [0, 0, 0, 50],
-              offset: [50, 0],
+              padding: [0, 0, 0, convertRem(0.5)],
+              offset: [convertRem(0.5), 0],
               color: '#fff',
-              fontSize: 16
+              fontSize: convertRem(0.16)
             }
           },
           itemStyle: {
@@ -218,7 +220,7 @@ export default {
     }
   },
   mounted () {
-    this.changeJJqs()
+//    this.changeJJqs()
   },
   components: {
     box, chart

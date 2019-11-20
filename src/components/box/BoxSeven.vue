@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       option: {
-        backgroundColor: '#031845',
+        color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {d}% <br/> {c}'
@@ -32,22 +32,21 @@ export default {
             color: '#B5BDDB'
           }
         },
-          {
-            text: '薪资等级',
-            x: '68%', // 怎么算？
-            y: '43%',
-            textStyle: {
-              fontSize: convertRem(0.1),
-              fontWeight: 'normal',
-              color: '#B5BDDB'
-            }
-          }],
+        {
+          text: '薪资等级',
+          x: '68%', // 怎么算？
+          y: '43%',
+          textStyle: {
+            fontSize: convertRem(0.1),
+            fontWeight: 'normal',
+            color: '#B5BDDB'
+          }
+        }],
         series: [
           {
             type: 'pie',
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['25%', '50%'],
-            color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF'],
             data: [],
             labelLine: {
               normal: {
@@ -70,7 +69,6 @@ export default {
             type: 'pie',
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['75%', '50%'],
-            color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
             data: [],
             labelLine: {
               normal: {
@@ -107,19 +105,19 @@ export default {
           if (item.code.slice(-2) < 59) {
             arr1.push({
               value: item.value,
-              name: 'codeRemark'
+              name: item.codeRemark
             })
           } else {
             arr2.push({
               value: item.value,
-              name: 'codeRemark'
+              name: item.codeRemark
             })
           }
         })
-        newOption.series[0].data = arr1;
-        newOption.series[1].data = arr2;
+        newOption.series[0].data = arr1
+        newOption.series[1].data = arr2
 
-        this.option = newOption;
+        this.option = newOption
       })
     }
   },
