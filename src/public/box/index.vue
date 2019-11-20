@@ -7,8 +7,8 @@
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
       <div class="tab" v-if="tabOn">
-        <div class="tab1" :style="{img:'tab1.png'}|imgLoad()" @click="tabChange(1)">规模分布</div>
-        <div class="tab2" :style="{img:'tab2.png'}|imgLoad()" @click="tabChange(2)">增长趋势</div>
+        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(1)">规模分布</div>
+        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(2)">增长趋势</div>
       </div>
     </div>
     <div v-if="show" class="content animated fadeInUp">
@@ -24,13 +24,39 @@ export default {
   name: 'index',
   data () {
     return {
-      show: false
+      show: false,
+      tab1: {
+        img: 'tab1.png',
+        color: '#0B163F'
+      },
+      tab2: {
+        img: 'tab2.png',
+        color: '#B5BDDB'
+      }
     }
   },
   props: ['title', 'lineWith', 'tabOn'],
   methods: {
     tabChange (value) {
-      console.log(value);
+      if (value == 1) {
+        this.tab1 = {
+          img: 'tab1.png',
+          color: '#0B163F'
+        },
+          this.tab2 = {
+            img: 'tab2.png',
+            color: '#B5BDDB'
+          }
+      } else {
+        this.tab2 = {
+          img: 'tab1.png',
+          color: '#0B163F'
+        },
+          this.tab1 = {
+            img: 'tab2.png',
+            color: '#B5BDDB'
+          }
+      }
     }
   },
   mounted () {
@@ -172,7 +198,7 @@ export default {
           width: 0.425rem;
           height: 0.125rem;
           font: 0.075rem/0.125rem NotoSansHans-Regular;
-          color: #0B163F;
+          /*color: #0B163F;*/
           margin-right: 0.02rem;
         }
 
@@ -180,7 +206,7 @@ export default {
           width: 0.425rem;
           height: 0.125rem;
           font: 0.075rem/0.125rem NotoSansHans-Regular;
-          color: #B5BDDB;
+          /*color: #B5BDDB;*/
         }
       }
     }
