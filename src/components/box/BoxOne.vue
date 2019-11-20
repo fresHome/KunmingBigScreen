@@ -12,35 +12,25 @@ import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 
-let tooltip = {
-  trigger: 'axis',
-  confine: true,
-  padding: convertRem(0.1),
-  textStyle: {
-    fontSize: convertRem(0.1),
-    lineHeight: convertRem(0.14)
-  },
-  backgroundColor: 'rgba(41,162,217,0.6)'
-}
-
 export default {
   name: 'BoxOne',
   data () {
     return {
       option: {
         grid: {
-          top: '12%',
-          left: '2%',
+          top: '5%',
+          left: 0,
           right: 0,
           bottom: 0,
           containLabel: true
         },
-        tooltip: tooltip,
         legend: {
           top: 'top',
+          right: 'right',
+          orient: 'horizontal',
           textStyle: {
             color: '#AAECFF',
-            fontSize: 12
+            fontSize: convertRem(0.12)
           },
           icon: 'rect',
           itemWidth: convertRem(0.075),
@@ -52,11 +42,17 @@ export default {
           axisLine: {
             show: false
           },
+          name: '月份',
           axisLabel: {
             color: '#8FCEEF',
             interval: 0,
             textStyle: {
               fontSize: '0.07rem'
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(102, 185, 251, 0.24)'
             }
           },
           axisTick: {
@@ -70,7 +66,7 @@ export default {
             axisLine: {
               show: false
             },
-            name: '(万)',
+            name: '亿元',
             axisLabel: {
               color: '#8FCEEF',
               textStyle: {
@@ -78,9 +74,7 @@ export default {
               }
             },
             splitLine: {
-              lineStyle: {
-                color: 'rgba(102, 185, 251, 0.24)'
-              }
+              show:false
             },
             axisTick: {
               show: false
@@ -149,21 +143,26 @@ export default {
       }).then(res => {
         let arr1 = []
         let arr2 = []
+        let time=[]
         res.data.data.resultList.map((item, index, arry) => {
-          if (index < 12) {
+          if (item.code == 'Xh00005') {
             arr1.push(item.value)
-          } else {
+          }
+          if (item.code == 'Xh00006') {
             arr2.push(item.value)
           }
+          time.push(item.time)
         })
+        newOption.xAxis.data=new Array([...new Set(time)])
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option = newOption
+        console.log(this.option)
       })
     }
   },
   mounted () {
-    this.changeJJqs();
+    this.changeJJqs()
   },
   components: {
     box, chart

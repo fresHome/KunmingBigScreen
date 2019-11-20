@@ -14,8 +14,6 @@
 
 <script>
 import box from '../../public/box'
-//import chart from '../../public/charts/echarts/chart'
-import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 
 export default {
@@ -52,7 +50,7 @@ export default {
           numbaer: '10家',
           top: '1.055rem',
           left: '2.19rem'
-        },
+        }
       ],
       lightBoxData: [
         {
@@ -76,14 +74,14 @@ export default {
       request.normalPort({
         codeArray: ['Xh00054']
       }).then(res => {
-        let arr = [];
+        let arr = []
         res.data.data.resultList.map((item, index, arry) => {
           arr.push({ number: item.value })
         })
-        console.log(arr);
+        console.log(arr)
       }).catch(err => {
       })
-    },
+    }
   },
   mounted () {
   },

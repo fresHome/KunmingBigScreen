@@ -44,17 +44,6 @@ import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 import echarts from 'echarts'
-
-let tooltip = {
-  trigger: 'axis',
-  confine: true,
-  padding: convertRem(0.1),
-  textStyle: {
-    fontSize: convertRem(0.1),
-    lineHeight: convertRem(0.14)
-  },
-  backgroundColor: 'rgba(41,162,217,0.6)'
-}
 let color = new echarts.graphic.LinearGradient(1, 1, 1, 0, [{
   offset: 0.4,
   color: 'transparent'
@@ -77,7 +66,6 @@ export default {
   data () {
     return {
       option: {
-        tooltip: tooltip,
         grid: {
           top: '0',
           left: '0',

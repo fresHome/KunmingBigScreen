@@ -13,129 +13,128 @@
 </template>
 
 <script>
-import box from '../../public/box'
-import chart from '../../public/charts/echarts/chart'
-import { deepClone, convertRem } from '../../utils'
-import request from '@/api/request'
+  import box from '../../public/box'
+  import chart from '../../public/charts/echarts/chart'
+  import { deepClone, convertRem } from '../../utils'
+  import request from '@/api/request'
 
-let dataAxis = ['类型一', '类型二', '类型三', '类型四', '类型五', '其他']
-let data = []
-let yMax = 100
-//let dataShadow = []
-//for (let i = 0; i < data.length; i++) {
-//  dataShadow.push(yMax)
-//}
+  let dataAxis = ['类型一', '类型二', '类型三', '类型四', '类型五', '其他']
+  let data = []
+  let yMax = 100
 
-export default {
-  name: 'BoxThree',
-  data () {
-    return {
-      projectName: 0,
-      projectMoney: 0,
-      option: {
-        grid: {
-          top: convertRem(0.3),
-          left: convertRem(0.205),
-          right: 0,
-          bottom: convertRem(0.28)
-        },
-        xAxis: {
-          data: dataAxis,
-          axisLabel: {
-            textStyle: {
-              color: '#B5BDDB'
-            }
+  export default {
+    name: 'BoxThree',
+    data () {
+      return {
+        projectName: 0,
+        projectMoney: 0,
+        option: {
+          grid: {
+            top: convertRem(0.3),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            containLabel:true
           },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: '#354471'
-            }
-          },
-          z: 10
-        },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: '#354471',
-              type: 'dotted',
-              opacity: 0.5
-            }
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: '#354471'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            textStyle: {
-              color: '#B5BDDB'
-            }
-          }
-        },
-        dataZoom: [
-          {
-            type: 'inside'
-          }
-        ],
-        series: [
-          {
-            type: 'bar',
-            itemStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(
-                  0, 0, 0, 1,
-                  [
-                    { offset: 0, color: '#8852DE' },
-                    { offset: 1, color: 'rgba(0,0,0,0)' }
-                  ]
-                )
+          xAxis: {
+            data: dataAxis,
+            axisLabel: {
+              textStyle: {
+                color: '#B5BDDB',
+                fontSize: convertRem(0.075)
               }
             },
-            data: data
-          }
-        ]
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: '#354471'
+              }
+            },
+            z: 10
+          },
+          yAxis: {
+            splitLine: {
+              lineStyle: {
+                color: '#354471',
+                type: 'dotted',
+                opacity: 0.5
+              }
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: '#354471'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              textStyle: {
+                color: '#B5BDDB'
+              }
+            }
+          },
+          dataZoom: [
+            {
+              type: 'inside'
+            }
+          ],
+          series: [
+            {
+              type: 'bar',
+              barWidth: convertRem(0.2),
+              itemStyle: {
+                normal: {
+                  color: new this.$echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                      { offset: 0, color: '#8852DE' },
+                      { offset: 1, color: 'rgba(0,0,0,0)' }
+                    ]
+                  )
+                }
+              },
+              data: data
+            }
+          ]
+        }
       }
-    }
-  },
-  props: ['delayShow'],
-  methods: {
-    changeJJqs (type) {
-      this.activeJJqs = type
-      let newOption = deepClone(this.option)
-      request.normalPort({
-        codeArray: ['Xh00033', 'Xh00034', 'Xh00035', 'Xh00036', 'Xh00037', 'Xh00038', 'Xh00039', 'Xh00040']
-      }).then(res => {
-        let arr = []
-        res.data.data.resultList.map((item, index, arry) => {
-          if (item.code.slice(-2) > 34) {
-            arr.push(item.value - 0)
-          } else if (item.code.slice(-2) == 33) {
-            this.projectName = item.value
-          } else if (item.code.slice(-2) == 34) {
-            this.projectMoney = item.value
-          }
-        })
-        newOption.series[0].data = arr;
+    },
+    props: ['delayShow'],
+    methods: {
+      changeJJqs (type) {
+        this.activeJJqs = type
+        let newOption = deepClone(this.option)
+        request.normalPort({
+          codeArray: ['Xh00033', 'Xh00034', 'Xh00035', 'Xh00036', 'Xh00037', 'Xh00038', 'Xh00039', 'Xh00040']
+        }).then(res => {
+          let arr = []
+          res.data.data.resultList.map((item, index, arry) => {
+            if (item.code.slice(-2) > 34) {
+              arr.push(item.value - 0)
+            } else if (item.code.slice(-2) == 33) {
+              this.projectName = item.value
+            } else if (item.code.slice(-2) == 34) {
+              this.projectMoney = item.value
+            }
+          })
+          newOption.series[0].data = arr
 
-        this.option = newOption;
-      })
+          this.option = newOption
+        })
+      }
+    },
+    mounted () {
+      this.changeJJqs()
+    },
+    components: {
+      box, chart
     }
-  },
-  mounted () {
-    this.changeJJqs()
-  },
-  components: {
-    box, chart
   }
-}
 </script>
 
 <style lang="scss" scoped>

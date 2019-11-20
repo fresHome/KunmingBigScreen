@@ -18,10 +18,6 @@ export default {
     return {
       option: {
         color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {d}% <br/> {c}'
-        },
         title: [{
           text: '年龄层次',
           x: '18%', // 怎么算？

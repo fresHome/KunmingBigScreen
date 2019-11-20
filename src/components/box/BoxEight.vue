@@ -47,21 +47,16 @@ export default {
           arrStr.forEach((item, index) => {
             if (item.match(/^\s*$/) != null) {
               arrStr.splice(index, arrStr.length - index)
-              return
             }
           })
 
           arr.push({
             title: arrStr.join(''),
             value: Number(item.value),
-            percent: (item.value / total).toFixed(2)
+            percent: (item.value / total).toFixed(2) * 100
           })
-
         })
-        console.log(333, total);
-        console.log(arr);
         this.data = arr
-        console.log(this.data);
       })
     }
   },
