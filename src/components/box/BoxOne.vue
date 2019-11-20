@@ -38,7 +38,6 @@ export default {
         tooltip: tooltip,
         legend: {
           top: 'top',
-//          right:'',
           textStyle: {
             color: '#AAECFF',
             fontSize: 12
