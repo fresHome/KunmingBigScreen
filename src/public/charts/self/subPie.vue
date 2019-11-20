@@ -62,7 +62,7 @@ export default {
             center: ['50%', '50%'],
             data: [
               {
-                value: '50%',
+                value: this.percent,
                 itemStyle: {
                   normal: {
                     borderWidth: 0,
