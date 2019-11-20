@@ -11,26 +11,24 @@
       <slot></slot>
     </div>
     <div class="afterBox" :style="{img:'zu37.png'} | imgLoad()"></div>
-
     <div :style="{img:'zu58.png'} | imgLoad()" class="flowDiv"></div>
-
   </div>
 </template>
 
 <script>
-export default {
-  name: 'index',
-  data () {
-    return {}
-  },
-  props: ['title', 'lineWith'],
-  watch: {
-    lineWith () {
-      console.log(this.lineWith);
-    }
-  },
-  methods: {}
-}
+  export default {
+    name: 'index',
+    data () {
+      return {}
+    },
+    props: ['title', 'lineWith'],
+    watch: {
+      lineWith () {
+        console.log(this.lineWith);
+      }
+    },
+    methods: {}
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -60,9 +58,9 @@ export default {
 
     .afterBox {
       width: 100%;
-      height: 0.15rem;
+      height: 0.06rem;
       position: absolute;
-      bottom: 0;
+      bottom: 0.15rem;
       left: 0;
       z-index: 1;
       transform: scaleX(0);
@@ -113,19 +111,19 @@ export default {
       padding-top: 0.18rem;
       z-index: 2;
       overflow: hidden;
-      margin-top:0.15rem;
+      margin-top: 0.15rem;
       /*animation: opacityChange 1.5s 3.5s forwards;*/
       animation: heightFlow1 1.5s 3.5s forwards;
 
       @keyframes heightFlow1 {
         from {
           /*height: 0;*/
-          margin-top:0.15rem;
+          margin-top: 0.15rem;
           opacity: 0;
         }
         to {
           /*height: 0.15rem;*/
-          margin-top:0;
+          margin-top: 0;
           opacity: 1;
         }
       }
@@ -157,8 +155,8 @@ export default {
 
     .content {
       position: relative;
-      height: 1.55rem;
-      padding:0.1rem 0.2rem;
+      height: 1.45rem;
+      padding: 0.1rem 0.2rem;
       display: flex;
       box-sizing: border-box;
     }
