@@ -1,7 +1,7 @@
 <template>
-  <div class="BoxNine">
-    <box title="企业分析" line-with="short">
-      <chart ref="chart9" :skey="'jjqs9'" :option="option" v-if="delayShow"></chart>
+  <div class="BoxOne">
+    <box title="企业分析">
+      <chart ref="chart1" :skey="'jjqs1'" :option="option" v-if="delayShow"></chart>
     </box>
   </div>
 </template>
@@ -24,7 +24,7 @@ let tooltip = {
 }
 
 export default {
-  name: 'BoxNine',
+  name: 'BoxOne',
   data () {
     return {
       option: {
@@ -38,13 +38,14 @@ export default {
         tooltip: tooltip,
         legend: {
           top: 'top',
+          //          right:'',
           textStyle: {
             color: '#AAECFF',
             fontSize: 12
           },
-          icon: 'line',
-          itemWidth: 8,
-          itemHeight: 8,
+          icon: 'rect',
+          itemWidth: convertRem(0.075),
+          itemHeight: convertRem(0.075),
           data: ['2019', '2018']
         },
         xAxis: {
@@ -160,7 +161,6 @@ export default {
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option = newOption
-      }).catch(err => {
       })
     }
   },
@@ -174,7 +174,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .BoxNine {
+  .BoxOne {
 
   }
 </style>

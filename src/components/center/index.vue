@@ -6,9 +6,6 @@
         <div class="number">{{item.number}}</div>
       </div>
     </div>
-
-    <BoxNine id="chart9" :delay-show="delayShow"></BoxNine>
-
     <LittleBox id="littleBox1"></LittleBox>
     <LittleBox id="littleBox2"></LittleBox>
     <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>
@@ -18,10 +15,7 @@
 </template>
 
 <script>
-import box from '../../public/box'
 import LittleBox from '../LittleBox'
-import chart from '../../public/charts/echarts/chart'
-import BoxNine from '../box/BoxNine'
 
 export default {
   name: 'index',
@@ -48,7 +42,7 @@ export default {
   },
   methods: {},
   components: {
-    box, LittleBox, chart, BoxNine
+    LittleBox
   }
 }
 </script>

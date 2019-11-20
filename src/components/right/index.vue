@@ -1,44 +1,40 @@
 <template>
   <div class="index">
     <BoxFive :delay-show="delayShow"></BoxFive>
-    <!--    <box title="发展成就">-->
-    <!--      <chart ref="chart1" :skey="'jjqs5'" :option="option5" v-if="delayShow"></chart>-->
-    <!--    </box>-->
-    <box title="企业分析">
-      <chart ref="chart1" :skey="'jjqs6'" :option="option6" v-if="delayShow"></chart>
-    </box>
+    <BoxSix :delay-show="delayShow"></BoxSix>
     <BoxSeven :delay-show="delayShow"></BoxSeven>
     <BoxEight :delay-show="delayShow"></BoxEight>
   </div>
 </template>
 
 <script>
-import box from '../../public/box'
-import chart from '../../public/charts/echarts/chart'
-import BoxFive from '../box/BoxFive'
-import BoxSeven from '../box/BoxSeven'
-import BoxEight from '../box/BoxEight'
+  import BoxFive from '../box/BoxFive'
+  import BoxSix from '../box/BoxSix'
+  import BoxSeven from '../box/BoxSeven'
+  import BoxEight from '../box/BoxEight'
 
-export default {
-  name: 'index',
-  data () {
-    return {
-      option5: {},
-      option6: {},
-      option7: {},
-      option8: {},
+  export default {
+    name: 'index',
+    data () {
+      return {
+        option5: {},
+        option6: {},
+        option7: {},
+        option8: {}
+      }
+    },
+    props: ['delayShow'],
+    components: {
+      BoxSeven,
+      BoxEight,
+      BoxSix,
+      BoxFive
+    },
+    methods: {},
+    mounted () {
+
     }
-  },
-  props: ['delayShow'],
-  components: {
-    box,
-    chart, BoxSeven, BoxEight, BoxFive
-  },
-  methods: {},
-  mounted () {
-
   }
-}
 </script>
 
 <style lang="scss" scoped>
