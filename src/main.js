@@ -8,7 +8,6 @@ import './assets/css/index.scss'
 import $ from 'jquery'
 import animated from 'animate.css' // npm install animate.css --save安装，在引入
 
-
 Vue.use(animated)
 
 window.jQuery = $

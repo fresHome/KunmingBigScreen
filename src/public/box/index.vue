@@ -158,7 +158,9 @@ export default {
     .content {
       position: relative;
       height: 1.55rem;
-      /*padding-top: 0.2rem;*/
+      padding:0.1rem 0.2rem;
+      display: flex;
+      box-sizing: border-box;
     }
   }
 </style>
