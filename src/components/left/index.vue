@@ -59,7 +59,6 @@ export default {
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option1 = newOption
-      }).catch(err => {
       })
     },
     changeAll (type) {
