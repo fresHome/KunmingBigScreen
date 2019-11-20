@@ -13,49 +13,49 @@
 </template>
 
 <script>
-import top from '../components/top'
-import left from '../components/left'
-import center from '../components/center'
-import right from '../components/right'
-import animateMap from './animateMap'
+  import top from '../components/top'
+  import left from '../components/left'
+  import center from '../components/center'
+  import right from '../components/right'
+  import animateMap from './animateMap'
 
-export default {
-  name: 'home',
-  data () {
-    return {
-      delayShow: 1,
-      time: 0,
-      interval: '',
-      allCarousel: null
-    }
-  },
-  components: { top, left, center, right, animateMap },
-  methods: {
-    mousemove () {
-      this.stopInterval()
-    },
-    stopInterval () {
-      this.allCarousel = 'stop'
-      this.time = 0
-    },
-    startInterval () {
-      this.interval = setInterval(() => {
-        this.time++
-      }, 1000)
-      this.time = 0
-    }
-  },
-  watch: {
-    time (val) {
-      if (val == 10) {
-        this.allCarousel = 'go'
+  export default {
+    name: 'home',
+    data () {
+      return {
+        delayShow: 1,
+        time: 0,
+        interval: '',
+        allCarousel: null
       }
+    },
+    components: { top, left, center, right, animateMap },
+    methods: {
+      mousemove () {
+        this.stopInterval()
+      },
+      stopInterval () {
+        this.allCarousel = 'stop'
+        this.time = 0
+      },
+      startInterval () {
+        this.interval = setInterval(() => {
+          this.time++
+        }, 1000)
+        this.time = 0
+      }
+    },
+    watch: {
+      time (val) {
+        if (val == 10) {
+          this.allCarousel = 'go'
+        }
+      }
+    },
+    mounted () {
+      this.startInterval()
     }
-  },
-  mounted () {
-    this.startInterval()
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -88,10 +88,14 @@ export default {
       }
 
       .left {
+        position: relative;
+        z-index: 99999;
         margin-left: 0.3rem;
       }
 
       .right {
+        position: relative;
+        z-index: 99999;
         margin-right: 0.3rem;
       }
 

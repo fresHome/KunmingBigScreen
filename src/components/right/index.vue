@@ -13,15 +13,11 @@
 </template>
 
 <script>
-import tab2 from '../../public/tab/index2.vue'
 import box from '../../public/box'
 import chart from '../../public/charts/echarts/chart'
 import BoxFive from '../box/BoxFive'
 import BoxSeven from '../box/BoxSeven'
 import BoxEight from '../box/BoxEight'
-
-//import sort from '../../public/sort'
-//import carousel from '../../public/carousel'
 
 export default {
   name: 'index',
