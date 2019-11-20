@@ -1,7 +1,7 @@
 <template>
   <div class="BoxOne">
     <box title="经济趋势">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option" v-if="delayShow"></chart>
+      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
     </box>
   </div>
 </template>

@@ -20,11 +20,12 @@ export default {
         this.chart.clear()
         this.chart.setOption(this.option)
         this.chart.resize()
-      }, 200)
+      }, 500)
     }
   },
   watch: {
     option () {
+      console.log(1)
       this.$nextTick(() => {
         this.draw()
       })

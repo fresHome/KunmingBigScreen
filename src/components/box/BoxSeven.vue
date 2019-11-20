@@ -1,7 +1,7 @@
 <template>
   <div class="BoxSeven">
     <box title="人才结构分布" line-with="short">
-      <chart ref="chart7" :skey="'jjqs7'" :option="option" v-if="delayShow"></chart>
+      <chart ref="chart7" :skey="'chart7'" :option="option"></chart>
     </box>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
   data () {
     return {
       option: {
-        color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
         title: [{
           text: '年龄层次',
           x: '18%', // 怎么算？
@@ -40,6 +39,7 @@ export default {
         }],
         series: [
           {
+            color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
             type: 'pie',
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['25%', '50%'],
@@ -63,6 +63,7 @@ export default {
           },
           {
             type: 'pie',
+            color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['75%', '50%'],
             data: [],
@@ -115,7 +116,7 @@ export default {
 
         this.option = newOption
       })
-    }
+    },
   },
   mounted () {
     this.changeJJqs()
