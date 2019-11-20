@@ -74,7 +74,8 @@
             },
             axisLabel: {
               textStyle: {
-                color: '#B5BDDB'
+                color: '#B5BDDB',
+                fontSize: convertRem(0.075)
               }
             }
           },
@@ -96,6 +97,16 @@
                       { offset: 1, color: 'rgba(0,0,0,0)' }
                     ]
                   )
+                }
+              },
+              label: {
+                normal: {
+                  show: true,
+                  position: 'top',
+                  formatter: '{c}',
+                  distance: 0,
+                  color: '#fff',
+                  fontSize: convertRem(0.1)
                 }
               },
               data: data

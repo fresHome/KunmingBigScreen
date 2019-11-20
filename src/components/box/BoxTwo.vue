@@ -1,8 +1,10 @@
 <template>
   <div class="BoxNine">
+    <div class="ss"></div>
     <box title="产业结构">
       <chart ref="chart2" :skey="'jjqs2'" :option="option" v-if="delayShow"></chart>
     </box>
+    <div class="ys"></div>
   </div>
 </template>
 
@@ -42,6 +44,12 @@ export default {
                 show: false
               }
             },
+            itemStyle: {
+              normal: {
+                borderWidth: convertRem(0.03),
+                borderColor: '#031845'
+              }
+            },
             data: []
           },
           {
@@ -60,6 +68,12 @@ export default {
             label: {
               normal: {
                 show: false
+              }
+            },
+            itemStyle: {
+              normal: {
+                borderWidth: convertRem(0.03),
+                borderColor: '#031845'
               }
             },
             data: []
@@ -85,16 +99,51 @@ export default {
       request.normalPort({
         codeArray: ['Xh00007', 'Xh00009', 'Xh00011', 'Xh00013', 'Xh00015', 'Xh00017']
       }).then(res => {
-        let arr1 = [
-          { name: '生物医药产业', value: 0 },
-          { name: '新材料及装备制造产业', value: 0 },
-          { name: 'IT及现代服务产业', value: 0 }
+        let defaultArr = [
+          {
+            name: '生物医药产业',
+            value: 0,
+            itemStyle: {
+              normal: {// 颜色渐变
+                color: new this.$echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    { offset: 0, color: '#004A65' },
+                    { offset: 1, color: '#32F0FE' }
+                  ]
+                )
+              }
+            }
+          },
+          { name: '新材料及装备制造产业',
+            value: 0,
+            itemStyle: {
+              normal: {// 颜色渐变
+                color: new this.$echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    { offset: 0, color: '#6D91FF' },
+                    { offset: 1, color: '#003DF9' }
+                  ]
+                )
+              }
+            } },
+          { name: 'IT及现代服务产业',
+            value: 0,
+            itemStyle: {
+              normal: {// 颜色渐变
+                color: new this.$echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    { offset: 0, color: '#5D1751' },
+                    { offset: 1, color: '#D7087E' }
+                  ]
+                )
+              }
+            } }
         ]
-        let arr2 = [
-          { name: '生物医药产业', value: 0 },
-          { name: '新材料及装备制造产业', value: 0 },
-          { name: 'IT及现代服务产业', value: 0 }
-        ]
+        let arr1 = deepClone(defaultArr)
+        let arr2 = deepClone(defaultArr)
         let data1 = res.data.data.resultList.slice(0, 3)
         let data2 = res.data.data.resultList.slice(3)
         data1.map((item, index, arry) => {
