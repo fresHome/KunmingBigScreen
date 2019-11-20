@@ -27,7 +27,7 @@ export default {
       show: false
     }
   },
-  props: ['title', 'lineWith'],
+  props: ['title', 'lineWith', 'tabOn'],
   methods: {
     tabChange (value) {
       console.log(value);
