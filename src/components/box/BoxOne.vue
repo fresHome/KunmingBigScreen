@@ -1,7 +1,7 @@
 <template>
   <div class="BoxOne">
-    <box title="经济趋势">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option" v-if="delayShow"></chart>
+    <box title="经济趋势" :tab-on="tabOn">
+      <chart ref="chart1" :skey="'jjqs1'" :option="option" v-if="delayShow"></chart>
     </box>
   </div>
 </template>
@@ -16,9 +16,10 @@ export default {
   name: 'BoxOne',
   data () {
     return {
+      tabOn: 1,
       option: {
         grid: {
-          top: convertRem(0.2),
+          top: '5%',
           left: 0,
           right: 0,
           bottom: 0,
@@ -34,7 +35,8 @@ export default {
           },
           icon: 'rect',
           itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075)
+          itemHeight: convertRem(0.075),
+          data: ['2019', '2018']
         },
         xAxis: {
           type: 'category',
@@ -46,7 +48,7 @@ export default {
             color: '#8FCEEF',
             interval: 0,
             textStyle: {
-              fontSize: convertRem(0.07)
+              fontSize: '0.07rem'
             }
           },
           splitLine: {
@@ -56,30 +58,24 @@ export default {
           },
           axisTick: {
             show: false
-          }
+          },
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         },
         yAxis: [
           {
             type: 'value',
-            name: '亿元',
-            nameTextStyle: {
-              color: '#B5BDDB',
-              fontSize: convertRem(0.075)
-            },
-            axisLabel: {
-              color: '#B5BDDB',
-              textStyle: {
-                fontSize: convertRem(0.075)
-              }
-            },
             axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#354471'
+              show: false
+            },
+            name: '亿元',
+            axisLabel: {
+              color: '#8FCEEF',
+              textStyle: {
+                fontSize: convertRem(0.07)
               }
             },
             splitLine: {
-              show: false
+              show:false
             },
             axisTick: {
               show: false
@@ -148,7 +144,7 @@ export default {
       }).then(res => {
         let arr1 = []
         let arr2 = []
-        let time = []
+        let time=[]
         res.data.data.resultList.map((item, index, arry) => {
           if (item.code == 'Xh00005') {
             arr1.push(item.value)
@@ -158,10 +154,11 @@ export default {
           }
           time.push(item.time)
         })
-        newOption.xAxis.data = [...new Set(time)]
+        newOption.xAxis.data=new Array([...new Set(time)])
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option = newOption
+        console.log(this.option)
       })
     }
   },

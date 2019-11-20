@@ -6,9 +6,13 @@
       <div class="text">{{ title }}</div>
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
+      <div class="tab" v-if="tabOn">
+        <div class="tab1" :style="{img:'tab1.png'}|imgLoad()" @click="tabChange(1)">规模分布</div>
+        <div class="tab2" :style="{img:'tab2.png'}|imgLoad()" @click="tabChange(2)">增长趋势</div>
+      </div>
     </div>
     <div v-if="show" class="content animated fadeInUp">
-      <slot v-if="show" ></slot>
+      <slot v-if="show"></slot>
     </div>
     <div class="afterBox" :style="{img:'zu37.png'} | imgLoad()"></div>
     <div :style="{img:'zu58.png'} | imgLoad()" class="flowDiv"></div>
@@ -16,21 +20,23 @@
 </template>
 
 <script>
-  export default {
-    name: 'index',
-    data () {
-      return {
-        show: false
-      }
-    },
-    props: ['title', 'lineWith'],
-    methods: {},
-    mounted () {
-      setTimeout(() => {
-        this.show = true
-      }, 1000)
+export default {
+  name: 'index',
+  data () {
+    return {}
+  },
+  props: ['title', 'lineWith'],
+  watch: {
+    lineWith () {
+      console.log(this.lineWith);
+    }
+  },
+  methods: {
+    tabChange (value) {
+      console.log(value);
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -152,6 +158,28 @@
 
       .shortLine {
         width: 2.35rem;
+      }
+
+      .tab {
+        display: flex;
+        position: absolute;
+        right: 0.12rem;
+        top: 0.11rem;
+
+        .tab1 {
+          width: 0.425rem;
+          height: 0.125rem;
+          font: 0.075rem/0.125rem NotoSansHans-Regular;
+          color: #0B163F;
+          margin-right: 0.02rem;
+        }
+
+        .tab2 {
+          width: 0.425rem;
+          height: 0.125rem;
+          font: 0.075rem/0.125rem NotoSansHans-Regular;
+          color: #B5BDDB;
+        }
       }
     }
 

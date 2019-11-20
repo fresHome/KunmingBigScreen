@@ -1,6 +1,6 @@
 <template>
   <div class="BoxOne">
-    <box title="企业分析">
+    <box title="企业分析" :tab-on="tabOn">
       <chart ref="chart6" :skey="'jjqs6'" :option="option" v-if="delayShow"></chart>
     </box>
   </div>
@@ -33,6 +33,7 @@ export default {
   name: 'BoxOne',
   data () {
     return {
+      tabOn: 1,
       option: {
         backgroundColor: '#001a2b',
         legend: {
