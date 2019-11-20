@@ -1,7 +1,7 @@
 <template>
   <div class="BoxOne">
     <box title="企业分析">
-      <chart ref="chart1" :skey="'jjqs1'" :option="option" v-if="delayShow"></chart>
+      <chart ref="chart6" :skey="'jjqs6'" :option="option" v-if="delayShow"></chart>
     </box>
   </div>
 </template>
@@ -12,117 +12,149 @@ import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 
+var yData = ['河南', '福建', '浙江', '广东', '江苏']
+var data = [3, 40, 50, 60, 33]
+var color = ['#D7087E']
+var seriesData = []
+data.map((item, index) => {
+  seriesData.push({
+    name: '',
+    value: item,
+    itemStyle: {
+      normal: {
+        color: color[index],
+        barBorderRadius: 12
+      }
+    }
+  })
+})
+
 export default {
   name: 'BoxOne',
   data () {
     return {
       option: {
+        backgroundColor: '#001a2b',
+        legend: {
+          show: false
+        },
         grid: {
-          top: '12%',
-          left: '2%',
-          right: 0,
-          bottom: 0,
+          left: '8%',
+          right: '12%',
+          bottom: '8%',
+          top: '3%',
           containLabel: true
         },
-        legend: {
-          top: 'top',
-          //          right:'',
-          textStyle: {
-            color: '#AAECFF',
-            fontSize: 12
-          },
-          icon: 'rect',
-          itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075),
-          data: ['2019', '2018']
-        },
         xAxis: {
-          type: 'category',
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            color: '#8FCEEF',
-            interval: 0,
-            textStyle: {
-              fontSize: '0.07rem'
-            }
-          },
+          type: 'value',
           axisTick: {
             show: false
           },
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          }
         },
         yAxis: [
           {
-            type: 'value',
+            type: 'category',
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: false,
+              lineStyle: {
+                color: '#363e83'
+              }
+            },
+            axisLabel: {
+              inside: false,
+              textStyle: {
+                color: '#00FFEC',
+                fontWeight: 'normal',
+                fontSize: 10
+              }
+            },
+            data: yData
+          }, {
+            type: 'category',
             axisLine: {
               show: false
             },
-            name: '(万)',
+            axisTick: {
+              show: false
+            },
             axisLabel: {
-              color: '#8FCEEF',
-              textStyle: {
-                fontSize: convertRem(0.07)
-              }
+              show: false
+            },
+            splitArea: {
+              show: false
             },
             splitLine: {
-              lineStyle: {
-                color: 'rgba(102, 185, 251, 0.24)'
-              }
+              show: false
+            },
+            data: yData
+          }, {
+            type: 'category',
+            axisLine: {
+              show: false
             },
             axisTick: {
               show: false
-            }
-          }
-        ],
+            },
+            axisLabel: {
+              show: false
+            },
+            splitArea: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            data: yData
+          }],
         series: [
           {
-            type: 'line',
-            name: '2018',
-            color: '#D7087E',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-
-                colorStops: [{
-                  offset: 0,
-                  color: '#20186E' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#D7087E' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
+            name: '',
+            type: 'bar',
+            stack: '1',
+            yAxisIndex: 0,
+            data: seriesData,
+            color: ['#D7087E'],
+            barWidth: 4,
+            z: 3
           },
           {
-            type: 'line',
-            name: '2019',
-            color: '#32F0FE',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-                colorStops: [{
-                  offset: 0,
-                  color: '#0F2088' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#32F0FE' // 100% 处的颜色
-                }]
+            name: '',
+            type: 'bar',
+            yAxisIndex: 2,
+            data: [100, 100, 100, 100, 100],
+            barWidth: 5,
+            itemStyle: {
+              color: '#001a2b',
+              // barBorderRadius: 12,
+              borderWidth: 0.5,
+              borderColor: '#222E62',
+            },
+            label: {
+              normal: {
+                show: true,
+                color: '#fff',
+                fontSize: 10,
+                //   fontWeight:bold,
+                padding: [0, 0, 0, 20],
+                position: 'right',
+                formatter: function (params) {
+                  return data[params.dataIndex]
+                }
               }
             },
-            showSymbol: false,
-            data: []
+            z: 0
           }
         ]
       }
@@ -153,7 +185,7 @@ export default {
     }
   },
   mounted () {
-    this.changeJJqs()
+//    this.changeJJqs()
   },
   components: {
     box, chart
