@@ -23,18 +23,20 @@
 export default {
   name: 'index',
   data () {
-    return {}
-  },
-  props: ['title', 'lineWith'],
-  watch: {
-    lineWith () {
-      console.log(this.lineWith);
+    return {
+      show: false
     }
   },
+  props: ['title', 'lineWith'],
   methods: {
     tabChange (value) {
       console.log(value);
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.show = true
+    }, 5000)
   }
 }
 </script>
