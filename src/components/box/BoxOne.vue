@@ -144,9 +144,8 @@ export default {
     changeJJqs (type) {
       this.activeJJqs = type
       let newOption = deepClone(this.option)
-
       request.normalPort({
-        codeArray: ['Xh00005', 'Xh00006', 'Xh00007', 'Xh00008', 'Xh00009', 'Xh00010', 'Xh00011', 'Xh00012', 'Xh00013', 'Xh00014', 'Xh00015', 'Xh00016', 'Xh00017', 'Xh00018', 'Xh00019', 'Xh00020', 'Xh00021', 'Xh00022', 'Xh00023', 'Xh00024', 'Xh00025', 'Xh00026', 'Xh00027', 'Xh00028']
+        codeArray: ['Xh00005', 'Xh00006']
       }).then(res => {
         let arr1 = []
         let arr2 = []
@@ -160,7 +159,6 @@ export default {
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option = newOption
-      }).catch(err => {
       })
     }
   },
