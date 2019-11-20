@@ -2,8 +2,8 @@
   <div class="index">
     <div class="squreLine">
       <div class="square" :style="{img:'lankuang1.png'}|imgLoad()" v-for="item in squareBox" :key="item.id">
-        <div class="text">{{item.text}}</div>
-        <div class="number">{{item.number}}</div>
+        <div class="text">{{item.codeRemark}}</div>
+        <div class="number">{{item.value}}</div>
       </div>
     </div>
     <LittleBox id="littleBox1"></LittleBox>
@@ -16,6 +16,8 @@
 
 <script>
 import LittleBox from '../LittleBox'
+import { deepClone, convertRem } from '../../utils'
+import request from '@/api/request'
 
 export default {
   name: 'index',
@@ -23,24 +25,38 @@ export default {
     return {
       delayShow: 1,
       option9: {},
-      squareBox: [
-        {
-          text: '企业总数（家）',
-          number: 11346
-        }, {
-          text: '企业总数（家）',
-          number: 11346
-        }, {
-          text: '企业总数（家）',
-          number: 11346
-        }, {
-          text: '企业总数（家）',
-          number: 11346
-        }
-      ]
+      squareBox: []
     }
   },
-  methods: {},
+  methods: {
+    changeJJqs (type) {
+      this.activeJJqs = type
+      request.normalPort({
+        codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
+      }).then(res => {
+        this.squareBox = res.data.data.resultList;
+        this.squareBox.map((item, index, arry) => {
+          let arr = []
+          let emptyIndex = 0
+          arr = item.codeRemark.split('');
+
+          arr.map((item, index) => {
+            if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
+              arr[index] = '（'
+              emptyIndex = 1
+            } else if (item.match(/^\s*$/) != null) {
+              arr.splice(index, 1)
+            }
+          })
+          arr.push('）')
+          item.codeRemark = arr.join('')
+        })
+      })
+    }
+  },
+  mounted () {
+    this.changeJJqs()
+  },
   components: {
     LittleBox
   }

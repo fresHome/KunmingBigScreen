@@ -10,7 +10,7 @@
 import box from '../../public/box'
 import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
-// import request from '@/api/request'
+import request from '@/api/request'
 
 export default {
   name: 'BoxSeven',
@@ -48,23 +48,7 @@ export default {
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['25%', '50%'],
             color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF'],
-            data: [{
-              value: 1,
-              name: '80后'
-            },
-              {
-                value: 1,
-                name: '70后'
-              },
-              {
-                value: 1,
-                name: '其它'
-              },
-              {
-                value: 2,
-                name: '90后'
-              }
-            ],
+            data: [],
             labelLine: {
               normal: {
                 show: true,
@@ -87,33 +71,7 @@ export default {
             radius: [convertRem(0.33), convertRem(0.345)],
             center: ['75%', '50%'],
             color: ['#32F0FE', '#D7087E', '#003DF9', '#A168FF', '#E6FF3C'],
-            data: [
-              {
-                value: 1,
-                name: '80后'
-              },
-              {
-                value: 1,
-                name: '70后'
-              },
-              {
-                value: 1,
-                name: '其它'
-              },
-              {
-                value: 2,
-                name: '90后'
-              },
-              {
-                value: 2,
-                name: '60后',
-                itemStyle: {
-                  normal: {
-                    borderColor: '#E6FF3C'
-                  }
-                }
-              }
-            ],
+            data: [],
             labelLine: {
               normal: {
                 show: true,
@@ -129,31 +87,6 @@ export default {
               fontSize: convertRem(0.075),
               color: '#FFF',
               align: 'left'
-
-//              normal: {
-//                formatter: '{b|{b}}\n{hr|}',
-//                rich: {
-//                  b: {
-//                    fontSize: convertRem(0.075),
-//                    color: '#FFF',
-//                    align: 'left',
-//                    padding: [convertRem(0.1),0,0,0]
-//                  },
-//                  hr: {
-//                    borderColor: '#CCCCCC',
-//                    width: '100%',
-//                    borderWidth: convertRem(0.005),
-//                    height: 0,
-//                    padding: convertRem(0.004)
-//                  },
-//                  c: {
-//                    fontSize: 32,
-//                    align: 'center',
-//                    padding: 4,
-//                    color: '#00EDED'
-//                  }
-//                }
-//              }
             }
           }
         ]
@@ -161,7 +94,38 @@ export default {
     }
   },
   props: ['delayShow'],
-  methods: {},
+  methods: {
+    changeJJqs (type) {
+      this.activeJJqs = type
+      let newOption = deepClone(this.option)
+      request.normalPort({
+        codeArray: ['Xh00055', 'Xh00056', 'Xh00057', 'Xh00058', 'Xh00059', 'Xh00060', 'Xh00061', 'Xh00062', 'Xh00063']
+      }).then(res => {
+        let arr1 = []
+        let arr2 = []
+        res.data.data.resultList.map((item, index, arry) => {
+          if (item.code.slice(-2) < 59) {
+            arr1.push({
+              value: item.value,
+              name: 'codeRemark'
+            })
+          } else {
+            arr2.push({
+              value: item.value,
+              name: 'codeRemark'
+            })
+          }
+        })
+        newOption.series[0].data = arr1;
+        newOption.series[1].data = arr2;
+
+        this.option = newOption;
+      })
+    }
+  },
+  mounted () {
+    this.changeJJqs()
+  },
   components: {
     box, chart
   }

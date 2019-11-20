@@ -31,3 +31,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 animate.css
 https://www.cnblogs.com/wangyawei/p/8904207.html
 https://blog.csdn.net/qq_39009348/article/details/81144296 --这个好用
+
+####判断字符串是否含有空格
+```str.match(/^\s*$/) != null```
