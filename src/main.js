@@ -17,7 +17,7 @@ Object.keys(filters).forEach(key => {
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
-window.eventHub = new Vue();          //全局事件中心
+window.eventHub = new Vue()         //全局事件中心
 
 new Vue({
   router,
