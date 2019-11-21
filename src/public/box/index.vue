@@ -7,8 +7,8 @@
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
       <div class="tab" v-if="tabContent">
-        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(1)">{{tabContent[0]}}</div>
-        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(2)">{{tabContent[1]}}</div>
+        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(tabContent[0])">{{tabContent[0].name}}</div>
+        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(tabContent[1])">{{tabContent[1].name}}</div>
       </div>
     </div>
     <div v-if="show" class="content animated fadeInUp">
@@ -37,9 +37,9 @@ export default {
   },
   props: ['title', 'lineWith', 'activeContent', 'tabContent'],
   methods: {
-    tabChange (value) {
-      eventHub.$emit('changeTab', value)
-      if (value == 1) {
+    tabChange (item) {
+      eventHub.$emit('changeTab', item)
+      if (item.num == 1) {
         this.tab1 = {
           img: 'tab1.png',
           color: '#0B163F'
@@ -201,6 +201,7 @@ export default {
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #0B163F;*/
           margin-right: 0.02rem;
+          text-align:center;
         }
 
         .tab2 {
@@ -208,6 +209,7 @@ export default {
           height: 0.125rem;
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #B5BDDB;*/
+          text-align:center;
         }
       }
     }

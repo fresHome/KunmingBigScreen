@@ -1,6 +1,6 @@
 <template>
   <div class="BoxOne">
-    <box title="经济趋势" :tab-on="tabOn">
+    <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
       <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
     </box>
   </div>
@@ -16,7 +16,19 @@ export default {
   name: 'BoxOne',
   data () {
     return {
-      tabOn: 1,
+      activeTab: 1,
+      tabContent: [
+        {
+          num: 1,
+          name: '营收',
+          chart: 1
+        },
+        {
+          num: 2,
+          name: '税收',
+          chart: 1
+        }
+      ],
       option: {
         grid: {
           top: '5%',
@@ -163,6 +175,15 @@ export default {
   },
   mounted () {
     this.changeJJqs()
+
+    eventHub.$on('changeTab', (item) => {
+      if (item.chart == 1) {
+        this.activeTab = item.num
+      }
+    })
+  },
+  beforeDestroy () {
+    eventHub.$off('changeTab')
   },
   components: {
     box, chart

@@ -37,7 +37,17 @@ export default {
   name: 'BoxSix',
   data () {
     return {
-      tabContent: ['规模分布', '增长趋势'],
+      tabContent: [
+        {
+          num: 1,
+          name: '规模分布',
+          chart: 6
+        },
+        {
+          num: 2,
+          name: '增长趋势',
+          chart: 6
+        }],
       activeTab: 1,
       option1: {
 //        legend: {
@@ -522,8 +532,10 @@ export default {
   mounted () {
     this.changeJJqs()
     this.getLine()
-    eventHub.$on('changeTab', (tab) => {
-      this.activeTab = tab
+    eventHub.$on('changeTab', (item) => {
+      if (item.chart == 6) {
+        this.activeTab = item.num;
+      }
     })
 
   },
