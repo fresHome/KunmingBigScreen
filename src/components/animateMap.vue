@@ -165,22 +165,22 @@ export default {
 
           &.circle1 {
             transform: rotateX(65deg) rotateZ(0deg) translateZ(-0.2rem);
-            animation: rotate2S 30s linear infinite;
+            animation: rotate2S 10s linear infinite;//1秒30
           }
 
           &.circle2 {
             transform: rotateX(65deg) rotateZ(0deg) translateZ(0px);
-            animation: rotate1N 20s linear infinite;
+            animation: rotate1N 6.667s linear infinite;//1秒30
           }
 
           &.circle3 {
             transform: rotateX(65deg) rotateZ(0deg) translateZ(0px);
-            animation: rotate1S 20s linear infinite;
+            animation: rotate1S 6.667s linear infinite;//1秒30
           }
 
           &.circle4 {
             transform: rotateX(65deg) rotateZ(0deg) translateZ(-0.4rem);
-            animation: rotate3N 25s linear infinite;
+            animation: rotate3N 8.334s linear infinite;//1秒30
           }
         }
 

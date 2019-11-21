@@ -101,7 +101,7 @@ export default {
       left: 0;
       top: 0;
       opacity: 0;
-      animation: opacityChange 5s 3.8s forwards;
+      animation: opacityChange 1.667s 1.2667s forwards;
 
       .name {
         font: 0.1rem NotoSansHans-Regular;

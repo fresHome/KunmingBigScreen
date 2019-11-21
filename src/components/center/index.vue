@@ -86,7 +86,7 @@ export default {
       /*margin-top: 0.37rem;*/
       margin-top: 1.67rem;
       overflow: hidden;
-      animation: transform 2.5s forwards;
+      animation: transform 0.8334s forwards;//1秒30
 
       .square {
         width: 1.57rem;

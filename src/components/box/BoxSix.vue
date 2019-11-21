@@ -405,7 +405,6 @@
           let arr2 = []
           let nameArr = []
           res.data.data.resultList.map((item, index, arry) => {
-            console.log(item)
             if (item.code.slice(-2) < 24) {
               nameArr.push(item.codeRemark.split('\t')[0])
               // 1营收

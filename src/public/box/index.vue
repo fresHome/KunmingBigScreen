@@ -81,7 +81,7 @@ export default {
       position: absolute;
       top: -0.08rem;
       left: 0;
-      animation: scaleLine 3s forwards;
+      animation: scaleLine 1s forwards; //1秒30
     }
 
     @keyframes scaleLine {
@@ -101,7 +101,7 @@ export default {
       left: 0;
       z-index: 1;
       transform: scaleX(0);
-      animation: scaleLine 1.5s 3.5s forwards;
+      animation: scaleLine 0.5s 1.1677s forwards;//1秒30
     }
 
     .flowDiv {
@@ -114,7 +114,7 @@ export default {
       opacity: 0;
       height: 0;
       /*height: 2rem;*/
-      animation: heightFlow 3s 1.5s forwards;
+      animation: heightFlow 1s 0.5s forwards; //1秒30
     }
 
     @keyframes heightFlow {
@@ -150,7 +150,7 @@ export default {
       overflow: hidden;
       margin-top: 0.15rem;
       /*animation: opacityChange 1.5s 3.5s forwards;*/
-      animation: heightFlow1 1.5s 3.5s forwards;
+      animation: heightFlow1 0.5s 1.167s forwards;//1秒30
 
       @keyframes heightFlow1 {
         from {
