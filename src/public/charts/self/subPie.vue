@@ -136,7 +136,6 @@
     },
     methods: {
       buildOption () {
-        console.log(this.percent)
         let newOption = deepClone(this.option)
       }
     },

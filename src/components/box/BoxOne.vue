@@ -75,7 +75,7 @@ export default {
               }
             },
             splitLine: {
-              show:false
+              show: false
             },
             axisTick: {
               show: false
@@ -144,7 +144,7 @@ export default {
       }).then(res => {
         let arr1 = []
         let arr2 = []
-        let time=[]
+        let time = []
         res.data.data.resultList.map((item, index, arry) => {
           if (item.code == 'Xh00005') {
             arr1.push(item.value)
@@ -154,11 +154,10 @@ export default {
           }
           time.push(item.time)
         })
-        newOption.xAxis.data=new Array([...new Set(time)])
+        newOption.xAxis.data = [...new Set(time)]
         newOption.series[0].data = arr1
         newOption.series[1].data = arr2
         this.option = newOption
-        console.log(this.option)
       })
     }
   },

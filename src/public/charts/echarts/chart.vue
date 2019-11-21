@@ -25,7 +25,6 @@ export default {
   },
   watch: {
     option () {
-      console.log(1)
       this.$nextTick(() => {
         this.draw()
       })

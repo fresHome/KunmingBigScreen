@@ -78,7 +78,6 @@ export default {
         res.data.data.resultList.map((item, index, arry) => {
           arr.push({ number: item.value })
         })
-        console.log(arr)
       }).catch(err => {
       })
     }

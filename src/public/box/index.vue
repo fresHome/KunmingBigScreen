@@ -6,9 +6,9 @@
       <div class="text">{{ title }}</div>
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
-      <div class="tab" v-if="tabOn">
-        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(1)">规模分布</div>
-        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(2)">增长趋势</div>
+      <div class="tab" v-if="tabContent">
+        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(1)">{{tabContent[0]}}</div>
+        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(2)">{{tabContent[1]}}</div>
       </div>
     </div>
     <div v-if="show" class="content animated fadeInUp">
@@ -35,9 +35,10 @@ export default {
       }
     }
   },
-  props: ['title', 'lineWith', 'tabOn'],
+  props: ['title', 'lineWith', 'activeContent', 'tabContent'],
   methods: {
     tabChange (value) {
+      eventHub.$emit('changeTab', value)
       if (value == 1) {
         this.tab1 = {
           img: 'tab1.png',
