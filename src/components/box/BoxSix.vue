@@ -186,7 +186,7 @@
               axisLine: 'none',
               axisLabel: {
                 color: '#FFFFFF',
-                fontSize: convertRem(0.075),
+                fontSize: convertRem(0.1),
                 fontWeight: 'bold'
               },
               data: []

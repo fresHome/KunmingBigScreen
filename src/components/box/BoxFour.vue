@@ -44,6 +44,7 @@ import chart from '../../public/charts/echarts/chart'
 import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 import echarts from 'echarts'
+
 let color = new echarts.graphic.LinearGradient(1, 1, 1, 0, [{
   offset: 0.4,
   color: 'transparent'
@@ -73,35 +74,40 @@ export default {
           bottom: '0',
           containLabel: true
         },
-        yAxis: [{
-          type: 'category',
-          data: ['全年目标', '本月目标', '全年目标', '本月目标'],
-          inverse: true,
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: '#fff',
-            fontSize: convertRem(0.16),
-            inside: true,
-            padding: [-convertRem(0.8), 0]
-          },
-          axisLine: {
-            show: false
+        yAxis: [
+          {
+            type: 'category',
+            data: ['全年目标', '本月目标', '全年目标', '本月目标'],
+            inverse: true,
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              color: '#fff',
+              fontSize: convertRem(0.075),
+              inside: true,
+              align: 'left',
+              padding: [0, 0, convertRem(0.15), 0]
+            },
+            axisLine: {
+              show: false
+            }
           }
-        }],
-        xAxis: [{
-          type: 'value',
-          axisLabel: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          splitLine: {
-            show: false
+        ],
+        xAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
           }
-        }],
+        ],
         series: [{
           type: 'bar',
           barWidth: convertRem(0.05),
@@ -142,17 +148,18 @@ export default {
               position: 'insideBottomRight',
               formatter: '{c}',
               distance: 0,
-              padding: [0, 0, 0, convertRem(0.5)],
-              offset: [convertRem(0.5), 0],
+              padding: [0, 0, 0, convertRem(0.05)],
+              offset: [convertRem(0.05), 0],
               color: '#fff',
-              fontSize: convertRem(0.16)
+              fontWeight:'bold',
+              fontSize: convertRem(0.075)
             }
           },
           itemStyle: {
             normal: {}
           }
-
-        }, {
+        },
+        {
           type: 'bar',
           barWidth: convertRem(0.05),
           xAxisIndex: 0,
@@ -164,9 +171,9 @@ export default {
               position: 'insideBottomRight',
               formatter: '{c}',
               distance: 0,
-              offset: [30, 0],
+              offset: [convertRem(0.05), 0],
               color: '#B5BDDB',
-              fontSize: convertRem(0.16)
+              fontSize: convertRem(0.075)
             }
           },
           itemStyle: {
@@ -175,7 +182,8 @@ export default {
             }
           },
           zlevel: -1
-        }]
+        }
+        ]
       },
       value1: '40%',
       value2: '40%',
@@ -208,7 +216,7 @@ export default {
     }
   },
   mounted () {
-//    this.changeJJqs()
+    //    this.changeJJqs()
   },
   components: {
     box, chart
@@ -254,7 +262,7 @@ export default {
           line-height: 0.12rem;
           height: 0.12rem;
           display: flex;
-          justify-content: flex-start;
+          justify-content: space-between;
           margin: 0.02rem 0;
 
           .name {
