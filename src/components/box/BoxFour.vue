@@ -151,7 +151,7 @@ export default {
               padding: [0, 0, 0, convertRem(0.05)],
               offset: [convertRem(0.05), 0],
               color: '#fff',
-              fontWeight:'bold',
+              fontWeight: 'bold',
               fontSize: convertRem(0.075)
             }
           },
