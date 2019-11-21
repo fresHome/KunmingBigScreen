@@ -30,11 +30,11 @@
         projectMoney: 0,
         option: {
           grid: {
-            top: convertRem(0.3),
+            top: convertRem(0.4),
             left: 0,
             right: 0,
             bottom: 0,
-            containLabel:true
+            containLabel: true
           },
           xAxis: {
             data: dataAxis,
@@ -56,6 +56,7 @@
             z: 10
           },
           yAxis: {
+            name:'个',
             splitLine: {
               lineStyle: {
                 color: '#354471',
@@ -71,6 +72,10 @@
             },
             axisTick: {
               show: false
+            },
+            nameTextStyle:{
+              color: '#9DA4BF',
+              fontSize: convertRem(0.075)
             },
             axisLabel: {
               textStyle: {

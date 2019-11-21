@@ -1,8 +1,7 @@
 <template>
   <div class="BoxOne">
     <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option1" v-if="activeTab==1"></chart>
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option2" v-else></chart>
+      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
     </box>
   </div>
 </template>
@@ -30,11 +29,11 @@ export default {
           chart: 1
         }
       ],
-      option1: {
+      option: {
         grid: {
-          top: '5%',
+          top: convertRem(0.2),
           left: 0,
-          right: 0,
+          right: convertRem(0.25),
           bottom: 0,
           containLabel: true
         },
@@ -44,7 +43,7 @@ export default {
           orient: 'horizontal',
           textStyle: {
             color: '#AAECFF',
-            fontSize: convertRem(0.12)
+            fontSize: convertRem(0.075)
           },
           icon: 'rect',
           itemWidth: convertRem(0.075),
@@ -61,13 +60,17 @@ export default {
             color: '#8FCEEF',
             interval: 0,
             textStyle: {
-              fontSize: '0.07rem'
+              fontSize: convertRem(0.075)
             }
           },
           splitLine: {
             lineStyle: {
               color: 'rgba(102, 185, 251, 0.24)'
             }
+          },
+          nameTextStyle: {
+            color: '#9DA4BF',
+            fontSize: convertRem(0.075)
           },
           axisTick: {
             show: false
@@ -82,125 +85,14 @@ export default {
             },
             name: '亿元',
             axisLabel: {
-              color: '#8FCEEF',
               textStyle: {
+                color: '#8FCEEF',
                 fontSize: convertRem(0.07)
               }
             },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            }
-          }
-        ],
-        series: [
-          {
-            type: 'line',
-            name: '2018',
-            color: '#D7087E',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-
-                colorStops: [{
-                  offset: 0,
-                  color: '#20186E' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#D7087E' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
-          },
-          {
-            type: 'line',
-            name: '2019',
-            color: '#32F0FE',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-                colorStops: [{
-                  offset: 0,
-                  color: '#0F2088' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#32F0FE' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
-          }
-        ]
-      },
-      option2: {
-        grid: {
-          top: '5%',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          containLabel: true
-        },
-        legend: {
-          top: 'top',
-          right: 'right',
-          orient: 'horizontal',
-          textStyle: {
-            color: '#AAECFF',
-            fontSize: convertRem(0.12)
-          },
-          icon: 'rect',
-          itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075),
-          data: ['2019', '2018']
-        },
-        xAxis: {
-          type: 'category',
-          axisLine: {
-            show: false
-          },
-          name: '月份',
-          axisLabel: {
-            color: '#8FCEEF',
-            interval: 0,
-            textStyle: {
-              fontSize: '0.07rem'
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: 'rgba(102, 185, 251, 0.24)'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        },
-        yAxis: [
-          {
-            type: 'value',
-            axisLine: {
-              show: false
-            },
-            name: '亿元',
-            axisLabel: {
-              color: '#8FCEEF',
-              textStyle: {
-                fontSize: convertRem(0.07)
-              }
+            nameTextStyle: {
+              color: '#9DA4BF',
+              fontSize: convertRem(0.075)
             },
             splitLine: {
               show: false
@@ -264,21 +156,19 @@ export default {
   },
   props: ['delayShow'],
   methods: {
-    changeJJqs (type) {
-      this.activeJJqs = type
-      let newOption1 = deepClone(this.option1)
-      let newOption2 = deepClone(this.option2)
+    getLine (code) {
+      let newOption1 = deepClone(this.option)
       request.normalPort({
-        codeArray: ['Xh00005', 'Xh00006']
+        codeArray: [code]
       }).then(res => {
         let arr1 = []
         let arr2 = []
         let time = []
         res.data.data.resultList.map((item, index, arry) => {
-          if (item.code == 'Xh00005') {
+          if (item.time.indexOf(2018) >= 0) {
             arr1.push(item.value)
           }
-          if (item.code == 'Xh00006') {
+          if (item.time.indexOf(2019) >= 0) {
             arr2.push(item.value)
           }
           time.push(item.time)
@@ -291,18 +181,18 @@ export default {
     }
   },
   mounted () {
-    this.changeJJqs()
-
+    this.getLine('Xh00005')
     eventHub.$on('changeTab', (item) => {
       if (item.chart == 1) {
         if (item.num == 1) {
           this.activeTab = 1
+          this.getLine('Xh00005')
         } else {
           this.activeTab = 2
+          this.getLine('Xh00006')
         }
       }
     })
-
   },
   beforeDestroy () {
     eventHub.$off('changeTab')

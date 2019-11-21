@@ -42,8 +42,11 @@ export default {
           data: ['生物医药产业', '新材料及装备制造产业', 'IT及现代服务产业']
         },
         grid: {
-          left: '20%',
-          top: 'top'
+          top: convertRem(0.2),
+          left: 0,
+          right: convertRem(0.25),
+          bottom: 0,
+          containLabel: true
         },
         color: ['#7EF7FF', '#6D91FF', '#D7087E'],
         series: [
