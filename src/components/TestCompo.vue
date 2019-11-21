@@ -24,7 +24,7 @@ export default {
       width: 200px;
       background-color: yellow;
       height: 3rem;
-      animation: heightFlow 1s;
+      animation: heightFlow 0.33s;  //1秒30
     }
   }
 

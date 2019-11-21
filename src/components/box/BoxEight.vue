@@ -79,27 +79,27 @@ export default {
         height: 0.65rem;
 
         &.delay0 {
-          animation-delay: 1s;
+          animation-delay: 0.333s;//1秒30
         }
 
         &.delay1 {
-          animation-delay: 1.2s;
+          animation-delay: 0.4s;//1秒30
         }
 
         &.delay2 {
-          animation-delay: 1.4s;
+          animation-delay:0.4667s;//1秒30
         }
 
         &.delay3 {
-          animation-delay: 1.6s;
+          animation-delay: 0.533s;//1秒30
         }
 
         &.delay4 {
-          animation-delay: 1.8s;
+          animation-delay: 0.6s;//1秒30
         }
 
         &.delay5 {
-          animation-delay: 2s;
+          animation-delay: 0.334s;//1秒30
         }
       }
     }
