@@ -300,7 +300,6 @@ export default {
         } else {
           this.activeTab = 2
         }
-
       }
     })
 
