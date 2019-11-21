@@ -123,17 +123,17 @@ export default {
           }
         })
         data1.map(item => {
-          this.leftData.push(item.value + '/' + total1)
+          this.leftData.push(item.value + '/' + Math.round(item.value / total1 * 100) + '%')
         })
 
         data2.map((item, index, arry) => {
           if (item.codeRemark.indexOf(arr2[index].name) >= 0) {
             arr2[index].value = item.value
-            total1 += Number(item.value)
+            total2 += Number(item.value)
           }
         })
         data2.map(item => {
-          this.rightData.push(item.value + '/' + total1)
+          this.rightData.push(item.value + '/' + Math.round(item.value / total2 * 100) + '%')
         })
         newOption.series[0].data = arr1
         newOption.series[2].data = arr2
