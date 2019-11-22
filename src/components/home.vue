@@ -3,10 +3,10 @@
   <div class="home">
     <top></top>
     <div class="main">
-      <left :allCarousel="allCarousel" class="left" :delayShow="delayShow"></left>
+      <left :allCarousel="allCarousel" class="left" v-if="delayShow"></left>
       <center :allCarousel="allCarousel" class="center"></center>
-      <right :allCarousel="allCarousel" class="right" :delayShow="delayShow"></right>
-<!--      <animateMap class="map"></animateMap>-->
+      <right :allCarousel="allCarousel" class="right" v-if="delayShow"></right>
+      <!--      <animateMap class="map"></animateMap>-->
     </div>
     <div id="homeShade"></div>
   </div>
@@ -23,7 +23,7 @@
     name: 'home',
     data () {
       return {
-        delayShow: 1,
+        delayShow: false,
         time: 0,
         interval: '',
         allCarousel: null
@@ -53,6 +53,10 @@
       }
     },
     mounted () {
+      this.delayShow = false
+      setTimeout(() => {
+        this.delayShow = true
+      }, 200)
       this.startInterval()
     }
   }

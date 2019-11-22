@@ -1,13 +1,13 @@
 <template>
   <div class="index">
-    <div class="squreLine">
+    <div class="squreLine" :style="style">
       <div class="square" :style="{img:'lankuang1.png'}|imgLoad()" v-for="item in squareBox" :key="item.id">
         <div class="text">{{item.codeRemark}}</div>
         <div class="number">{{item.value}}</div>
       </div>
     </div>
-    <LittleBox v-show="type" :show="type" id="littleBox1"></LittleBox>
-    <LittleBox v-show="!type" :show="type" id="littleBox2"></LittleBox>
+    <LittleBox v-show="type" :show="type" type="dpq" id="littleBox1"></LittleBox>
+    <LittleBox v-show="!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
     <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
@@ -15,78 +15,80 @@
 </template>
 
 <script>
-import LittleBox from '../LittleBox'
-import request from '@/api/request'
+  import LittleBox from '../LittleBox'
+  import request from '@/api/request'
 
-export default {
-  name: 'index',
-  data () {
-    return {
-      delayShow: 1,
-      option9: {},
-      squareBox: [],
-      type: false
-    }
-  },
-  methods: {
-    getIndexList (type) {
-      request.normalPort({
-        codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
-      }).then(res => {
-        this.squareBox = res.data.data.resultList
-        this.squareBox.map((item, index, arry) => {
-          let arr = []
-          let emptyIndex = 0
-          arr = item.codeRemark.split('')
+  export default {
+    name: 'index',
+    data () {
+      return {
+        delayShow: 1,
+        option9: {},
+        squareBox: [],
+        type: false,
+        style: {
+          opacity: 0,
+          marginTop: '0.22rem'
+        }
+      }
+    },
+    methods: {
+      getIndexList (type) {
+        request.normalPort({
+          codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
+        }).then(res => {
+          this.squareBox = res.data.data.resultList
+          this.squareBox.map((item, index, arry) => {
+            let arr = []
+            let emptyIndex = 0
+            arr = item.codeRemark.split('')
 
-          arr.map((item, index) => {
-            if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
-              arr[index] = '（'
-              emptyIndex = 1
-            } else if (item.match(/^\s*$/) != null) {
-              arr.splice(index, 1)
-            }
+            arr.map((item, index) => {
+              if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
+                arr[index] = '（'
+                emptyIndex = 1
+              } else if (item.match(/^\s*$/) != null) {
+                arr.splice(index, 1)
+              }
+            })
+            arr.push('）')
+            item.codeRemark = arr.join('')
           })
-          arr.push('）')
-          item.codeRemark = arr.join('')
         })
-      })
+      }
+    },
+    mounted () {
+      this.style = {
+        opacity: 0,
+        marginTop: '0.22rem'
+      }
+      setTimeout(() => {
+        this.style = {
+          opacity: 1,
+          marginTop: '0.37rem'
+        }
+      }, 0)
+      this.getIndexList()
+      setInterval(() => {
+        this.type = !this.type
+      }, 5000)
+    },
+    components: {
+      LittleBox
     }
-  },
-  mounted () {
-    this.getIndexList()
-    setInterval(() => {
-      this.type = !this.type
-    }, 5000)
-  },
-  components: {
-    LittleBox
   }
-}
 </script>
 
 <style lang="scss" scoped>
-  @keyframes transform {
-    0% {
-      opacity: 0;
-      margin-top: 0.22rem;
-    }
-    60% {
-      opacity: 1;
-    }
-    100% {
-      margin-top: 0.37rem;
-    }
-  }
-
   .index {
     .squreLine {
       width: 6.05rem;
       height: 0.62rem;
       display: flex;
       margin: 0 auto;
-      overflow: hidden;
-      animation: transform 0.8334s forwards; //1秒30
+      margin-top: 0.22rem;
+      opacity: 0;
+      transition: all linear 0.5s;
 
       .square {
         width: 1.57rem;

@@ -12,14 +12,13 @@
         </li>
       </ol>
     </div>
-
-    <div class="blueSquare animated fadeInLeft delay-1s" :style="{img:'blueSquare.png'}|imgLoad()">西片区</div>
+    <div class="blueSquare animated fadeInLeft delay-1s" :style="{img:'blueSquare.png'}|imgLoad()">{{type=='dpq'?'东片区':'西片区'}}</div>
     <!--    两条粗蓝线-->
     <div id="boldBlueLine1"></div>
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
     <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg})`}|imgLoad()"></div>
-    <i class="outline start" :style="{width:startLength+'%'}"></i>
+    <i class="outline start" :class="type" :style="{width:startLength+'%'}"></i>
     <i class="outline left" :style="{height:leftLength+'%'}"></i>
     <i class="outline top" :style="{width:topLength+'%'}"></i>
     <i class="outline right" :style="{height:rightLength+'%'}"></i>
@@ -60,10 +59,9 @@
         opacity: 0
       }
     },
-    props: ['show'],
-    methods: {},
-    watch: {
-      show () {
+    props: ['show', 'type'],
+    methods: {
+      init () {
         this.startLength = 0
         this.leftLength = 0
         this.topLength = 0
@@ -71,8 +69,15 @@
         this.bottomLength = 0
         this.opacity = 1
         this.background = 'transparent'
+      },
+      animated () {
+        this.init()
         setTimeout(() => {
-          this.startLength = 30
+          if (this.type == 'dpq') {
+            this.startLength = 30
+          } else {
+            this.startLength = 50
+          }
         }, 0)
         setTimeout(() => {
           this.leftLength = 100
@@ -94,6 +99,11 @@
           this.opacity = 0
         }, 4500)
       }
+    },
+    watch: {
+      show () {
+        this.animated()
+      }
     }
   }
 </script>
@@ -109,7 +119,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    transition: background-color linear 0.2s,opacity ease-in-out 0.3s;
+    transition: background-color linear 0.2s, opacity ease-in-out 0.3s;
 
     .line {
       display: flex;
@@ -206,8 +216,15 @@
         left: 0;
         width: 0;
         height: 0.01rem;
-        transform: rotate(121deg);
         transform-origin: 0 50%;
+
+        &.dpq {
+          transform: rotate(121deg);
+        }
+
+        &.xpq {
+          transform: rotate(30deg);
+        }
       }
 
       &.left {
