@@ -1,13 +1,13 @@
 <template>
   <div class="LittleBox">
-
     <div class="line">
       <ol class="title">
-        <li v-for="item in data" :key="item.key">{{ item.name }}</li>
+        <li v-for="item in data" :key="item.key">
+          <i></i>
+          <span>{{ item.name }}</span>
+          <span class="value">{{ item.number }}</span>
+        </li>
       </ol>
-      <div class="content">
-        <div v-for="item in data" :key="item.key">{{ item.number }}</div>
-      </div>
     </div>
 
     <div class="blueSquare" :style="{img:'blueSquare.png'}|imgLoad()">西片区</div>
@@ -16,36 +16,66 @@
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
     <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>
+    <i class="outline left" :style="{height:leftLength+'%'}"></i>
+    <i class="outline top" :style="{width:topLength+'%'}"></i>
+    <i class="outline right" :style="{height:rightLength+'%'}"></i>
+    <i class="outline bottom" :style="{width:bottomLength+'%'}"></i>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'LittleBox',
-  data () {
-    return {
-      data: [
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        }
-      ]
+  export default {
+    name: 'LittleBox',
+    data () {
+      return {
+        data: [
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          }
+        ],
+        leftLength: 0,
+        topLength: 0,
+        rightLength: 0,
+        bottomLength: 0
+      }
+    },
+    props: ['show'],
+    methods: {},
+    watch: {
+      show () {
+        this.leftLength = 0
+        this.topLength = 0
+        this.rightLength = 0
+        this.bottomLength = 0
+
+        setTimeout(() => {
+          this.leftLength = 100
+        }, 0)
+        setTimeout(() => {
+          this.topLength = 100
+        }, 200)
+        setTimeout(() => {
+          this.rightLength = 100
+        }, 400)
+        setTimeout(() => {
+          this.bottomLength = 100
+        }, 600)
+      }
     }
-  },
-  methods: {}
-}
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +84,6 @@ export default {
     width: 1.605rem;
     height: 1.13rem;
     background-color: #001451;
-    border: 0.005rem solid #003DF9;
     position: relative;
     padding: 0.14rem 0.125rem 0.365rem 0.115rem;
     display: flex;
@@ -70,17 +99,38 @@ export default {
       .title {
         font: 0.1rem/0.15rem NotoSansHans-Regular;
         color: #35D2B2;
-        margin-left: 0.245rem;
+        width: 100%;
 
         li {
-          list-style-type: circle;
-        }
-      }
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
 
-      .content {
-        font: 0.1rem/0.15rem bold NotoSansHans-Bold;
-        color: #FFFFFF;
-        margin-right: 0.125rem;
+          i {
+            display: inline-block;
+            width: 0.035rem;
+            height: 0.035rem;
+            margin-right: 0.095rem;
+            background-color: #35D2B2;
+          }
+
+          span {
+            width: 0.75rem;
+
+            &.value {
+              font: 0.1rem/0.15rem bold NotoSansHans-Bold;
+              color: #FFFFFF;
+            }
+          }
+
+          padding-left: 0.035rem;
+          height: 0.17rem;
+          border-bottom: 0.005rem solid #1C2859;
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
       }
     }
 
@@ -92,6 +142,7 @@ export default {
       height: 0.23rem;
       font: 0.15rem/0.23rem NotoSansHans-Regular;
       color: #fff;
+      z-index: 999;
       text-align: center;
     }
 
@@ -121,6 +172,37 @@ export default {
       left: -0.4rem;
       z-index: 1;
       opacity: 0;
+    }
+
+    .outline {
+      background-color: red;
+      transition: all linear 0.2s;
+      position: absolute;
+      z-index: 88;
+
+      &.left {
+        left: 0;
+        top: 0;
+        width: 0.01rem;
+      }
+
+      &.top {
+        left: 0;
+        top: 0;
+        height: 0.01rem;
+      }
+
+      &.right {
+        right: 0;
+        top: 0;
+        width: 0.01rem;
+      }
+
+      &.bottom {
+        right: 0;
+        bottom: 0;
+        height: 0.01rem;
+      }
     }
   }
 

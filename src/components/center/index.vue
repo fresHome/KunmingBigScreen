@@ -6,8 +6,8 @@
         <div class="number">{{item.value}}</div>
       </div>
     </div>
-    <LittleBox id="littleBox1"></LittleBox>
-    <LittleBox id="littleBox2"></LittleBox>
+    <LittleBox v-if="type" :show="type" id="littleBox1"></LittleBox>
+    <LittleBox v-if="!type" :show="type" id="littleBox2"></LittleBox>
     <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
@@ -16,7 +16,6 @@
 
 <script>
 import LittleBox from '../LittleBox'
-import { deepClone, convertRem } from '../../utils'
 import request from '@/api/request'
 
 export default {
@@ -25,20 +24,20 @@ export default {
     return {
       delayShow: 1,
       option9: {},
-      squareBox: []
+      squareBox: [],
+      type:false
     }
   },
   methods: {
-    changeJJqs (type) {
-      this.activeJJqs = type
+    getIndexList (type) {
       request.normalPort({
         codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
       }).then(res => {
-        this.squareBox = res.data.data.resultList;
+        this.squareBox = res.data.data.resultList
         this.squareBox.map((item, index, arry) => {
           let arr = []
           let emptyIndex = 0
-          arr = item.codeRemark.split('');
+          arr = item.codeRemark.split('')
 
           arr.map((item, index) => {
             if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
@@ -55,7 +54,10 @@ export default {
     }
   },
   mounted () {
-    this.changeJJqs()
+    this.getIndexList()
+    setInterval(() => {
+      this.type = !this.type
+    }, 5000)
   },
   components: {
     LittleBox
@@ -123,16 +125,16 @@ export default {
       position: absolute;
       top: 5.505rem;
       left: 6.19rem;
-      opacity: 0;
-      animation: littleBoxFlow 2s 3s backwards;
+      /*opacity: 1;*/
+      /*animation: littleBoxFlow 2s 3s backwards;*/
     }
 
     #littleBox2 {
       position: absolute;
       top: 5.505rem;
       left: 8.39rem;
-      opacity: 0;
-      animation: littleBoxFlow 2s 5s forwards;
+      /*opacity: 0;*/
+      /*animation: littleBoxFlow 2s 5s forwards;*/
     }
 
     #bottomBg {
@@ -154,26 +156,25 @@ export default {
     }
   }
 
-  #littleBox1 {
-    #whilteCircle {
-      animation: rotate1 2s 3s forwards;
-    }
-  }
+  /*#littleBox1 {*/
+  /*  #whilteCircle {*/
+  /*    animation: rotate1 2s 3s forwards;*/
+  /*  }*/
+  /*}*/
+  /*#littleBox2 {*/
+  /*  #whilteCircle {*/
+  /*    animation: rotate1 2s 5s forwards;*/
+  /*  }*/
+  /*}*/
 
-  #littleBox2 {
-    #whilteCircle {
-      animation: rotate1 2s 5s forwards;
-    }
-  }
-
-  @keyframes rotate1 {
-    0% {
-      transform: rotate(0);
-      opacity: 0;
-    }
-    100% {
-      transform: rotate(90deg);
-      opacity: 1;
-    }
-  }
+  /*@keyframes rotate1 {*/
+  /*  0% {*/
+  /*    transform: rotate(0);*/
+  /*    opacity: 0;*/
+  /*  }*/
+  /*  100% {*/
+  /*    transform: rotate(90deg);*/
+  /*    opacity: 1;*/
+  /*  }*/
+  /*}*/
 </style>
