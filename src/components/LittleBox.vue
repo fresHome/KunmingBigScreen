@@ -1,5 +1,5 @@
 <template>
-  <div class="LittleBox">
+  <div class="LittleBox" :style="'background-color:'+background">
     <div class="line">
       <ol class="title">
         <li v-for="item in data" :key="item.key">
@@ -16,6 +16,7 @@
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
     <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg})`}|imgLoad()"></div>
+    <i class="outline start" :style="{width:startLength+'%'}"></i>
     <i class="outline left" :style="{height:leftLength+'%'}"></i>
     <i class="outline top" :style="{width:topLength+'%'}"></i>
     <i class="outline right" :style="{height:rightLength+'%'}"></i>
@@ -24,62 +25,69 @@
 </template>
 
 <script>
-export default {
-  name: 'LittleBox',
-  data () {
-    return {
-      data: [
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        },
-        {
-          name: '企业总数',
-          number: '320个'
-        }
-      ],
-      leftLength: 0,
-      topLength: 0,
-      rightLength: 0,
-      bottomLength: 0,
-      whiteRotateDeg: 0
-    }
-  },
-  props: ['show'],
-  methods: {},
-  watch: {
-    show () {
-      this.leftLength = 0
-      this.topLength = 0
-      this.rightLength = 0
-      this.bottomLength = 0
-
-      setTimeout(() => {
-        this.leftLength = 100
-      }, 0)
-      setTimeout(() => {
-        this.topLength = 100
-      }, 200)
-      setTimeout(() => {
-        this.rightLength = 100
-      }, 400)
-      setTimeout(() => {
-        this.bottomLength = 100
-      }, 600)
-      setTimeout(() => {
-        this.whiteRotateDeg = 100
-      }, 600)
+  export default {
+    name: 'LittleBox',
+    data () {
+      return {
+        data: [
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          },
+          {
+            name: '企业总数',
+            number: '320个'
+          }
+        ],
+        startLength: 0,
+        leftLength: 0,
+        topLength: 0,
+        rightLength: 0,
+        bottomLength: 0,
+        whiteRotateDeg: 0,
+        background: 'transparent'
+      }
+    },
+    props: ['show'],
+    methods: {},
+    watch: {
+      show () {
+        this.startLength = 0
+        this.leftLength = 0
+        this.topLength = 0
+        this.rightLength = 0
+        this.bottomLength = 0
+        this.background = 'transparent'
+        setTimeout(() => {
+          this.startLength = 30
+        }, 0)
+        setTimeout(() => {
+          this.leftLength = 100
+        }, 200)
+        setTimeout(() => {
+          this.topLength = 100
+        }, 400)
+        setTimeout(() => {
+          this.rightLength = 100
+        }, 600)
+        setTimeout(() => {
+          this.bottomLength = 100
+          this.background = '#001451'
+        }, 800)
+        setTimeout(() => {
+          this.whiteRotateDeg = 100
+        }, 600)
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -87,12 +95,13 @@ export default {
     box-sizing: border-box;
     width: 1.605rem;
     height: 1.13rem;
-    background-color: #001451;
+    background-color: transparent;
     position: relative;
     padding: 0.14rem 0.125rem 0.365rem 0.115rem;
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: background-color linear 0.2s;
 
     .line {
       display: flex;
@@ -179,14 +188,23 @@ export default {
     }
 
     .outline {
-      background-color: red;
+      background-color: #003DF9;
       transition: all linear 0.2s;
       position: absolute;
       z-index: 88;
 
+      &.start {
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0.01rem;
+        transform: rotate(121deg);
+        transform-origin: 0 50%;
+      }
+
       &.left {
         left: 0;
-        top: 0;
+        bottom: 0;
         width: 0.01rem;
       }
 
@@ -209,37 +227,25 @@ export default {
       }
     }
   }
-
-  .LittleBox::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0.5385rem;
-    height: 0.005rem;
-    background-color: #003DF9;
-    transform: rotate(121deg);
-    transform-origin: 0 50%;
-  }
 </style>
 <style lang="scss">
   .LittleBox {
     .line {
       margin-top: -1rem;
-      animation: goDown 0.5s 3s forwards;
+      animation: goDown 0.5s 1s forwards;
       opacity: 0;
     }
 
     [id^='boldBlueLine'] {
       margin-top: -1rem;
-      animation: goDown 0.5s 3s forwards;
+      animation: goDown 0.5s 1s forwards;
       opacity: 0;
     }
   }
 
   @keyframes goDown {
     from {
-      margin-top: -1rem;
+      margin-top: -0.1rem;
       opacity: 0;
     }
     to {
