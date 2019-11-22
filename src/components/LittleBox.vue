@@ -17,7 +17,7 @@
     <div id="boldBlueLine1"></div>
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
-    <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg})`}|imgLoad()"></div>
+    <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg}deg)`}|imgLoad()"></div>
     <i class="outline start" :class="type" :style="{width:startLength+'%'}"></i>
     <i class="outline left" :style="{height:leftLength+'%'}"></i>
     <i class="outline top" :style="{width:topLength+'%'}"></i>
@@ -27,85 +27,86 @@
 </template>
 
 <script>
-  export default {
-    name: 'LittleBox',
-    data () {
-      return {
-        data: [
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          }
-        ],
-        startLength: 0,
-        leftLength: 0,
-        topLength: 0,
-        rightLength: 0,
-        bottomLength: 0,
-        whiteRotateDeg: 0,
-        background: 'transparent',
-        opacity: 0
-      }
+export default {
+  name: 'LittleBox',
+  data () {
+    return {
+      data: [
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        }
+      ],
+      startLength: 0,
+      leftLength: 0,
+      topLength: 0,
+      rightLength: 0,
+      bottomLength: 0,
+      whiteRotateDeg: 0,
+      background: 'transparent',
+      opacity: 0
+    }
+  },
+  props: ['show', 'type'],
+  methods: {
+    init () {
+      this.startLength = 0
+      this.leftLength = 0
+      this.topLength = 0
+      this.rightLength = 0
+      this.bottomLength = 0
+      this.opacity = 1
+      this.whiteRotateDeg = 0
+      this.background = 'transparent'
     },
-    props: ['show', 'type'],
-    methods: {
-      init () {
-        this.startLength = 0
-        this.leftLength = 0
-        this.topLength = 0
-        this.rightLength = 0
-        this.bottomLength = 0
-        this.opacity = 1
-        this.background = 'transparent'
-      },
-      animated () {
-        this.init()
-        setTimeout(() => {
-          if (this.type == 'dpq') {
-            this.startLength = 30
-          } else {
-            this.startLength = 50
-          }
-        }, 0)
-        setTimeout(() => {
-          this.leftLength = 100
-        }, 200)
-        setTimeout(() => {
-          this.topLength = 100
-        }, 400)
-        setTimeout(() => {
-          this.rightLength = 100
-        }, 600)
-        setTimeout(() => {
-          this.bottomLength = 100
-          this.background = '#001451'
-        }, 800)
-        setTimeout(() => {
-          this.whiteRotateDeg = 100
-        }, 600)
-        setTimeout(() => {
-          this.opacity = 0
-        }, 4500)
-      }
-    },
-    watch: {
-      show () {
-        this.animated()
-      }
+    animated () {
+      this.init()
+      setTimeout(() => {
+        if (this.type == 'dpq') {
+          this.startLength = 30
+        } else {
+          this.startLength = 50
+        }
+      }, 0)
+      setTimeout(() => {
+        this.leftLength = 100
+      }, 200)
+      setTimeout(() => {
+        this.topLength = 100
+      }, 400)
+      setTimeout(() => {
+        this.rightLength = 100
+      }, 0)
+      setTimeout(() => {
+        this.bottomLength = 100
+        this.background = '#001451'
+      }, 800)
+      setTimeout(() => {
+        this.whiteRotateDeg = 360
+      }, 200)
+      setTimeout(() => {
+        this.opacity = 0
+      }, 4500)
+    }
+  },
+  watch: {
+    show () {
+      this.animated()
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -199,10 +200,10 @@
       width: 0.245rem;
       height: 0.24rem;
       position: absolute;
-      top: 1.43rem;
-      left: -0.4rem;
-      z-index: 1;
-      /*opacity: 0;*/
+      top: 1.4rem;
+      left: -0.38rem;
+      z-index: 90;
+      transition: all linear 4.6s;
     }
 
     .outline {
@@ -300,6 +301,13 @@
     100% {
       transform: rotate(90deg);
       opacity: 1;
+    }
+  }
+
+  #littleBox2 {
+    #whilteCircle {
+      top: 1.4rem;
+      left: 0.6rem;
     }
   }
 
