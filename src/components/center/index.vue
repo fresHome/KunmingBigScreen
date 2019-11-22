@@ -69,7 +69,7 @@ export default {
   @keyframes transform {
     0% {
       opacity: 0;
-      margin-top: 1.67rem; //1.3+0.37
+      margin-top: 0.22rem;
     }
     60% {
       opacity: 1;
@@ -85,8 +85,6 @@ export default {
       height: 0.62rem;
       display: flex;
       margin: 0 auto;
-      /*margin-top: 0.37rem;*/
-      margin-top: 1.67rem;
       overflow: hidden;
       animation: transform 0.8334s forwards; //1秒30
 

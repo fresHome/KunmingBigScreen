@@ -1,5 +1,8 @@
 <template>
-  <div class="LittleBox" :style="'background-color:'+background">
+  <div class="LittleBox" :style="{
+      backgroundColor:background,
+      opacity:opacity
+      }">
     <div class="line">
       <ol class="title">
         <li v-for="item in data" :key="item.key">
@@ -10,7 +13,7 @@
       </ol>
     </div>
 
-    <div class="blueSquare" :style="{img:'blueSquare.png'}|imgLoad()">西片区</div>
+    <div class="blueSquare animated fadeInLeft delay-1s" :style="{img:'blueSquare.png'}|imgLoad()">西片区</div>
     <!--    两条粗蓝线-->
     <div id="boldBlueLine1"></div>
     <div id="boldBlueLine2"></div>
@@ -53,7 +56,8 @@
         rightLength: 0,
         bottomLength: 0,
         whiteRotateDeg: 0,
-        background: 'transparent'
+        background: 'transparent',
+        opacity: 0
       }
     },
     props: ['show'],
@@ -65,6 +69,7 @@
         this.topLength = 0
         this.rightLength = 0
         this.bottomLength = 0
+        this.opacity = 1
         this.background = 'transparent'
         setTimeout(() => {
           this.startLength = 30
@@ -85,6 +90,9 @@
         setTimeout(() => {
           this.whiteRotateDeg = 100
         }, 600)
+        setTimeout(() => {
+          this.opacity = 0
+        }, 4500)
       }
     }
   }
@@ -101,7 +109,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    transition: background-color linear 0.2s;
+    transition: background-color linear 0.2s,opacity ease-in-out 0.3s;
 
     .line {
       display: flex;

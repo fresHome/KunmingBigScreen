@@ -12,7 +12,7 @@
       </div>
     </div>
     <div v-if="show" class="content animated fadeInUp">
-      <slot v-if="show"></slot>
+      <slot></slot>
     </div>
     <div class="afterBox" :style="{img:'zu37.png'} | imgLoad()"></div>
     <div :style="{img:'zu58.png'} | imgLoad()" class="flowDiv"></div>
@@ -63,7 +63,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.show = true
-    }, 5000)
+    }, 2000)
   }
 }
 </script>
