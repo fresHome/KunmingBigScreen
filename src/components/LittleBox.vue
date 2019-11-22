@@ -11,7 +11,11 @@
     </div>
 
     <div class="blueSquare" :style="{img:'blueSquare.png'}|imgLoad()">西片区</div>
-
+    <!--    两条粗蓝线-->
+    <div id="boldBlueLine1"></div>
+    <div id="boldBlueLine2"></div>
+    <!--    白圆圈-->
+    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>
   </div>
 </template>
 
@@ -55,6 +59,7 @@ export default {
     padding: 0.14rem 0.125rem 0.365rem 0.115rem;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .line {
       display: flex;
@@ -89,6 +94,34 @@ export default {
       color: #fff;
       text-align: center;
     }
+
+    #boldBlueLine1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0.5rem;
+      height: 0.03rem;
+      background-color: #003DF9;
+    }
+
+    #boldBlueLine2 {
+      position: absolute;
+      top: -0.025rem;
+      right: 0;
+      width: 0.295rem;
+      height: 0.03rem;
+      background-color: #003DF9;
+    }
+
+    #whilteCircle {
+      width: 0.245rem;
+      height: 0.24rem;
+      position: absolute;
+      top: 1.43rem;
+      left: -0.4rem;
+      z-index: 1;
+      opacity: 0;
+    }
   }
 
   .LittleBox::after {
@@ -102,4 +135,31 @@ export default {
     transform: rotate(121deg);
     transform-origin: 0 50%;
   }
+</style>
+<style lang="scss">
+  .LittleBox {
+    .line {
+      margin-top: -1rem;
+      animation: goDown 0.5s 3s forwards;
+      opacity: 0;
+    }
+
+    [id^='boldBlueLine'] {
+      margin-top: -1rem;
+      animation: goDown 0.5s 3s forwards;
+      opacity: 0;
+    }
+  }
+
+  @keyframes goDown {
+    from {
+      margin-top: -1rem;
+      opacity: 0;
+    }
+    to {
+      margin-top: 0;
+      opacity: 1;
+    }
+  }
+
 </style>

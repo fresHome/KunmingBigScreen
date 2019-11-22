@@ -8,7 +8,7 @@
     </div>
     <LittleBox id="littleBox1"></LittleBox>
     <LittleBox id="littleBox2"></LittleBox>
-    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>
+    <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
   </div>
@@ -86,7 +86,7 @@ export default {
       /*margin-top: 0.37rem;*/
       margin-top: 1.67rem;
       overflow: hidden;
-      animation: transform 0.8334s forwards;//1秒30
+      animation: transform 0.8334s forwards; //1秒30
 
       .square {
         width: 1.57rem;
@@ -123,20 +123,16 @@ export default {
       position: absolute;
       top: 5.505rem;
       left: 6.19rem;
+      opacity: 0;
+      animation: littleBoxFlow 2s 3s backwards;
     }
 
     #littleBox2 {
       position: absolute;
       top: 5.505rem;
       left: 8.39rem;
-    }
-
-    #whilteCircle {
-      width: 0.245rem;
-      height: 0.24rem;
-      position: absolute;
-      top: 6.935rem;
-      left: 5.775rem;
+      opacity: 0;
+      animation: littleBoxFlow 2s 5s forwards;
     }
 
     #bottomBg {
@@ -145,6 +141,39 @@ export default {
       position: absolute;
       bottom: 0;
       margin: 0 auto;
+    }
+  }
+</style>
+<style lang="scss">
+  @keyframes littleBoxFlow {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  #littleBox1 {
+    #whilteCircle {
+      animation: rotate1 2s 3s forwards;
+    }
+  }
+
+  #littleBox2 {
+    #whilteCircle {
+      animation: rotate1 2s 5s forwards;
+    }
+  }
+
+  @keyframes rotate1 {
+    0% {
+      transform: rotate(0);
+      opacity: 0;
+    }
+    100% {
+      transform: rotate(90deg);
+      opacity: 1;
     }
   }
 </style>
