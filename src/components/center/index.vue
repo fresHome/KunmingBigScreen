@@ -6,8 +6,8 @@
         <div class="number">{{item.value}}</div>
       </div>
     </div>
-    <LittleBox v-if="type" :show="type" id="littleBox1"></LittleBox>
-    <LittleBox v-if="!type" :show="type" id="littleBox2"></LittleBox>
+    <LittleBox v-show="type" :show="type" id="littleBox1"></LittleBox>
+    <LittleBox v-show="!type" :show="type" id="littleBox2"></LittleBox>
     <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
@@ -25,7 +25,7 @@ export default {
       delayShow: 1,
       option9: {},
       squareBox: [],
-      type:false
+      type: false
     }
   },
   methods: {
@@ -155,26 +155,4 @@ export default {
       opacity: 1;
     }
   }
-
-  /*#littleBox1 {*/
-  /*  #whilteCircle {*/
-  /*    animation: rotate1 2s 3s forwards;*/
-  /*  }*/
-  /*}*/
-  /*#littleBox2 {*/
-  /*  #whilteCircle {*/
-  /*    animation: rotate1 2s 5s forwards;*/
-  /*  }*/
-  /*}*/
-
-  /*@keyframes rotate1 {*/
-  /*  0% {*/
-  /*    transform: rotate(0);*/
-  /*    opacity: 0;*/
-  /*  }*/
-  /*  100% {*/
-  /*    transform: rotate(90deg);*/
-  /*    opacity: 1;*/
-  /*  }*/
-  /*}*/
 </style>

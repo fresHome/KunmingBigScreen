@@ -15,7 +15,7 @@
     <div id="boldBlueLine1"></div>
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
-    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>
+    <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg})`}|imgLoad()"></div>
     <i class="outline left" :style="{height:leftLength+'%'}"></i>
     <i class="outline top" :style="{width:topLength+'%'}"></i>
     <i class="outline right" :style="{height:rightLength+'%'}"></i>
@@ -24,58 +24,62 @@
 </template>
 
 <script>
-  export default {
-    name: 'LittleBox',
-    data () {
-      return {
-        data: [
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          },
-          {
-            name: '企业总数',
-            number: '320个'
-          }
-        ],
-        leftLength: 0,
-        topLength: 0,
-        rightLength: 0,
-        bottomLength: 0
-      }
-    },
-    props: ['show'],
-    methods: {},
-    watch: {
-      show () {
-        this.leftLength = 0
-        this.topLength = 0
-        this.rightLength = 0
-        this.bottomLength = 0
+export default {
+  name: 'LittleBox',
+  data () {
+    return {
+      data: [
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        },
+        {
+          name: '企业总数',
+          number: '320个'
+        }
+      ],
+      leftLength: 0,
+      topLength: 0,
+      rightLength: 0,
+      bottomLength: 0,
+      whiteRotateDeg: 0
+    }
+  },
+  props: ['show'],
+  methods: {},
+  watch: {
+    show () {
+      this.leftLength = 0
+      this.topLength = 0
+      this.rightLength = 0
+      this.bottomLength = 0
 
-        setTimeout(() => {
-          this.leftLength = 100
-        }, 0)
-        setTimeout(() => {
-          this.topLength = 100
-        }, 200)
-        setTimeout(() => {
-          this.rightLength = 100
-        }, 400)
-        setTimeout(() => {
-          this.bottomLength = 100
-        }, 600)
-      }
+      setTimeout(() => {
+        this.leftLength = 100
+      }, 0)
+      setTimeout(() => {
+        this.topLength = 100
+      }, 200)
+      setTimeout(() => {
+        this.rightLength = 100
+      }, 400)
+      setTimeout(() => {
+        this.bottomLength = 100
+      }, 600)
+      setTimeout(() => {
+        this.whiteRotateDeg = 100
+      }, 600)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -171,7 +175,7 @@
       top: 1.43rem;
       left: -0.4rem;
       z-index: 1;
-      opacity: 0;
+      /*opacity: 0;*/
     }
 
     .outline {
@@ -240,6 +244,30 @@
     }
     to {
       margin-top: 0;
+      opacity: 1;
+    }
+  }
+
+  /*白圆圈*/
+  #littleBox1 {
+    #whilteCircle {
+      /*animation: rotate1 2s 3s forwards;*/
+    }
+  }
+
+  #littleBox2 {
+    #whilteCircle {
+      /*animation: rotate1 2s 5s forwards;*/
+    }
+  }
+
+  @keyframes rotate1 {
+    0% {
+      transform: rotate(0);
+      opacity: 0;
+    }
+    100% {
+      transform: rotate(90deg);
       opacity: 1;
     }
   }
