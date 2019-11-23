@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import box from '../../public/box'
-import subPie from '../../public/charts/self/subPie'
+import box from '../../../public/box/index'
+import subPie from '../../../public/charts/self/subPie'
 import request from '@/api/request'
 
 export default {

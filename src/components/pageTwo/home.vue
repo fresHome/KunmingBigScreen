@@ -3,25 +3,25 @@
   <div class="home">
     <top></top>
     <div class="main">
-      <left :allCarousel="allCarousel" class="left" :delayShow="delayShow"></left>
+      <left :allCarousel="allCarousel" class="left" v-if="delayShow"></left>
       <center :allCarousel="allCarousel" class="center"></center>
-      <right :allCarousel="allCarousel" class="right" :delayShow="delayShow"></right>
+      <right :allCarousel="allCarousel" class="right" v-if="delayShow"></right>
     </div>
     <div id="homeShade"></div>
   </div>
 </template>
 
 <script>
-import top from '../components/top'
-import left from '../components/left'
-import center from '../components/center'
-import right from '../components/right'
+import top from '../../public/top/index'
+import left from './left/index'
+import center from './center/index'
+import right from './right/index'
 
 export default {
   name: 'home',
   data () {
     return {
-      delayShow: 1,
+      delayShow: false,
       time: 0,
       interval: '',
       allCarousel: null
@@ -51,6 +51,10 @@ export default {
     }
   },
   mounted () {
+    this.delayShow = false
+    setTimeout(() => {
+      this.delayShow = true
+    }, 200)
     this.startInterval()
   }
 }
@@ -62,6 +66,7 @@ export default {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    /*background-color: #000;*/
 
     #homeShade {
       background-color: #000;
@@ -85,16 +90,24 @@ export default {
       }
 
       .left {
+        position: relative;
+        z-index: 99999;
         margin-left: 0.3rem;
       }
 
       .right {
+        position: relative;
+        z-index: 99999;
         margin-right: 0.3rem;
       }
 
       .center {
         flex-grow: 1;
         width: 870rem;
+      }
+
+      .map {
+        position: fixed;
       }
     }
   }

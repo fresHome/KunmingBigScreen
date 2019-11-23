@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import BoxFive from '../box/BoxFive'
-  import BoxSix from '../box/BoxSix'
-  import BoxSeven from '../box/BoxSeven'
-  import BoxEight from '../box/BoxEight'
+  import BoxFive from './BoxFive'
+  import BoxSix from './BoxSix'
+  import BoxSeven from './BoxSeven'
+  import BoxEight from './BoxEight'
 
   export default {
     name: 'index',

@@ -7,22 +7,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/pageOne'
     },
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('@/components/home.vue')
+      path: '/pageOne',
+      name: 'pageOne',
+      component: () => import('@/components/pageOne/home.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('@/components/TestCompo.vue')
+      path: '/pageTwo',
+      name: 'pageTwo',
+      component: () => import('@/components/pageTwo/home.vue')
     },
     {
-      path: '/animateMap',
-      name: 'animateMap',
-      component: () => import('@/components/animateMap.vue')
+      path: '/pageThree',
+      name: 'pageThree',
+      component: () => import('@/components/pageThree/home.vue')
     }
   ]
 })

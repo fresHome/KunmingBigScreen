@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import box from '../../public/box'
-  import chart from '../../public/charts/echarts/chart'
-  import { deepClone, convertRem } from '../../utils'
+  import box from '../../../public/box/index'
+  import chart from '../../../public/charts/echarts/chart'
+  import { deepClone, convertRem } from '../../../utils'
   import request from '@/api/request'
 
   let dataAxis = ['类型一', '类型二', '类型三', '类型四', '类型五', '其他']

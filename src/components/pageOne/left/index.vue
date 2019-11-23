@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import BoxFour from '../box/BoxFour'
-  import BoxThree from '../box/BoxThree'
-  import BoxTwo from '../box/BoxTwo'
-  import BoxOne from '../box/BoxOne'
+  import BoxFour from './BoxFour'
+  import BoxThree from './BoxThree'
+  import BoxTwo from './BoxTwo'
+  import BoxOne from './BoxOne'
 
   export default {
     name: 'leftBox',

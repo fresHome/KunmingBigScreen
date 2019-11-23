@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import numberUp from '../../public/number/numberUp'
+import numberUp from '../../../public/number/numberUp'
 
 export default {
   name: 'list',

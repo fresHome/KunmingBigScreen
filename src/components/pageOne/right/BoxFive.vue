@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import box from '../../public/box'
+import box from '../../../public/box/index'
 import request from '@/api/request'
 
 export default {

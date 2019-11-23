@@ -6,18 +6,16 @@
       <left :allCarousel="allCarousel" class="left" v-if="delayShow"></left>
       <center :allCarousel="allCarousel" class="center"></center>
       <right :allCarousel="allCarousel" class="right" v-if="delayShow"></right>
-      <!--      <animateMap class="map"></animateMap>-->
     </div>
     <div id="homeShade"></div>
   </div>
 </template>
 
 <script>
-  import top from '../components/top'
-  import left from '../components/left'
-  import center from '../components/center'
-  import right from '../components/right'
-  import animateMap from './animateMap'
+  import top from '../../public/top/index'
+  import left from './left/index'
+  import center from './center/index'
+  import right from './right/index'
 
   export default {
     name: 'home',
@@ -29,7 +27,7 @@
         allCarousel: null
       }
     },
-    components: { top, left, center, right, animateMap },
+    components: { top, left, center, right},
     methods: {
       mousemove () {
         this.stopInterval()

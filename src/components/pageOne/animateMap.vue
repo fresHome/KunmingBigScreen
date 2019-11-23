@@ -127,7 +127,7 @@ export default {
           z-index: 999;
           transform: rotateX(65deg) rotateZ(24deg) translateZ(0px);
           background: {
-            image: url("../../public/static/images/map.png");
+            image: url("../../../public/static/images/map.png");
             size: 14.31rem 25.08rem;
             position: center center;
             repeat: no-repeat;
@@ -138,7 +138,7 @@ export default {
         &.road {
           transform: rotateX(65deg) rotateZ(24deg) translateZ(0px);
           background: {
-            image: url("../../public/static/images/road.gif");
+            image: url("../../../public/static/images/road.gif");
             size: 14.31rem 25.08rem;
             position: center center;
             repeat: no-repeat;
@@ -148,7 +148,7 @@ export default {
 
         &.dnxb {
           background: {
-            image: url("../../public/static/images/circle/circle(0-00-00-04).png");
+            image: url("../../../public/static/images/circle/circle(0-00-00-04).png");
             size: 20rem 20rem;
             position: center center;
             repeat: no-repeat;
