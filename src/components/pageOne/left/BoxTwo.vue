@@ -53,9 +53,8 @@ export default {
 //          data: ['生物医药产业', '新材料及装备制造产业', 'IT及现代服务产业']
 //        },
         grid: {
-          top: convertRem(0.2),
-//          left: 0,
-          left: convertRem(1),
+          top: 0,
+          left: 0,
           right: 0,
           bottom: 0,
           containLabel: true
@@ -64,7 +63,7 @@ export default {
         series: [
           {
             type: 'pie',
-            center: ['37%', '50%'],
+            center: ['70%', '50%'],
             radius: [convertRem(0.15), convertRem(0.35)],
             label: {
               normal: {
@@ -75,7 +74,7 @@ export default {
           },
           {
             type: 'pie',
-            center: ['37%', '50%'],
+            center: ['70%', '50%'],
             radius: [convertRem(0.4075), convertRem(0.4125)],
             data: [100],
             label: {
@@ -88,9 +87,8 @@ export default {
       option2: {
         animation: true,
         grid: {
-          top: convertRem(0.2),
+          top: 0,
           left: 0,
-//          right: convertRem(0.25),
           bottom: 0,
           containLabel: true
         },
@@ -98,7 +96,7 @@ export default {
         series: [
           {
             type: 'pie',
-            center: ['63%', '50%'],
+            center: ['30%', '50%'],
             radius: [convertRem(0.15), convertRem(0.35)],
             label: {
               normal: {
@@ -109,7 +107,7 @@ export default {
           },
           {
             type: 'pie',
-            center: ['63%', '50%'],
+            center: ['30%', '50%'],
             radius: [convertRem(0.4075), convertRem(0.4125)],
             data: [100],
             label: {
@@ -198,11 +196,11 @@ export default {
     }
 
     .sCharts:first-child {
-      margin-left: 0.8rem;
+      /*margin-right: 0.02rem;*/
     }
 
     .sCharts:nth-child(2) {
-      margin-right: 0.8rem;
+      /*margin-left: 0.02rem;*/
     }
 
     [class$='Side'] {

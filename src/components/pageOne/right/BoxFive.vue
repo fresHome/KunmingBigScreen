@@ -101,6 +101,7 @@ export default {
       left: 0;
       top: 0;
       opacity: 0;
+      /*background-color: rgba(48, 150, 195, 0.3);*/
       animation: opacityChange 1.667s 1.2667s forwards;
 
       .name {
