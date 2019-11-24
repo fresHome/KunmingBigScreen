@@ -414,8 +414,6 @@ export default {
             arr2.push(10000 - item.value)
           }
         })
-        console.log(nameArr);
-        console.log(arr1);
         newOption1.yAxis[0].data = nameArr
         newOption2.yAxis[0].data = nameArr
         newOption1.yAxis[1].data = arr1
@@ -424,8 +422,6 @@ export default {
         newOption2.series[0].data = arr2
         this.option1 = newOption1
         this.option2 = newOption2
-        console.log(this.option1);
-        console.log(this.option2);
       })
     },
 
