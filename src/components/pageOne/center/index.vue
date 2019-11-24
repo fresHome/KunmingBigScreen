@@ -6,8 +6,8 @@
         <div class="number">{{item.value}}</div>
       </div>
     </div>
-    <LittleBox v-show="showALL && type" :show="type" type="dpq" id="littleBox1"></LittleBox>
-    <LittleBox v-show="showALL && !type" :show="type" type="xpq" id="littleBox2"></LittleBox>
+    <LittleBox v-show="type" :show="type" type="dpq" id="littleBox1"></LittleBox>
+    <LittleBox v-show="!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
     <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
@@ -22,7 +22,6 @@ export default {
   name: 'index',
   data () {
     return {
-      showALL: false,
       delayShow: 1,
       option9: {},
       squareBox: [],
@@ -70,12 +69,9 @@ export default {
       }
     }, 0)
     this.getIndexList()
-    setTimeout(() => {
-      this.showALL = true
-      this.setInterval(() => {
-        this.type = !this.type
-      }, 5000)
-    }, 2000)
+    setInterval(() => {
+      this.type = !this.type
+    }, 5000)
   },
   components: {
     LittleBox

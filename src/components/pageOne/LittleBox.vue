@@ -17,7 +17,10 @@
     <div id="boldBlueLine1"></div>
     <div id="boldBlueLine2"></div>
     <!--    白圆圈-->
-    <div id="whilteCircle" :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg}deg)`}|imgLoad()"></div>
+    <div id="whilteCircle" :style="{opacity:circleOpacity}">
+      <div :style="{img:'whiteCircle.png',transform:`rotate(${whiteRotateDeg}deg)`}|imgLoad()"></div>
+    </div>
+    <!--    斜线-->
     <i class="outline start" :class="type" :style="{width:startLength+'%'}"></i>
     <i class="outline left" :style="{height:leftLength+'%'}"></i>
     <i class="outline top" :style="{width:topLength+'%'}"></i>
@@ -55,6 +58,7 @@ export default {
       rightLength: 0,
       bottomLength: 0,
       whiteRotateDeg: 0,
+      circleOpacity: 0,
       background: 'transparent',
       opacity: 1
     }
@@ -69,6 +73,7 @@ export default {
       this.bottomLength = 0
       this.opacity = 1
       this.whiteRotateDeg = 0
+      this.circleOpacity = 0
       this.background = 'transparent'
     },
     animated () {
@@ -79,7 +84,7 @@ export default {
         } else {
           this.startLength = 50
         }
-      }, 0)
+      }, 800)
       setTimeout(() => {
         this.leftLength = 100
       }, 200)
@@ -96,6 +101,9 @@ export default {
       setTimeout(() => {
         this.whiteRotateDeg = 360
       }, 200)
+      setTimeout(() => {
+        this.circleOpacity = 1
+      }, 2000)
       setTimeout(() => {
         this.opacity = 0
       }, 4500)
@@ -206,7 +214,13 @@ export default {
       top: 1.4rem;
       left: -0.38rem;
       z-index: 90;
-      transition: all linear 4.6s;
+      transition: all linear 0.2s;
+
+      > div {
+        width: 100%;
+        height: 100%;
+        transition: all linear 4.8s;
+      }
     }
 
     .outline {
@@ -280,19 +294,6 @@ export default {
     to {
       margin-top: 0;
       opacity: 1;
-    }
-  }
-
-  /*白圆圈*/
-  #littleBox1 {
-    #whilteCircle {
-      /*animation: rotate1 2s 3s forwards;*/
-    }
-  }
-
-  #littleBox2 {
-    #whilteCircle {
-      /*animation: rotate1 2s 5s forwards;*/
     }
   }
 

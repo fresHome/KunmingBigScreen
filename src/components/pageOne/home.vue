@@ -6,7 +6,7 @@
       <left :allCarousel="allCarousel" class="left" v-if="delayShow"></left>
       <center :allCarousel="allCarousel" class="center"></center>
       <right :allCarousel="allCarousel" class="right" v-if="delayShow"></right>
-<!--      <animateMap class="map"></animateMap>-->
+      <animateMap class="map"></animateMap>
     </div>
     <div id="homeShade"></div>
   </div>
