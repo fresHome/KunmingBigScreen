@@ -124,7 +124,7 @@ export default {
         transform-origin: center center;
 
         &.bg {
-          z-index: 999;
+          z-index: 0;
           transform: rotateX(65deg) rotateZ(24deg) translateZ(0px);
           background: {
             image: url("../../../public/static/images/map.png");

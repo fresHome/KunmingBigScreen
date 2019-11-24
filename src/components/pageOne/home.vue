@@ -6,60 +6,60 @@
       <left :allCarousel="allCarousel" class="left" v-if="delayShow"></left>
       <center :allCarousel="allCarousel" class="center"></center>
       <right :allCarousel="allCarousel" class="right" v-if="delayShow"></right>
-      <!--      <animateMap class="map"></animateMap>-->
+<!--      <animateMap class="map"></animateMap>-->
     </div>
     <div id="homeShade"></div>
   </div>
 </template>
 
 <script>
-  import top from '../../public/top/index'
-  import left from './left/index'
-  import center from './center/index'
-  import right from './right/index'
-  import animateMap from './animateMap'
+import top from '../../public/top/index'
+import left from './left/index'
+import center from './center/index'
+import right from './right/index'
+import animateMap from './animateMap'
 
-  export default {
-    name: 'home',
-    data () {
-      return {
-        delayShow: false,
-        time: 0,
-        interval: '',
-        allCarousel: null
-      }
-    },
-    components: { top, left, center, right, animateMap },
-    methods: {
-      mousemove () {
-        this.stopInterval()
-      },
-      stopInterval () {
-        this.allCarousel = 'stop'
-        this.time = 0
-      },
-      startInterval () {
-        this.interval = setInterval(() => {
-          this.time++
-        }, 1000)
-        this.time = 0
-      }
-    },
-    watch: {
-      time (val) {
-        if (val == 10) {
-          this.allCarousel = 'go'
-        }
-      }
-    },
-    mounted () {
-      this.delayShow = false
-      setTimeout(() => {
-        this.delayShow = true
-      }, 200)
-      this.startInterval()
+export default {
+  name: 'home',
+  data () {
+    return {
+      delayShow: false,
+      time: 0,
+      interval: '',
+      allCarousel: null
     }
+  },
+  components: { top, left, center, right, animateMap },
+  methods: {
+    mousemove () {
+      this.stopInterval()
+    },
+    stopInterval () {
+      this.allCarousel = 'stop'
+      this.time = 0
+    },
+    startInterval () {
+      this.interval = setInterval(() => {
+        this.time++
+      }, 1000)
+      this.time = 0
+    }
+  },
+  watch: {
+    time (val) {
+      if (val == 10) {
+        this.allCarousel = 'go'
+      }
+    }
+  },
+  mounted () {
+    this.delayShow = false
+    setTimeout(() => {
+      this.delayShow = true
+    }, 200)
+    this.startInterval()
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

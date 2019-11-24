@@ -56,7 +56,7 @@ export default {
       bottomLength: 0,
       whiteRotateDeg: 0,
       background: 'transparent',
-      opacity: 0
+      opacity: 1
     }
   },
   props: ['show', 'type'],
@@ -100,6 +100,9 @@ export default {
         this.opacity = 0
       }, 4500)
     }
+  },
+  mounted () {
+    this.animated()
   },
   watch: {
     show () {
