@@ -116,6 +116,50 @@ export default {
       }
     }
 
+    .blueBox {
+      opacity: 0;
+      animation: normalFlow 0.5s 1.27s forwards;
+    }
+
+    @keyframes normalFlow {
+      0% {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+      33% {
+        opacity: 1;
+      }
+      100% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    .blueBox:first-child {
+      opacity: 0;
+      animation: opacityChange 0.2s 1.27s forwards;
+    }
+
+    .blueBox:first-child {
+      opacity: 0;
+      animation: opacityChange 0.2s 1.29s forwards;
+    }
+
+    .blueBox:first-child {
+      opacity: 0;
+      animation: opacityChange 0.2s 1.31s forwards;
+    }
+
+    .blueBox:first-child {
+      opacity: 0;
+      animation: opacityChange 0.2s 1.33s forwards;
+    }
+
+    .blueBox:first-child {
+      opacity: 0;
+      animation: opacityChange 0.1s 1.31s forwards;
+    }
+
     .lightblueBox {
       display: flex;
       align-items: center;
