@@ -41,6 +41,7 @@ export default {
           top: 'top',
           right: 'right',
           orient: 'horizontal',
+          width:'100%',
           textStyle: {
             color: '#AAECFF',
             fontSize: convertRem(0.075)

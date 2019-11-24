@@ -8,15 +8,15 @@
       <div class="split" :style="{img:'line-split.png'}|imgLoad()"></div>
       <div class="right">
         <div class="item">
-          <p class="title">工程项目（总数10个）</p>
+          <p class="title">工程项目（总数{{ value1 }}个）</p>
           <div>
             <p>
               <span class="name">累计落地开工率</span>
-              <span class="value" :style="{img:'bg-value-green.png'}|imgLoad()">{{ value1 }}</span>
+              <span class="value" :style="{img:'bg-value-green.png'}|imgLoad()">{{ value2 }}%</span>
             </p>
             <p>
               <span class="name">落地开工率目标值</span>
-              <span class="value" :style="{img:'bg-value-red.png'}|imgLoad()">{{ value2 }}</span>
+              <span class="value" :style="{img:'bg-value-red.png'}|imgLoad()">{{ value3 }}%</span>
             </p>
           </div>
         </div>
@@ -25,11 +25,11 @@
           <div>
             <p>
               <span class="name">累计利用外资</span>
-              <span class="value" :style="{img:'bg-value-green.png'}|imgLoad()">{{ value3 }}</span>
+              <span class="value" :style="{img:'bg-value-green.png'}|imgLoad()">{{ value4 }}亿美元</span>
             </p>
             <p>
               <span class="name">利用外资目标</span>
-              <span class="value" :style="{img:'bg-value-red.png'}|imgLoad()">{{ value4 }}</span>
+              <span class="value" :style="{img:'bg-value-red.png'}|imgLoad()">{{ value5 }}亿美元</span>
             </p>
           </div>
         </div>
@@ -39,189 +39,193 @@
 </template>
 
 <script>
-import box from '../../../public/box/index'
-import chart from '../../../public/charts/echarts/chart'
-import { deepClone, convertRem } from '../../../utils'
-import request from '@/api/request'
-import echarts from 'echarts'
+  import box from '../../../public/box/index'
+  import chart from '../../../public/charts/echarts/chart'
+  import { deepClone, convertRem } from '../../../utils'
+  import request from '@/api/request'
+  import echarts from 'echarts'
 
-let color = new echarts.graphic.LinearGradient(1, 1, 1, 0, [{
-  offset: 0.4,
-  color: 'transparent'
-},
-  {
+  let color = new echarts.graphic.LinearGradient(1, 1, 1, 0, [{
     offset: 0.4,
-    color: '#D7087E'
-  },
-  {
-    offset: 0.6,
-    color: '#D7087E'
-  },
-  {
-    offset: 0.6,
     color: 'transparent'
-  }
-])
-export default {
-  name: 'BoxFour',
-  data () {
-    return {
-      option: {
-        grid: {
-          top: '0',
-          left: '0',
-          right: '0',
-          bottom: '0',
-          containLabel: true
-        },
-        yAxis: [
-          {
-            type: 'category',
-            data: ['全年目标', '本月目标', '全年目标', '本月目标'],
-            inverse: true,
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              color: '#fff',
-              fontSize: convertRem(0.075),
-              inside: true,
-              align: 'left',
-              padding: [0, 0, convertRem(0.15), 0]
-            },
-            axisLine: {
-              show: false
-            }
-          }
-        ],
-        xAxis: [
-          {
-            type: 'value',
-            axisLabel: {
-              show: false
-            },
-            axisLine: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            }
-          }
-        ],
-        series: [{
-          type: 'bar',
-          barWidth: convertRem(0.05),
-          data: [
+  },
+    {
+      offset: 0.4,
+      color: '#D7087E'
+    },
+    {
+      offset: 0.6,
+      color: '#D7087E'
+    },
+    {
+      offset: 0.6,
+      color: 'transparent'
+    }
+  ])
+  export default {
+    name: 'BoxFour',
+    data () {
+      return {
+        option: {
+          grid: {
+            top: '0',
+            left: '0',
+            right: '5%',
+            bottom: '0',
+            containLabel: true
+          },
+          yAxis: [
             {
-              value: 60,
-              itemStyle: {
-                normal: {
-                  color: color
-                }
-              }
-            }, {
-              value: 23,
-              itemStyle: {
-                normal: {
-                  color: color
-                }
-              }
-            }, {
-              value: 53,
-              itemStyle: {
-                normal: {
-                  color: color
-                }
-              }
-            }, {
-              value: 53,
-              itemStyle: {
-                normal: {
-                  color: color
-                }
+              type: 'category',
+              data: [],
+              inverse: true,
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                color: '#fff',
+                fontSize: convertRem(0.075),
+                inside: true,
+                align: 'left',
+                padding: [0, 0, convertRem(0.15), 0]
+              },
+              axisLine: {
+                show: false
               }
             }
           ],
-          label: {
-            normal: {
-              show: true,
-              position: 'insideBottomRight',
-              formatter: '{c}',
-              distance: 0,
-              padding: [0, 0, 0, convertRem(0.05)],
-              offset: [convertRem(0.05), 0],
-              color: '#fff',
-              fontWeight: 'bold',
-              fontSize: convertRem(0.075)
+          xAxis: [
+            {
+              type: 'value',
+              axisLabel: {
+                show: false
+              },
+              axisLine: {
+                show: false
+              },
+              splitLine: {
+                show: false
+              }
             }
-          },
-          itemStyle: {
-            normal: {}
-          }
+          ],
+          series: [
+            {
+              type: 'bar',
+              barWidth: convertRem(0.05),
+              itemStyle: {
+                normal: {
+                  color: color
+                }
+              },
+              data: [],
+              label: {
+                normal: {
+                  show: true,
+                  position: 'insideBottomRight',
+                  formatter: '{c}',
+                  distance: 0,
+                  padding: [0, 0, 0, convertRem(0.05)],
+                  offset: [convertRem(0.05), 0],
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  fontSize: convertRem(0.075)
+                }
+              }
+            },
+            {
+              type: 'bar',
+              barWidth: convertRem(0.05),
+              xAxisIndex: 0,
+              barGap: '-100%',
+              data: [180, 120, 180, 120],
+              label: {
+                normal: {
+                  show: true,
+                  position: 'insideBottomRight',
+                  formatter: '{c}',
+                  distance: 0,
+                  offset: [convertRem(0.05), 0],
+                  color: '#B5BDDB',
+                  fontSize: convertRem(0.075)
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: '#001863'
+                }
+              },
+              zlevel: -1
+            }
+          ]
         },
-          {
-            type: 'bar',
-            barWidth: convertRem(0.05),
-            xAxisIndex: 0,
-            barGap: '-100%',
-            data: [180, 120, 180, 120],
-            label: {
-              normal: {
-                show: true,
-                position: 'insideBottomRight',
-                formatter: '{c}',
-                distance: 0,
-                offset: [convertRem(0.05), 0],
-                color: '#B5BDDB',
-                fontSize: convertRem(0.075)
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#001863'
-              }
-            },
-            zlevel: -1
-          }
-        ]
-      },
-      value1: '40%',
-      value2: '40%',
-      value3: '40%',
-      value4: '40%'
-    }
-  },
-  props: ['delayShow'],
-  methods: {
-    changeJJqs (type) {
-      this.activeJJqs = type
-      let newOption = deepClone(this.option)
-
-      request.normalPort({
-        codeArray: ['Xh00005', 'Xh00006', 'Xh00007', 'Xh00008', 'Xh00009', 'Xh00010', 'Xh00011', 'Xh00012', 'Xh00013', 'Xh00014', 'Xh00015', 'Xh00016', 'Xh00017', 'Xh00018', 'Xh00019', 'Xh00020', 'Xh00021', 'Xh00022', 'Xh00023', 'Xh00024', 'Xh00025', 'Xh00026', 'Xh00027', 'Xh00028']
-      }).then(res => {
-        let arr1 = []
-        let arr2 = []
-        res.data.data.resultList.map((item, index, arry) => {
-          if (index < 12) {
-            arr1.push(item.value)
-          } else {
-            arr2.push(item.value)
-          }
+        value1: '40%',
+        value2: '40%',
+        value3: '40%',
+        value4: '40%',
+        value5: '40%',
+      }
+    },
+    props: ['delayShow'],
+    methods: {
+      getChartData (type) {
+        request.normalPort({
+          codeArray: ['Xh00046']
+        }).then(res => {
+          let { data } = res
+          let list = JSON.parse(data.data.resultList[0].value)
+          let newOption = deepClone(this.option)
+          let y1Data = []
+          let y2Data = []
+          let xData = []
+          list.map(item => {
+            xData.push(item.x1)
+            y1Data.push(item.y1)
+            y2Data.push(item.y2)
+          })
+          newOption.yAxis[0].data = xData
+          newOption.series[0].data = y1Data
+          newOption.series[1].data = y2Data
+          this.option = newOption
         })
-        newOption.series[0].data = arr1
-        newOption.series[1].data = arr2
-        this.option = newOption
-      })
+      },
+      getBoxData () {
+        request.normalPort({
+          codeArray: ['Xh00041', 'Xh00042', 'Xh00043', 'Xh00044', 'Xh00045']
+        }).then(res => {
+          let { data } = res
+          console.log(data)
+          data.data.resultList.map(item => {
+            switch (item.code) {
+              case 'Xh00041':
+                this.value4 = item.value
+                break
+              case 'Xh00042':
+                this.value5 = item.value
+                break
+              case 'Xh00043':
+                this.value1 = item.value
+                break
+              case 'Xh00044':
+                this.value2 = item.value
+                break
+              case 'Xh00045':
+                this.value3 = item.value
+                break
+              default:
+                break
+            }
+          })
+        })
+      }
+    },
+    mounted () {
+      this.getChartData()
+      this.getBoxData()
+    },
+    components: {
+      box, chart
     }
-  },
-  mounted () {
-    //    this.changeJJqs()
-  },
-  components: {
-    box, chart
   }
-}
 </script>
 
 <style lang="scss" scoped>
