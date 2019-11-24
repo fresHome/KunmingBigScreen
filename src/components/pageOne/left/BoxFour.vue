@@ -49,18 +49,18 @@ let color = new echarts.graphic.LinearGradient(1, 1, 1, 0, [{
   offset: 0.4,
   color: 'transparent'
 },
-{
-  offset: 0.4,
-  color: '#D7087E'
-},
-{
-  offset: 0.6,
-  color: '#D7087E'
-},
-{
-  offset: 0.6,
-  color: 'transparent'
-}
+  {
+    offset: 0.4,
+    color: '#D7087E'
+  },
+  {
+    offset: 0.6,
+    color: '#D7087E'
+  },
+  {
+    offset: 0.6,
+    color: 'transparent'
+  }
 ])
 export default {
   name: 'BoxFour',
@@ -159,30 +159,30 @@ export default {
             normal: {}
           }
         },
-        {
-          type: 'bar',
-          barWidth: convertRem(0.05),
-          xAxisIndex: 0,
-          barGap: '-100%',
-          data: [180, 120, 180, 120],
-          label: {
-            normal: {
-              show: true,
-              position: 'insideBottomRight',
-              formatter: '{c}',
-              distance: 0,
-              offset: [convertRem(0.05), 0],
-              color: '#B5BDDB',
-              fontSize: convertRem(0.075)
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: '#001863'
-            }
-          },
-          zlevel: -1
-        }
+          {
+            type: 'bar',
+            barWidth: convertRem(0.05),
+            xAxisIndex: 0,
+            barGap: '-100%',
+            data: [180, 120, 180, 120],
+            label: {
+              normal: {
+                show: true,
+                position: 'insideBottomRight',
+                formatter: '{c}',
+                distance: 0,
+                offset: [convertRem(0.05), 0],
+                color: '#B5BDDB',
+                fontSize: convertRem(0.075)
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: '#001863'
+              }
+            },
+            zlevel: -1
+          }
         ]
       },
       value1: '40%',
@@ -240,6 +240,8 @@ export default {
     .left {
       width: 1.8rem;
       min-width: 1.8rem;
+      opacity: 0;
+      animation: flow 0.5s 1.33s forwards;
 
       .chart {
         height: 0.9rem;
@@ -249,6 +251,8 @@ export default {
     .split {
       width: 0.03rem;
       margin-right: 0.2rem;
+      opacity: 0;
+      animation: flow 0.5s 1.27s forwards;
     }
 
     .right {
@@ -256,6 +260,9 @@ export default {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      opacity: 0;
+      animation: flow 0.5s 1.4s forwards;
+
 
       .item {
         p {
@@ -280,6 +287,17 @@ export default {
           }
         }
       }
+    }
+  }
+
+  @keyframes flow {
+    from {
+      opacity: 0;
+      margin-top: 0.5rem;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
     }
   }
 </style>
