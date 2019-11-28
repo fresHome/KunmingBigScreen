@@ -1,183 +1,211 @@
 <template>
-  <div class="BoxThree">
-    <box title="投资项目分布" line-with="short">
-      <div class="titleLine">
-        <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">投资项目总数</div>
-        <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">{{ projectName }}个</div>
-        <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">本年完成投资总额</div>
-        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">{{ projectMoney }}亿元</div>
-      </div>
-      <chart ref="chart1" :skey="'jjqs3'" :option="option" v-if="delayShow"></chart>
+  <div class="BoxOne">
+    <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
+      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
     </box>
   </div>
 </template>
 
 <script>
-  import box from '../../../public/box/index'
-  import chart from '../../../public/charts/echarts/chart'
-  import { deepClone, convertRem } from '../../../utils'
-  import request from '@/api/request'
+import box from '../../../public/box/index'
+import chart from '../../../public/charts/echarts/chart'
+import { deepClone, convertRem } from '../../../utils'
+import request from '@/api/request'
 
-  let dataAxis = ['类型一', '类型二', '类型三', '类型四', '类型五', '其他']
-  let data = []
-  let yMax = 100
-
-  export default {
-    name: 'BoxThree',
-    data () {
-      return {
-        projectName: 0,
-        projectMoney: 0,
-        option: {
-          grid: {
-            top: convertRem(0.4),
-            left: 0,
-            right: 0,
-            bottom: 0,
-            containLabel: true
+export default {
+  name: 'BoxOne',
+  data () {
+    return {
+      activeTab: 1,
+      tabContent: [
+        {
+          num: 1,
+          name: '营收',
+          chart: 1
+        },
+        {
+          num: 2,
+          name: '税收',
+          chart: 1
+        }
+      ],
+      option: {
+        grid: {
+          top: convertRem(0.2),
+          left: 0,
+          right: convertRem(0.25),
+          bottom: 0,
+          containLabel: true
+        },
+        legend: {
+          top: 'top',
+          right: 'right',
+          orient: 'horizontal',
+          width: '100%',
+          textStyle: {
+            color: '#AAECFF',
+            fontSize: convertRem(0.075)
           },
-          xAxis: {
-            data: dataAxis,
+          icon: 'rect',
+          itemWidth: convertRem(0.075),
+          itemHeight: convertRem(0.075),
+          data: ['2019', '2018']
+        },
+        xAxis: {
+          type: 'category',
+          axisLine: {
+            show: false
+          },
+          name: '月份',
+          axisLabel: {
+            color: '#8FCEEF',
+            interval: 0,
+            textStyle: {
+              fontSize: convertRem(0.075)
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(102, 185, 251, 0.24)'
+            }
+          },
+          nameTextStyle: {
+            color: '#9DA4BF',
+            fontSize: convertRem(0.075)
+          },
+          axisTick: {
+            show: false
+          },
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        yAxis: [
+          {
+            type: 'value',
+            axisLine: {
+              show: false
+            },
+            name: '亿元',
             axisLabel: {
               textStyle: {
-                color: '#B5BDDB',
-                fontSize: convertRem(0.075)
+                color: '#8FCEEF',
+                fontSize: convertRem(0.07)
               }
             },
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#354471'
-              }
-            },
-            z: 10
-          },
-          yAxis: {
-            name:'个',
-            splitLine: {
-              lineStyle: {
-                color: '#354471',
-                type: 'dotted',
-                opacity: 0.5
-              }
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#354471'
-              }
-            },
-            axisTick: {
-              show: false
-            },
-            nameTextStyle:{
+            nameTextStyle: {
               color: '#9DA4BF',
               fontSize: convertRem(0.075)
             },
-            axisLabel: {
-              textStyle: {
-                color: '#B5BDDB'
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            name: '2018',
+            color: '#D7087E',
+            smooth: true,
+            lineStyle: {
+              width: convertRem(0.03),
+              shadowColor: 'rgba(201,255,146,0.2)',
+              shadowBlur: convertRem(0.2),
+              color: {
+                type: 'linear',
+
+                colorStops: [{
+                  offset: 0,
+                  color: '#20186E' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#D7087E' // 100% 处的颜色
+                }]
               }
-            }
+            },
+            showSymbol: false,
+            data: []
           },
-          dataZoom: [
-            {
-              type: 'inside'
-            }
-          ],
-          series: [
-            {
-              type: 'bar',
-              barWidth: convertRem(0.2),
-              itemStyle: {
-                normal: {
-                  color: new this.$echarts.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                      { offset: 0, color: '#8852DE' },
-                      { offset: 1, color: 'rgba(0,0,0,0)' }
-                    ]
-                  )
-                }
-              },
-              data: data
-            }
-          ]
+          {
+            type: 'line',
+            name: '2019',
+            color: '#32F0FE',
+            smooth: true,
+            lineStyle: {
+              width: convertRem(0.03),
+              shadowColor: 'rgba(201,255,146,0.2)',
+              shadowBlur: convertRem(0.2),
+              color: {
+                type: 'linear',
+                colorStops: [{
+                  offset: 0,
+                  color: '#0F2088' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#32F0FE' // 100% 处的颜色
+                }]
+              }
+            },
+            showSymbol: false,
+            data: []
+          }
+        ]
+      }
+    }
+  },
+  props: ['delayShow'],
+  methods: {
+    getLine (code) {
+      let newOption1 = deepClone(this.option)
+      request.normalPort({
+        codeArray: [code]
+      }).then(res => {
+        let arr1 = []
+        let arr2 = []
+        let time = []
+        res.data.data.resultList.map((item, index, arry) => {
+          if (item.time.indexOf(2018) >= 0) {
+            arr1.push(item.value)
+          }
+          if (item.time.indexOf(2019) >= 0) {
+            arr2.push(item.value)
+          }
+          time.push(item.time)
+        })
+        newOption1.xAxis.data = [...new Set(time)]
+        newOption1.series[0].data = arr1
+        newOption1.series[1].data = arr2
+        this.option1 = newOption1
+      })
+    }
+  },
+  mounted () {
+    this.getLine('Xh00005')
+    eventHub.$on('changeTab', (item) => {
+      if (item.chart == 1) {
+        if (item.num == 1) {
+          this.activeTab = 1
+          this.getLine('Xh00005')
+        } else {
+          this.activeTab = 2
+          this.getLine('Xh00006')
         }
       }
-    },
-    props: ['delayShow'],
-    methods: {
-      changeJJqs (type) {
-        this.activeJJqs = type
-        let newOption = deepClone(this.option)
-        request.normalPort({
-          codeArray: ['Xh00033', 'Xh00034', 'Xh00035', 'Xh00036', 'Xh00037', 'Xh00038', 'Xh00039', 'Xh00040']
-        }).then(res => {
-          let arr = []
-          res.data.data.resultList.map((item, index, arry) => {
-            if (item.code.slice(-2) > 34) {
-              arr.push(item.value - 0)
-            } else if (item.code.slice(-2) == 33) {
-              this.projectName = item.value
-            } else if (item.code.slice(-2) == 34) {
-              this.projectMoney = item.value
-            }
-          })
-          newOption.series[0].data = arr
-
-          this.option = newOption
-        })
-      }
-    },
-    mounted () {
-      this.changeJJqs()
-    },
-    components: {
-      box, chart
-    }
+    })
+  },
+  beforeDestroy () {
+    eventHub.$off('changeTab')
+  },
+  components: {
+    box, chart
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .BoxThree {
-    .titleLine {
-      position: absolute;
-      top: 0.1rem;
-      left: 0.2rem;
-      height: 0.175rem;
-      font: 0.075rem/0.175rem NotoSansHans-Regular;
-      color: #fff;
-      display: flex;
-      text-align: center;
+  .BoxOne {
 
-      #rec1 {
-        width: 0.905rem;
-        height: 100%;
-        /*background-color: #000;*/
-      }
-
-      #rec2 {
-        width: 0.57rem;
-        height: 100%;
-        /*background-color: #000;*/
-      }
-
-      #rec3 {
-        width: 0.905rem;
-        height: 100%;
-        margin-left: 0.16rem;
-        /*background-color: #000;*/
-      }
-
-      #rec4 {
-        width: 0.82rem;
-        height: 100%;
-        /*background-color: #000;*/
-      }
-    }
   }
 </style>

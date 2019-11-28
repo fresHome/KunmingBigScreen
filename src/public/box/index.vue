@@ -101,7 +101,7 @@ export default {
       left: 0;
       z-index: 1;
       transform: scaleX(0);
-      animation: scaleLine 0.5s 1.1677s forwards;//1秒30
+      animation: scaleLine 0.5s 1.1677s forwards; //1秒30
     }
 
     .flowDiv {
@@ -150,7 +150,7 @@ export default {
       overflow: hidden;
       margin-top: 0.15rem;
       /*animation: opacityChange 1.5s 3.5s forwards;*/
-      animation: heightFlow1 0.5s 1.167s forwards;//1秒30
+      animation: heightFlow1 0.5s 1.167s forwards; //1秒30
 
       @keyframes heightFlow1 {
         from {
@@ -201,7 +201,7 @@ export default {
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #0B163F;*/
           margin-right: 0.02rem;
-          text-align:center;
+          text-align: center;
         }
 
         .tab2 {
@@ -209,7 +209,7 @@ export default {
           height: 0.125rem;
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #B5BDDB;*/
-          text-align:center;
+          text-align: center;
         }
       }
     }

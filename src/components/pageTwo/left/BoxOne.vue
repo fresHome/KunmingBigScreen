@@ -1,7 +1,18 @@
 <template>
-  <div class="BoxOne">
-    <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
+  <div class="pageTwoBoxOne">
+    <box title="基本信息" :active-tab="activeTab" :tab-content="tabContent">
+      <div class="virtual">
+        <div>
+          <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">成立时间</div>
+          <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">区域面积</div>
+        </div>
+        <div>
+          <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">工业用地面积</div>
+          <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">商业用地面积</div>
+        </div>
+        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">片区简介</div>
+      </div>
+
     </box>
   </div>
 </template>
@@ -15,196 +26,58 @@ import request from '@/api/request'
 export default {
   name: 'BoxOne',
   data () {
-    return {
-      activeTab: 1,
-      tabContent: [
-        {
-          num: 1,
-          name: '营收',
-          chart: 1
-        },
-        {
-          num: 2,
-          name: '税收',
-          chart: 1
-        }
-      ],
-      option: {
-        grid: {
-          top: convertRem(0.2),
-          left: 0,
-          right: convertRem(0.25),
-          bottom: 0,
-          containLabel: true
-        },
-        legend: {
-          top: 'top',
-          right: 'right',
-          orient: 'horizontal',
-          textStyle: {
-            color: '#AAECFF',
-            fontSize: convertRem(0.075)
-          },
-          icon: 'rect',
-          itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075),
-          data: ['2019', '2018']
-        },
-        xAxis: {
-          type: 'category',
-          axisLine: {
-            show: false
-          },
-          name: '月份',
-          axisLabel: {
-            color: '#8FCEEF',
-            interval: 0,
-            textStyle: {
-              fontSize: convertRem(0.075)
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: 'rgba(102, 185, 251, 0.24)'
-            }
-          },
-          nameTextStyle: {
-            color: '#9DA4BF',
-            fontSize: convertRem(0.075)
-          },
-          axisTick: {
-            show: false
-          },
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        },
-        yAxis: [
-          {
-            type: 'value',
-            axisLine: {
-              show: false
-            },
-            name: '亿元',
-            axisLabel: {
-              textStyle: {
-                color: '#8FCEEF',
-                fontSize: convertRem(0.07)
-              }
-            },
-            nameTextStyle: {
-              color: '#9DA4BF',
-              fontSize: convertRem(0.075)
-            },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            }
-          }
-        ],
-        series: [
-          {
-            type: 'line',
-            name: '2018',
-            color: '#D7087E',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-
-                colorStops: [{
-                  offset: 0,
-                  color: '#20186E' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#D7087E' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
-          },
-          {
-            type: 'line',
-            name: '2019',
-            color: '#32F0FE',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-                colorStops: [{
-                  offset: 0,
-                  color: '#0F2088' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#32F0FE' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
-          }
-        ]
-      }
-    }
+    return {}
   },
   props: ['delayShow'],
-  methods: {
-    getLine (code) {
-      let newOption1 = deepClone(this.option)
-      request.normalPort({
-        codeArray: [code]
-      }).then(res => {
-        let arr1 = []
-        let arr2 = []
-        let time = []
-        res.data.data.resultList.map((item, index, arry) => {
-          if (item.time.indexOf(2018) >= 0) {
-            arr1.push(item.value)
-          }
-          if (item.time.indexOf(2019) >= 0) {
-            arr2.push(item.value)
-          }
-          time.push(item.time)
-        })
-        newOption1.xAxis.data = [...new Set(time)]
-        newOption1.series[0].data = arr1
-        newOption1.series[1].data = arr2
-        this.option1 = newOption1
-      })
-    }
-  },
+  methods: {},
   mounted () {
-    this.getLine('Xh00005')
-    eventHub.$on('changeTab', (item) => {
-      if (item.chart == 1) {
-        if (item.num == 1) {
-          this.activeTab = 1
-          this.getLine('Xh00005')
-        } else {
-          this.activeTab = 2
-          this.getLine('Xh00006')
-        }
-      }
-    })
   },
   beforeDestroy () {
-    eventHub.$off('changeTab')
   },
   components: {
-    box, chart
+    box
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .BoxOne {
+  .pageTwoBoxOne {
+    .virtual {
+      font: 0.1rem/0.175rem NotoSansHans-Regular;
+      color: #B5BDDB;
+      text-align: left;
 
+      > div {
+        width: 3.36rem;
+        display: flex;
+        margin-top: 0.1rem;
+      }
+
+      > div:not(:last-child) {
+        height: 0.175rem;
+      }
+
+      > div:last-child {
+        height: 0.62rem;
+      }
+
+      [id^=rec] {
+        background-color: rgba(53, 68, 113, 1);
+        padding-left: 0.115rem;
+      }
+
+      #rec1, #rec2, #rec3, #rec4 {
+        height: 0.175rem;
+        width: 1.555rem;
+      }
+
+      #rec1, #rec3 {
+        margin-right: 0.25rem;
+      }
+
+      #rec5 {
+        box-sizing: border-box;
+      }
+    }
   }
 </style>

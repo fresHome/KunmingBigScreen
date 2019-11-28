@@ -1,17 +1,7 @@
 <template>
-  <div class="BoxNine">
-    <box title="产业结构">
-      <chart ref="chart2" :skey="'jjqs2'" :option="option" v-if="delayShow"></chart>
-      <div class="leftSide">
-        <div>{{leftData[0]}}</div>
-        <div>{{leftData[1]}}</div>
-        <div>{{leftData[2]}}</div>
-      </div>
-      <div class="rightSide">
-        <div>{{rightData[0]}}</div>
-        <div>{{rightData[1]}}</div>
-        <div>{{rightData[2]}}</div>
-      </div>
+  <div class="BoxOne">
+    <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
+      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
     </box>
   </div>
 </template>
@@ -23,24 +13,23 @@ import { deepClone, convertRem } from '../../../utils'
 import request from '@/api/request'
 
 export default {
-  name: 'BoxNine',
+  name: 'BoxOne',
   data () {
     return {
-      leftData: [],
-      rightData: [],
-      option: {
-        legend: {
-          bottom: 'bottom',
-          left: 'center',
-          width: convertRem(3.75),
-          itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075),
-          textStyle: {
-            fontSize: convertRem(0.075),
-            color: '#B5BDDB'
-          },
-          data: ['生物医药产业', '新材料及装备制造产业', 'IT及现代服务产业']
+      activeTab: 1,
+      tabContent: [
+        {
+          num: 1,
+          name: '营收',
+          chart: 1
         },
+        {
+          num: 2,
+          name: '税收',
+          chart: 1
+        }
+      ],
+      option: {
         grid: {
           top: convertRem(0.2),
           left: 0,
@@ -48,47 +37,119 @@ export default {
           bottom: 0,
           containLabel: true
         },
-        color: ['#7EF7FF', '#6D91FF', '#D7087E'],
+        legend: {
+          top: 'top',
+          right: 'right',
+          orient: 'horizontal',
+          width: '100%',
+          textStyle: {
+            color: '#AAECFF',
+            fontSize: convertRem(0.075)
+          },
+          icon: 'rect',
+          itemWidth: convertRem(0.075),
+          itemHeight: convertRem(0.075),
+          data: ['2019', '2018']
+        },
+        xAxis: {
+          type: 'category',
+          axisLine: {
+            show: false
+          },
+          name: '月份',
+          axisLabel: {
+            color: '#8FCEEF',
+            interval: 0,
+            textStyle: {
+              fontSize: convertRem(0.075)
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(102, 185, 251, 0.24)'
+            }
+          },
+          nameTextStyle: {
+            color: '#9DA4BF',
+            fontSize: convertRem(0.075)
+          },
+          axisTick: {
+            show: false
+          },
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        yAxis: [
+          {
+            type: 'value',
+            axisLine: {
+              show: false
+            },
+            name: '亿元',
+            axisLabel: {
+              textStyle: {
+                color: '#8FCEEF',
+                fontSize: convertRem(0.07)
+              }
+            },
+            nameTextStyle: {
+              color: '#9DA4BF',
+              fontSize: convertRem(0.075)
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            }
+          }
+        ],
         series: [
           {
-            type: 'pie',
-            center: ['37%', '50%'],
-            radius: [convertRem(0.15), convertRem(0.35)],
-            label: {
-              normal: {
-                show: false
+            type: 'line',
+            name: '2018',
+            color: '#D7087E',
+            smooth: true,
+            lineStyle: {
+              width: convertRem(0.03),
+              shadowColor: 'rgba(201,255,146,0.2)',
+              shadowBlur: convertRem(0.2),
+              color: {
+                type: 'linear',
+
+                colorStops: [{
+                  offset: 0,
+                  color: '#20186E' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#D7087E' // 100% 处的颜色
+                }]
               }
             },
+            showSymbol: false,
             data: []
           },
           {
-            type: 'pie',
-            center: ['37%', '50%'],
-            radius: [convertRem(0.4075), convertRem(0.4125)],
-            data: [100],
-            label: {
-              show: false
-            }
-          },
-          {
-            type: 'pie',
-            center: ['63%', '50%'],
-            radius: [convertRem(0.15), convertRem(0.35)],
-            label: {
-              normal: {
-                show: false
+            type: 'line',
+            name: '2019',
+            color: '#32F0FE',
+            smooth: true,
+            lineStyle: {
+              width: convertRem(0.03),
+              shadowColor: 'rgba(201,255,146,0.2)',
+              shadowBlur: convertRem(0.2),
+              color: {
+                type: 'linear',
+                colorStops: [{
+                  offset: 0,
+                  color: '#0F2088' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#32F0FE' // 100% 处的颜色
+                }]
               }
             },
+            showSymbol: false,
             data: []
-          },
-          {
-            type: 'pie',
-            center: ['63%', '50%'],
-            radius: [convertRem(0.4075), convertRem(0.4125)],
-            data: [100],
-            label: {
-              show: false
-            }
           }
         ]
       }
@@ -96,54 +157,46 @@ export default {
   },
   props: ['delayShow'],
   methods: {
-    changeJJqs (type) {
-      this.activeJJqs = type
-      let newOption = deepClone(this.option)
+    getLine (code) {
+      let newOption1 = deepClone(this.option)
       request.normalPort({
-        codeArray: ['Xh00007', 'Xh00009', 'Xh00011', 'Xh00013', 'Xh00015', 'Xh00017']
+        codeArray: [code]
       }).then(res => {
-        let arr1 = [
-          { name: '生物医药产业', value: 0 },
-          { name: '新材料及装备制造产业', value: 0 },
-          { name: 'IT及现代服务产业', value: 0 }
-        ]
-        let arr2 = [
-          { name: '生物医药产业', value: 0 },
-          { name: '新材料及装备制造产业', value: 0 },
-          { name: 'IT及现代服务产业', value: 0 }
-        ]
-        let data1 = res.data.data.resultList.slice(0, 3)
-        let data2 = res.data.data.resultList.slice(3)
-        let total1 = 0
-        let total2 = 0
-        data1.map((item, index, arry) => {
-          if (item.codeRemark.indexOf(arr1[index].name) >= 0) {
-            arr1[index].value = item.value
-            total1 += Number(item.value)
+        let arr1 = []
+        let arr2 = []
+        let time = []
+        res.data.data.resultList.map((item, index, arry) => {
+          if (item.time.indexOf(2018) >= 0) {
+            arr1.push(item.value)
           }
-        })
-        data1.map(item => {
-          this.leftData.push(item.value + '/' + Math.round(item.value / total1 * 100) + '%')
-        })
-
-        data2.map((item, index, arry) => {
-          if (item.codeRemark.indexOf(arr2[index].name) >= 0) {
-            arr2[index].value = item.value
-            total2 += Number(item.value)
+          if (item.time.indexOf(2019) >= 0) {
+            arr2.push(item.value)
           }
+          time.push(item.time)
         })
-        data2.map(item => {
-          this.rightData.push(item.value + '/' + Math.round(item.value / total2 * 100) + '%')
-        })
-        newOption.series[0].data = arr1
-        newOption.series[2].data = arr2
-
-        this.option = newOption
+        newOption1.xAxis.data = [...new Set(time)]
+        newOption1.series[0].data = arr1
+        newOption1.series[1].data = arr2
+        this.option1 = newOption1
       })
     }
   },
   mounted () {
-    this.changeJJqs()
+    this.getLine('Xm00015')
+    eventHub.$on('changeTab', (item) => {
+      if (item.chart == 1) {
+        if (item.num == 1) {
+          this.activeTab = 1
+          this.getLine('Xm00015')
+        } else {
+          this.activeTab = 2
+          this.getLine('Xm00016')
+        }
+      }
+    })
+  },
+  beforeDestroy () {
+    eventHub.$off('changeTab')
   },
   components: {
     box, chart
@@ -152,35 +205,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .BoxNine {
-    [class$='Side'] {
-      /*background-color: yellow;*/
-      font: 0.1rem bold NotoSansHans-Bold;
-      position: absolute;
+  .BoxOne {
 
-      :first-child {
-        color: #32F0FE;
-        margin-bottom: 0.105rem;
-      }
-
-      :nth-child(2) {
-        color: #D7087E;
-        margin-bottom: 0.105rem;
-      }
-
-      :nth-child(3) {
-        color: #3D6CFC;
-      }
-    }
-
-    .leftSide {
-      left: 0.19rem;
-      top: 0.365rem;
-    }
-
-    .rightSide {
-      right: 0.19rem;
-      top: 0.365rem;
-    }
   }
 </style>
