@@ -1,28 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import home from '../layout/home.vue'
+import first from '../layout/main/first/index.vue'
+import second from '../layout/main/second/index.vue'
+import third from '../layout/main/third/index.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      redirect: '/pageOne'
-    },
-    {
-      path: '/pageOne',
-      name: 'pageOne',
-      component: () => import('@/components/pageOne/home.vue')
-    },
-    {
-      path: '/pageTwo',
-      name: 'pageTwo',
-      component: () => import('@/components/pageTwo/home.vue')
-    },
-    {
-      path: '/pageThree',
-      name: 'pageThree',
-      component: () => import('@/components/pageThree/home.vue')
-    }
-  ]
+	routes: [
+		{
+			path: '/',
+			redirect: '/first',
+			component: home,
+			children: [
+				{
+					path: '/first',
+					name: 'first',
+					component: first
+				},
+				{
+					path: '/second',
+					name: 'second',
+					component: second
+				},
+				{
+					path: '/third',
+					name: 'third',
+					component: third
+				}
+			]
+		},
+	
+	]
 })

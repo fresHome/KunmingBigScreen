@@ -5,12 +5,15 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  components: {}
-}
+  export default {
+    name: 'app',
+    components: {}
+  }
 </script>
 <style>
+  @import "assets/css/index.scss";
+  @import "assets/css/animate.css";
+
   @font-face {
     font-family: digifaw;
     src: url('../public/static/font/digifaw.ttf')
