@@ -6,8 +6,8 @@
         <div class="number">{{item.value}}</div>
       </div>
     </div>
-    <LittleBox v-show="type" :show="type" type="dpq" id="littleBox1"></LittleBox>
-    <LittleBox v-show="!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
+    <LittleBox v-if="show&&type" :show="type" type="dpq" id="littleBox1"></LittleBox>
+    <LittleBox v-if="show&&!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
     <!--    <div id="whilteCircle" :style="{img:'whiteCircle.png'}|imgLoad()"></div>-->
     <!--    底部图案-->
     <div id="bottomBg" :style="{img:'zu9copy.png'}|imgLoad()"></div>
@@ -15,68 +15,72 @@
 </template>
 
 <script>
-import LittleBox from '../LittleBox'
-import request from '@/api/request'
+  import LittleBox from '../LittleBox'
+  import request from '@/api/request'
 
-export default {
-  name: 'index',
-  data () {
-    return {
-      delayShow: 1,
-      option9: {},
-      squareBox: [],
-      type: true,
-      style: {
+  export default {
+    name: 'index',
+    data () {
+      return {
+        show: false,
+        delayShow: 1,
+        option9: {},
+        squareBox: [],
+        type: true,
+        style: {
+          opacity: 0,
+          marginTop: '0.22rem'
+        }
+      }
+    },
+    methods: {
+      getIndexList (type) {
+        request.normalPort({
+          codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
+        }).then(res => {
+          this.squareBox = res.data.data.resultList
+          this.squareBox.map((item, index, arry) => {
+            let arr = []
+            let emptyIndex = 0
+            arr = item.codeRemark.split('')
+
+            arr.map((item, index) => {
+              if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
+                arr[index] = '（'
+                emptyIndex = 1
+              } else if (item.match(/^\s*$/) != null) {
+                arr.splice(index, 1)
+              }
+            })
+            arr.push('）')
+            item.codeRemark = arr.join('')
+          })
+        })
+      }
+    },
+    mounted () {
+      this.style = {
         opacity: 0,
         marginTop: '0.22rem'
       }
+      setTimeout(() => {
+        this.style = {
+          opacity: 1,
+          marginTop: '0.37rem'
+        }
+      }, 0)
+      setTimeout(() => {
+        this.show = true
+        setInterval(() => {
+          this.type = !this.type
+        }, 7000)
+      }, 2000)
+      this.getIndexList()
+    },
+    components: {
+      LittleBox
     }
-  },
-  methods: {
-    getIndexList (type) {
-      request.normalPort({
-        codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
-      }).then(res => {
-        this.squareBox = res.data.data.resultList
-        this.squareBox.map((item, index, arry) => {
-          let arr = []
-          let emptyIndex = 0
-          arr = item.codeRemark.split('')
-
-          arr.map((item, index) => {
-            if (emptyIndex == 0 && item.match(/^\s*$/) != null) {
-              arr[index] = '（'
-              emptyIndex = 1
-            } else if (item.match(/^\s*$/) != null) {
-              arr.splice(index, 1)
-            }
-          })
-          arr.push('）')
-          item.codeRemark = arr.join('')
-        })
-      })
-    }
-  },
-  mounted () {
-    this.style = {
-      opacity: 0,
-      marginTop: '0.22rem'
-    }
-    setTimeout(() => {
-      this.style = {
-        opacity: 1,
-        marginTop: '0.37rem'
-      }
-    }, 0)
-    this.getIndexList()
-    setInterval(() => {
-      this.type = !this.type
-    }, 5000)
-  },
-  components: {
-    LittleBox
   }
-}
 </script>
 
 <style lang="scss" scoped>

@@ -4,6 +4,7 @@
     <BoxTwo :delayShow="delayShow"></BoxTwo>
     <BoxThree :delayShow="delayShow"></BoxThree>
     <BoxFour :delayShow="delayShow"></BoxFour>
+    <box :obj="obj"></box>
   </div>
 </template>
 
@@ -16,7 +17,11 @@
   export default {
     name: 'leftBox',
     data () {
-      return {}
+      return {
+obj:{
+  title:''
+}
+      }
     },
     props: ['delayShow'],
     components: {
