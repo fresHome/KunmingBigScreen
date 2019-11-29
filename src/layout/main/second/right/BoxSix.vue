@@ -20,13 +20,13 @@ export default {
       tabContent: [
         {
           num: 1,
-          name: '营收',
-          chart: 1
+          name: '趋势',
+          chart: 26
         },
         {
           num: 2,
-          name: '税收',
-          chart: 1
+          name: '榜单',
+          chart: 26
         }
       ],
       option: {
@@ -194,7 +194,7 @@ export default {
     this.option.legend.data = []
     this.getLine(['Xm00028', 'Xm00029'])
     window.eventHub.$on('changeTab', (item) => {
-      if (item.chart == 1) {
+      if (item.chart == 26) {
         this.option.legend.data = []
         if (item.num == 1) {
           this.activeTab = 1
