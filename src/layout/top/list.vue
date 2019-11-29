@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import numberUp from '../../../../components/number/numberUp'
+  import numberUp from '../../components/number/numberUp'
   import request from '@/api/request'
 
   export default {
@@ -21,22 +21,22 @@
         squareBox: [
           {
             name: '企业数',
-            value: 43759,
+            value: 0,
             unit: '家'
           },
           {
             name: '本年累计营收',
-            value: 1260.19,
+            value: 0,
             unit: '亿元'
           },
           {
             name: '本年累计税收',
-            value: 165.33,
+            value: 0,
             unit: '亿元'
           },
           {
             name: '人才总数',
-            value: 31.58,
+            value: 0,
             unit: '万人'
           }
         ]
@@ -100,17 +100,19 @@
     .square {
       width: 1.57rem;
       height: 0.62rem;
-      text-align: left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
       .text {
-        margin: 0.15rem 0 0 0.205rem;
         height: 0.1rem;
         font: 0.1rem/0.1rem NotoSansHans-Bold;
         color: #FFFFFFFF;
       }
 
       .number {
-        margin: 0.065rem 0 0 0.21rem;
+        margin-top: 0.05rem;
         font: bold 0.25rem/0.195rem NotoSansHans-Bold;
         height: 0.195rem;
         color: #32F0FE;

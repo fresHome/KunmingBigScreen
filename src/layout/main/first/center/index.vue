@@ -1,6 +1,5 @@
 <template>
   <div class="index">
-    <list></list>
     <animateMap v-show="false" class="map"></animateMap>
     <LittleBox v-if="show&&type" :show="type" type="dpq" id="littleBox1"></LittleBox>
     <LittleBox v-if="show&&!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
@@ -9,37 +8,22 @@
 
 <script>
   import LittleBox from './LittleBox'
-  import list from './list'
   import animateMap from './animateMap'
 
   export default {
     name: 'index',
     components: {
-      LittleBox, list,
+      LittleBox,
       animateMap
     },
     data () {
       return {
         show: false,
         delayShow: 1,
-        type: true,
-        style: {
-          opacity: 0,
-          marginTop: '0.22rem'
-        }
+        type: true
       }
     },
     mounted () {
-      this.style = {
-        opacity: 0,
-        marginTop: '0.22rem'
-      }
-      setTimeout(() => {
-        this.style = {
-          opacity: 1,
-          marginTop: '0.37rem'
-        }
-      }, 0)
       setTimeout(() => {
         this.show = true
         setInterval(() => {
