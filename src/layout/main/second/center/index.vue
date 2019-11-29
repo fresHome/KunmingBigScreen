@@ -2,6 +2,7 @@
   <div class="index">
     <video-build></video-build>
     <bottom-map></bottom-map>
+    <data-box></data-box>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>
 </template>
@@ -9,13 +10,14 @@
 <script>
   import bottomMap from './bottomMap'
   import videoBuild from './videoBuild'
+  import dataBox from './dataBox'
 
   export default {
     name: 'index',
     data () {
       return {}
     },
-    components: { videoBuild, bottomMap },
+    components: { videoBuild, dataBox, bottomMap },
     methods: {},
     mounted () {
     }
@@ -32,6 +34,13 @@
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 1;
+    }
+
+    .dataBox {
+      position: absolute;
+      z-index: 88;
+      right: 0.55rem;
+      top: 1.41rem;
     }
 
     .bottomMap {

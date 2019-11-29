@@ -32,6 +32,7 @@
     top: 0;
     left: 0;
     width: 16.8rem;
+    z-index: 88;
 
     .middle {
       width: 6.25rem;

@@ -75,12 +75,12 @@
       this.getIndexList()
       this.style = {
         opacity: 0,
-        marginTop: '0.22rem'
+        marginTop: '0.1rem'
       }
       setTimeout(() => {
         this.style = {
           opacity: 1,
-          marginTop: '0.37rem'
+          marginTop: '0.17rem'
         }
       }, 0)
     }
