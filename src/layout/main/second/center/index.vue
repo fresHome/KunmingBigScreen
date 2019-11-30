@@ -3,6 +3,7 @@
     <video-build></video-build>
     <bottom-map></bottom-map>
     <data-box></data-box>
+    <position :style="positionArr[0]"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>
 </template>
@@ -11,13 +12,21 @@
   import bottomMap from './bottomMap'
   import videoBuild from './videoBuild'
   import dataBox from './dataBox'
+  import position from './position'
 
   export default {
     name: 'index',
     data () {
-      return {}
+      return {
+        positionArr: [
+          {
+            left: '40%',
+            top: '50%'
+          }
+        ]
+      }
     },
-    components: { videoBuild, dataBox, bottomMap },
+    components: { videoBuild, dataBox, bottomMap, position },
     methods: {},
     mounted () {
     }
@@ -49,6 +58,12 @@
       left: 50%;
       z-index: 1;
       transform: translate(-50%, 0);
+    }
+
+    .position {
+      position: absolute;
+      z-index: 6;
+      transform: translate(-50%, -50%);
     }
 
     .smallMap {
