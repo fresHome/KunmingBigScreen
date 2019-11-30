@@ -17,7 +17,7 @@
     methods: {
       getData () {
         request.normalPort({
-          codeArray: ['Xh00054']
+          codeArray: ['Xm00025']
         }).then(res => {
           console.log(res)
         })

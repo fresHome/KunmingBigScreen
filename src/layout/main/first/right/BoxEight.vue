@@ -1,69 +1,42 @@
 <template>
   <div class="BoxEight">
     <box title="知识产权分布" line-with="short">
-      <div class="group">
-        <subPie class="animated pie fadeInUp"
-                :class="'delay'+index"
-                v-for="(item,index) in data"
-                :skey="'subPie'+index"
-                :key="index"
-                :value="item.value"
-                :percent="item.percent"
-                :stitle="item.title"></subPie>
-      </div>
+      <sort :col="col" :data="sortData"></sort>
     </box>
   </div>
 </template>
 
 <script>
-import box from '../../../../components/box/index'
-import subPie from '../../../../components/charts/self/subPie'
-import request from '@/api/request'
+  import box from '../../../../components/box/index'
+  import request from '@/api/request'
+  import sort from '../../../../components/sort/sort'
 
-export default {
-  name: 'BoxEight',
-  data () {
-    return {
-      data: []
-    }
-  },
-  props: ['delayShow'],
-  components: {
-    box,
-    subPie
-  },
-  methods: {
-    getData () {
-      request.normalPort({
-        codeArray: ['Xh00064', 'Xh00065', 'Xh00066', 'Xh00067', 'Xh00068', 'Xh00069']
-      }).then(res => {
-        let total = 0
-        let arr = []
-        res.data.data.resultList.map(item => {
-          total += Number(item.value)
+  export default {
+    name: 'BoxEight',
+    data () {
+      return {
+        sortData: [],
+        col: []
+      }
+    },
+    components: {
+      box,
+      sort
+    },
+    methods: {
+      getData () {
+        request.normalPort({
+          codeArray: ['Xm00038']
+        }).then(res => {
+          let data = res.data.data.resultList
+          this.sortData = data
         })
-        res.data.data.resultList.map(item => {
-          let arrStr = item.codeRemark.split('')
-          arrStr.forEach((item, index) => {
-            if (item.match(/^\s*$/) != null) {
-              arrStr.splice(index, arrStr.length - index)
-            }
-          })
-
-          arr.push({
-            title: arrStr.join(''),
-            value: Number(item.value),
-            percent: (item.value / total).toFixed(2) * 100
-          })
-        })
-        this.data = arr
-      })
+      }
+    },
+    mounted () {
+      this.getData()
     }
-  },
-  mounted () {
-    this.getData()
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -79,27 +52,27 @@ export default {
         height: 0.65rem;
 
         &.delay0 {
-          animation-delay: 0.2s;//1秒30
+          animation-delay: 0.2s; //1秒30
         }
 
         &.delay1 {
-          animation-delay: 0.4s;//1秒30
+          animation-delay: 0.4s; //1秒30
         }
 
         &.delay2 {
-          animation-delay:0.6s;//1秒30
+          animation-delay: 0.6s; //1秒30
         }
 
         &.delay3 {
-          animation-delay: 0.8s;//1秒30
+          animation-delay: 0.8s; //1秒30
         }
 
         &.delay4 {
-          animation-delay: 1s;//1秒30
+          animation-delay: 1s; //1秒30
         }
 
         &.delay5 {
-          animation-delay: 1.2s;//1秒30
+          animation-delay: 1.2s; //1秒30
         }
       }
     }

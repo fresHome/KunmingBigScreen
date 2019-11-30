@@ -7,8 +7,10 @@
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
       <div class="tab" v-if="tabContent">
-        <div class="tab1" :style="{img:tab1.img,color:tab1.color}|imgLoad()" @click="tabChange(tabContent[0])">{{tabContent[0].name}}</div>
-        <div class="tab2" :style="{img:tab2.img,color:tab2.color}|imgLoad()" @click="tabChange(tabContent[1])">{{tabContent[1].name}}</div>
+        <div class="tab1" :key="index" v-for="(item,index) in tabContent"
+             :style="activeTab==index?tabActive:tabNormal| imgLoad()"
+             @click="tabChange(item,index)">{{item.name}}
+        </div>
       </div>
     </div>
     <div class="content fadeInUp">
@@ -25,11 +27,12 @@
     data () {
       return {
         show: false,
-        tab1: {
+        activeTab: 0,
+        tabActive: {
           img: 'tab1.png',
           color: '#0B163F'
         },
-        tab2: {
+        tabNormal: {
           img: 'tab2.png',
           color: '#B5BDDB'
         }
@@ -37,27 +40,9 @@
     },
     props: ['title', 'lineWith', 'activeContent', 'tabContent'],
     methods: {
-      tabChange (item) {
+      tabChange (item,index) {
+        this.activeTab = index
         window.eventHub.$emit('changeTab', item)
-        if (item.num == 1) {
-          this.tab1 = {
-            img: 'tab1.png',
-            color: '#0B163F'
-          },
-            this.tab2 = {
-              img: 'tab2.png',
-              color: '#B5BDDB'
-            }
-        } else {
-          this.tab2 = {
-            img: 'tab1.png',
-            color: '#0B163F'
-          },
-            this.tab1 = {
-              img: 'tab2.png',
-              color: '#B5BDDB'
-            }
-        }
       }
     },
     mounted () {
