@@ -5,7 +5,7 @@
     <div class="middle">
       <div class="top" :style="{img:'zu9.png'}|imgLoad()">高新区经济运行驾驶舱</div>
     </div>
-    <list v-if="$route.path!='/third'"></list>
+    <list ref="aaa" v-if="$route.path!='/third'"></list>
   </div>
 </template>
 
@@ -18,7 +18,14 @@
       return {}
     },
     components: { list },
-    methods: {}
+    methods: {
+      najedian () {
+        console.log(this.$refs.aaa)
+      }
+    },
+    mounted () {
+      this.najedian()
+    }
   }
 </script>
 
