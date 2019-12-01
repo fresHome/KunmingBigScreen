@@ -1,7 +1,10 @@
 <template>
   <div class="BoxOne">
     <box title="人才趋势" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart26" :skey="'jjqs26'" :option="option"></chart>
+      <chart ref="chart26" :skey="'jjqs26'" :option="option" v-if="activeTab==1"></chart>
+      <div class="container" v-if="activeTab==2">
+        <sort :col="colArr" :sortData="sortData"></sort>
+      </div>
     </box>
   </div>
 </template>
@@ -11,6 +14,7 @@ import box from '../../../../components/box/index'
 import chart from '../../../../components/charts/echarts/chart'
 import { deepClone, convertRem } from '../../../../utils'
 import request from '@/api/request'
+import sort from '../../../../components/sort/sort'
 
 export default {
   name: 'BoxOne',
@@ -152,7 +156,24 @@ export default {
             data: []
           }
         ]
-      }
+      },
+      colArr: [
+        {
+          name: '名称',
+          key: 'y2'
+        },
+        {
+          name: '人数（个）',
+          key: 'y3'
+        }
+      ],
+      sortData: [
+        {
+          y1: "1",
+          y2: "爱德华信息科技有限公司",
+          y3: "4512"
+        }
+      ]
     }
   },
   props: ['delayShow'],
@@ -170,18 +191,23 @@ export default {
             arr1.push(item.value)
             this.option.legend.data.push('人才流入')
             this.option.series[0].name = '人才流入'
+            time.push(item.time)
           }
           if (item.code == 'Xm00029') {
             arr2.push(item.value)
             this.option.legend.data.push('人才流出')
             this.option.series[1].name = '人才流出'
+            time.push(item.time)
           }
           if (item.code == 'Xm00027') {
-            arr1.push(item.value)
-            this.option.legend.data.push('榜单')
-            this.option.series[0].name = '榜单'
+//            arr1.push(item.value)
+//            this.option.legend.data.push('榜单')
+//            this.option.series[0].name = '榜单'
+            if (typeof (item.value) == String) {
+              let list = JSON.parse(item.value)
+              this.sortData = list
+            }
           }
-          time.push(item.time)
         })
         newOption1.xAxis.data = [...new Set(time)]
         newOption1.series[0].data = arr1
@@ -210,7 +236,7 @@ export default {
     window.eventHub.$off('changeTab')
   },
   components: {
-    box, chart
+    box, chart, sort
   }
 }
 </script>

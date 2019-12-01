@@ -31,101 +31,99 @@
         </div>
       </div>
       <div class="container" v-if="activeTab==2">
-
+        <sort :col="colArr" :sortData="sortData"></sort>
       </div>
     </box>
   </div>
 </template>
 
 <script>
-  import box from '../../../../components/box/index'
-  import request from '@/api/request'
+import box from '../../../../components/box/index'
+import request from '@/api/request'
+import sort from '../../../../components/sort/sort'
 
-  export default {
-    name: 'secondBoxSeven',
-    data () {
-      return {
-        pinkArr: [
-          {
-            number: 14,
-            name: '网站'
-          },
-          {
-            number: 14,
-            name: '商标'
-          },
-          {
-            number: 14,
-            name: '发明专利'
-          },
-          {
-            number: 14,
-            name: '著作权'
-          },
-          {
-            number: 14,
-            name: '软件著作权'
-          },
-          {
-            number: 14,
-            name: '证书'
-          },
-        ],
-        barData: [],
-        activeTab: 1,
-        tabContent: [
-          {
-            num: 1,
-            name: '数量及趋势',
-            chart: 7
-          },
-          {
-            num: 2,
-            name: '榜单',
-            chart: 7
-          }
-        ]
-      }
-    },
-    methods: {
-      getData (code) {
-        request.normalPort({
-          codeArray: code
-        }).then(res => {
-          this.pinkArr = []
-          let newBarData = []
-          res.data.data.resultList.map(item => {
-            if (item.code.slice(-2) > 30 && item.code.slice(-2) < 37) {
-              this.pinkArr.push(item)
-            } else if (item.code.slice(-2) == 37) {
-              newBarData.push(item)
-              this.barData = newBarData
-            }
-          })
-        })
-      }
-    },
-    mounted () {
-      this.getData(['Xm00031', 'Xm00032', 'Xm00033', 'Xm00034', 'Xm00035', 'Xm00036', 'Xm00037'])
-      window.eventHub.$on('changeTab', (item) => {
-        if (item.chart == 7) {
-          if (item.num == 1) {
-            this.activeTab = 1
-            this.getData(['Xm00031', 'Xm00032', 'Xm00033', 'Xm00034', 'Xm00035', 'Xm00036', 'Xm00037'])
-          } else {
-            this.activeTab = 2
-            this.getData(['Xm00030'])
-          }
+export default {
+  name: 'secondBoxSeven',
+  data () {
+    return {
+      pinkArr: [],
+      barData: [],
+      activeTab: 1,
+      tabContent: [
+        {
+          num: 1,
+          name: '数量及趋势',
+          chart: 7
+        },
+        {
+          num: 2,
+          name: '榜单',
+          chart: 7
         }
-      })
-    },
-    beforeDestroy () {
-      window.eventHub.$off('changeTab')
-    },
-    components: {
-      box
+      ],
+      colArr: [
+        {
+          name: '知识产权名称',
+          key: 'y2'
+        },
+        {
+          name: '数量（个）',
+          key: 'y3'
+        }
+      ],
+      sortData: [
+        {
+          y1: "1",
+          y2: "爱德华信息科技有限公司",
+          y3: "4512"
+        }
+      ]
     }
+  },
+  methods: {
+    getData (code) {
+      request.normalPort({
+        codeArray: code
+      }).then(res => {
+        this.pinkArr = []
+        let newBarData = []
+        res.data.data.resultList.map(item => {
+          if (item.code.slice(-2) > 30 && item.code.slice(-2) < 37) {
+            this.pinkArr.push(item)
+          } else if (item.code.slice(-2) == 37) {
+            newBarData.push(item)
+            this.barData = newBarData
+          } else if (item.code.slice(-2) == 30) {
+            if (typeof (item.value) == String) {
+              let list = JSON.parse(item.value)
+              this.sortData = list
+            }
+          }
+        })
+      })
+    }
+  },
+  mounted () {
+    this.getData(['Xm00031', 'Xm00032', 'Xm00033', 'Xm00034', 'Xm00035', 'Xm00036', 'Xm00037'])
+    window.eventHub.$on('changeTab', (item) => {
+      if (item.chart == 7) {
+        if (item.num == 1) {
+          this.activeTab = 1
+          this.getData(['Xm00031', 'Xm00032', 'Xm00033', 'Xm00034', 'Xm00035', 'Xm00036', 'Xm00037'])
+        } else {
+          this.activeTab = 2
+          this.getData(['Xm00030'])
+        }
+      }
+    })
+  },
+  beforeDestroy () {
+    window.eventHub.$off('changeTab')
+  },
+  components: {
+    box, sort
   }
+}
 </script>
 
 <style lang="scss" scoped>

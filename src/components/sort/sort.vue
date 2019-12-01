@@ -24,14 +24,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'sort',
-    data () {
-      return {}
-    },
-    props: ['col', 'sortData'],
-    methods: {}
-  }
+export default {
+  name: 'sort',
+  data () {
+    return {}
+  },
+  props: ['col', 'sortData'],
+  methods: {}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -53,19 +53,25 @@
         border-bottom: 0.005rem solid #1C2859;
 
         &:first-child {
-           width: 0.12rem;
-           min-width: 0.12rem;
-
-           i {
-             display: inline-block;
-             width: 0.11rem;
-             height: 0.115rem;
-             float: left;
-           }
-         }
-        &:nth-child(2){
           width: 0.12rem;
           min-width: 0.12rem;
+
+          i {
+            display: inline-block;
+            width: 0.11rem;
+            height: 0.115rem;
+            float: left;
+          }
+        }
+
+        &:nth-child(2) {
+          width: 0.12rem;
+          min-width: 0.12rem;
+        }
+
+        &:nth-child(3), &:nth-child(4) {
+          width: 1.5rem;
+          text-align: center;
         }
       }
     }
