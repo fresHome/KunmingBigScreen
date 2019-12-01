@@ -3,7 +3,7 @@
     <box title="知识产权" :active-tab="activeTab" :tab-content="tabContent">
       <div class="container" v-if="activeTab==1">
         <div class="left">
-          <div class="pinkDiv" v-for="item in pinkArr" :key="item.id">
+          <div class="pinkDiv" v-for="(item) in pinkArr" :key="item.id">
             <div>{{item.value}}</div>
             <div class="name">{{item.codeRemark.slice(0,item.codeRemark.indexOf('/t'))}}</div>
             <div class="circle4">
@@ -149,6 +149,7 @@ export default {
           flex-direction: column;
           margin-right: 0.1rem;
           position: relative;
+          opacity: 0;
 
           > div:first-child {
             font: 0.1rem bold NotoSansHans-Bold;
@@ -189,11 +190,37 @@ export default {
         .pinkDiv:nth-child(3n) {
           margin-right: 0;
         }
+
+        .pinkDiv:nth-child(1) {
+          animation: opacityChange 0.2s 0.2s forwards;
+        }
+
+        .pinkDiv:nth-child(2) {
+          animation: opacityChange 0.2s 0.4s forwards;
+        }
+
+        .pinkDiv:nth-child(3) {
+          animation: opacityChange 0.2s 0.6s forwards;
+        }
+
+        .pinkDiv:nth-child(4) {
+          animation: opacityChange 0.2s 0.8s forwards;
+        }
+
+        .pinkDiv:nth-child(5) {
+          animation: opacityChange 0.2s 1s forwards;
+        }
+
+        .pinkDiv:nth-child(6) {
+          animation: opacityChange 0.2s 1.2s forwards;
+        }
       }
 
       .right {
         margin-top: 0.1rem;
         width: 1.26rem;
+        opacity: 0;
+        animation: goUp 1s 0.2s forwards;
 
         > div:first-child {
           font: 0.1rem NotoSansHans-Regular;
@@ -234,6 +261,26 @@ export default {
             }
           }
         }
+
+        @keyframes goUp {
+          from {
+            margin-top: 2.1rem;
+            opacity: 0;
+          }
+          to {
+            margin-top: 0.1rem;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @keyframes opacityChange {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
       }
     }
   }
