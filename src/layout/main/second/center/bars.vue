@@ -6,16 +6,22 @@
     <div :style="'height:'+value2+'%'" class="bar green">
       <span></span>
     </div>
+    <positionSmall v-if="show"></positionSmall>
   </div>
 </template>
 
 <script>
+  import positionSmall from './positionSmall'
+
   export default {
     name: 'bars',
     data () {
       return {}
     },
-    props: ['value1', 'value2'],
+    props: ['value1', 'value2', 'show'],
+    components: {
+      positionSmall
+    },
     methods: {}
   }
 </script>
@@ -26,6 +32,7 @@
     justify-content: flex-start;
     align-items: flex-end;
     height: 1rem;
+    position: relative;
 
     .bar {
       width: 0.1rem;
@@ -57,5 +64,10 @@
       }
     }
 
+    .positionSmall {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
   }
 </style>
