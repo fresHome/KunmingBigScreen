@@ -1,6 +1,6 @@
 <template>
   <div class="BoxFive">
-    <box title="发展成果" line-with="short" :tab-content="tabContent">
+    <box title="发展成果" :tab-content="tabContent">
       <pop-table :tableCol="col[activeTab]" :tableData="tableData"></pop-table>
     </box>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="BoxFine">
-    <box title="发展成果" line-with="short">
+    <box title="发展成果">
       <!--      <chart ref="chart5" :skey="'jjqs5'" :option="option" v-if="delayShow"></chart>-->
       <div :style="{img:'blueBox2.png',left:item.left,top:item.top} | imgLoad()" class="blueBox" v-for="item in boxData" :key="item.id">
         <div class="name">上市公司</div>

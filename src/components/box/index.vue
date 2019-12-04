@@ -6,10 +6,14 @@
       <div class="text">{{ title }}</div>
       <div class="line" :style="{img:'zu57.png'}|imgLoad()" v-if="lineWith!='short'"></div>
       <div class="line shortLine" :style="{img:'zu57.png'}|imgLoad()" v-else></div>
+      <!--      tab选项-->
       <div class="tab" v-if="tabContent">
-        <div class="tab1" :key="index" v-for="(item,index) in tabContent"
+        <div :class="item.name.length>4?'tab1 longTab':'tab1'"
+             :key="index"
+             v-for="(item,index) in tabContent"
              :style="activeTab==index?tabActive:tabNormal| imgLoad()"
-             @click="tabChange(item,index)">{{item.name}}
+             @click="tabChange(item,index)">
+          {{item.name}}
         </div>
       </div>
     </div>
@@ -22,35 +26,35 @@
 </template>
 
 <script>
-  export default {
-    name: 'index',
-    data () {
-      return {
-        show: false,
-        activeTab: 0,
-        tabActive: {
-          img: 'tab1.png',
-          color: '#0B163F'
-        },
-        tabNormal: {
-          img: 'tab2.png',
-          color: '#B5BDDB'
-        }
+export default {
+  name: 'index',
+  data () {
+    return {
+      show: false,
+      activeTab: 0,
+      tabActive: {
+        img: 'tab1.png',
+        color: '#0B163F'
+      },
+      tabNormal: {
+        img: 'tab2.png',
+        color: '#B5BDDB'
       }
-    },
-    props: ['title', 'lineWith', 'activeContent', 'tabContent'],
-    methods: {
-      tabChange (item,index) {
-        this.activeTab = index
-        window.eventHub.$emit('changeTab', item)
-      }
-    },
-    mounted () {
-      setTimeout(() => {
-        this.show = true
-      }, 4000)
     }
+  },
+  props: ['title', 'lineWith', 'activeContent', 'tabContent'],
+  methods: {
+    tabChange (item, index) {
+      this.activeTab = index
+      window.eventHub.$emit('changeTab', item)
+    }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.show = true
+    }, 4000)
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -179,13 +183,19 @@
         position: absolute;
         right: 0.12rem;
         top: 0.11rem;
+        padding-left: 0.08rem;
+        background-image: url('../../../public/static/image/xingzhuang770.png');
+        background-position: top left;
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
 
         .tab1 {
           width: 0.425rem;
           height: 0.125rem;
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #0B163F;*/
-          margin-right: 0.02rem;
+          /*margin-right: 0.02rem;*/
           text-align: center;
         }
 
@@ -195,6 +205,10 @@
           font: 0.075rem/0.125rem NotoSansHans-Regular;
           /*color: #B5BDDB;*/
           text-align: center;
+        }
+
+        .longTab {
+          width: 0.515rem;
         }
       }
     }
