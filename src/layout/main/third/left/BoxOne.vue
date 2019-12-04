@@ -1,16 +1,31 @@
 <template>
   <div class="pageTwoBoxOne">
-    <box title="基本信息">
+    <box title="企业介绍">
       <div class="virtual">
         <div>
-          <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">成立时间</div>
-          <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">区域面积</div>
+          <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00008')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00008')[0].value:'' }}
+          </div>
+          <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00009')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00009')[0].value:'' }}
+          </div>
         </div>
         <div>
-          <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">工业用地面积</div>
-          <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">商业用地面积</div>
+          <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00010')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00010')[0].value:'' }}
+          </div>
+          <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00011')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00011')[0].value:'' }}
+          </div>
         </div>
-        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">片区简介</div>
+        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">
+          {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00012')[0].codeRemark:'' }}
+          {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00012')[0].value:'' }}
+        </div>
       </div>
 
     </box>
@@ -24,22 +39,25 @@ import request from '@/api/request'
 export default {
   name: 'BoxOne',
   data () {
-    return {}
+    return {
+      data: {}
+    }
   },
   components: {
     box
   },
   methods: {
-    getData () {
+    getData (code) {
       request.normalPort({
-        codeArray: ['Xh00054']
+        codeArray: code
       }).then(res => {
-        console.log(res)
+        this.data = res.data.data.resultList;
+        console.log(111, this.data);
       })
     }
   },
   mounted () {
-    this.getData()
+    this.getData(['Xs00008', 'Xs00009', 'Xs00010', 'Xs00011', 'Xs00012'])
   }
 }
 </script>
