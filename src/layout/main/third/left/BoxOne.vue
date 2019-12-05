@@ -4,27 +4,27 @@
       <div class="virtual">
         <div>
           <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00008')[0].codeRemark:'' }}
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00008')[0].value:'' }}
+            {{ data.filter(item=>item.code=='Xs00008').length>0?data.filter(item=>item.code=='Xs00008')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00008').length>0?data.filter(item=>item.code=='Xs00008')[0].value:'' }}
           </div>
           <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00009')[0].codeRemark:'' }}
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00009')[0].value:'' }}
+            {{ data.filter(item=>item.code=='Xs00009').length>0?data.filter(item=>item.code=='Xs00009')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00009').length>0?data.filter(item=>item.code=='Xs00009')[0].value:'' }}
           </div>
         </div>
         <div>
           <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00010')[0].codeRemark:'' }}
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00010')[0].value:'' }}
+            {{ data.filter(item=>item.code=='Xs00010').length>0?data.filter(item=>item.code=='Xs00010')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00010').length>0?data.filter(item=>item.code=='Xs00010')[0].value:'' }}
           </div>
           <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00011')[0].codeRemark:'' }}
-            {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00011')[0].value:'' }}
+            {{ data.filter(item=>item.code=='Xs00011').length>0?data.filter(item=>item.code=='Xs00011')[0].codeRemark:'' }}
+            {{ data.filter(item=>item.code=='Xs00011').length>0?data.filter(item=>item.code=='Xs00011')[0].value:'' }}
           </div>
         </div>
         <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">
-          {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00012')[0].codeRemark:'' }}
-          {{ data.filter(item=>item.code=='Xs00008')?data.filter(item=>item.code=='Xs00012')[0].value:'' }}
+          {{ data.filter(item=>item.code=='Xs00012').length>0?data.filter(item=>item.code=='Xs00012')[0].codeRemark:'' }}
+          {{ data.filter(item=>item.code=='Xs00012').length>0?data.filter(item=>item.code=='Xs00012')[0].value:'' }}
         </div>
       </div>
 
@@ -40,7 +40,7 @@ export default {
   name: 'BoxOne',
   data () {
     return {
-      data: {}
+      data: []
     }
   },
   components: {
@@ -52,7 +52,6 @@ export default {
         codeArray: code
       }).then(res => {
         this.data = res.data.data.resultList;
-        console.log(111, this.data);
       })
     }
   },
