@@ -8,12 +8,6 @@
     <div class="bottom">
       <p class="line" :style="{img:'bottom-line2.png'}|imgLoad()"></p>
       <pieLevel3 v-for="item in items" :key="item.name" :name="item.name" :value="item.value"></pieLevel3>
-      <label>
-        <input @change="checkAll" v-model="allcheckBox" type="checkbox">全选
-      </label>
-      <label :key="index" v-for="(item,index) in allarr">
-        <input @change="calcAll" v-model="arr" :value="item" type="checkbox">{{ item }}
-      </label>
     </div>
   </div>
 </template>
@@ -56,35 +50,14 @@
             value: 0,
           },
         ],
-        allarr: [],
-        arr: [],
-        allcheckBox: false
       }
     },
     methods: {
-      calcAll () {
-        this.allcheckBox = this.arr.length == this.allarr.length
-      },
-      checkAll () {
-        if (this.allcheckBox) {
-          this.arr = this.allarr
-        } else {
-          this.arr = []
-        }
-      },
       loadData () {
-        setTimeout(() => {
-          this.allarr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        }, 10000)
-      }
-    },
-    watch: {
-      arr () {
-        console.log(this.arr)
+
       }
     },
     mounted () {
-      this.loadData()
     }
   }
 </script>
