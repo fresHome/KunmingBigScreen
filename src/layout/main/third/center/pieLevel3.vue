@@ -3,14 +3,21 @@
     <div class="bg2" :style="{img:'pie-level3-bg2.png'}|imgLoad()"></div>
     <div class="bg3" :style="{img:'pie-level3-bg3.png'}|imgLoad()"></div>
     <p class="name">{{ name }}</p>
-    <span class="number">{{ value }}</span>
+    <span class="number">
+         <numberUp :endVal="value"></numberUp>
+    </span>
 
   </div>
 </template>
 
 <script>
+  import numberUp from '../../../../components/number/numberUp'
+
   export default {
     name: 'pieLevel3',
+    components: {
+      numberUp
+    },
     data () {
       return {}
     },

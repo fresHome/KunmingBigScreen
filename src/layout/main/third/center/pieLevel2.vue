@@ -1,15 +1,22 @@
 <template>
   <div class="pieLevel2" :style="{img:'pie-level2-bg.png'}|imgLoad()">
     <p class="name transText">{{ name }}</p>
-    <span class="number transText">{{ value }}</span>
+    <span class="number">
+         <numberUp class="transText" :endVal="value"></numberUp>
+    </span>
     <i class="dot" :style="{img:'dot.png'}|imgLoad()"></i>
     <b class="step" :class="'animated'+index" :style="item |imgLoad()" v-for="(item,index) in stepArr" :key="index"></b>
   </div>
 </template>
 
 <script>
+  import numberUp from '../../../../components/number/numberUp'
+
   export default {
     name: 'pieLevel2',
+    components: {
+      numberUp
+    },
     data () {
       return {
         stepArr: [

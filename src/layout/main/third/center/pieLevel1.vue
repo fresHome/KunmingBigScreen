@@ -1,13 +1,21 @@
 <template>
   <div class="pieLevel1" :style="{img:'pie-level1-bg.png'}|imgLoad()">
     <p class="name transText">{{ name }}</p>
-    <span class="number transText">{{ value }}</span>
+    <span class="number transText">
+         <numberUp class="transText" :endVal="value"></numberUp>
+    </span>
+    <p class="type">综合得分</p>
   </div>
 </template>
 
 <script>
+  import numberUp from '../../../../components/number/numberUp'
+
   export default {
     name: 'pie-level1',
+    components: {
+      numberUp
+    },
     data () {
       return {}
     },
@@ -39,6 +47,15 @@
       font-family: NotoSansHans-Bold;
       text-align: center;
       font-size: 0.681rem;
+    }
+
+    .type {
+      color: #FF5B9B;
+      font-size: 0.2431rem;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top:2.405rem;
     }
   }
 </style>

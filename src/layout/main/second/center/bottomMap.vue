@@ -14,6 +14,7 @@
 
 <script>
   import bars from './bars'
+  import request from '../../../../api/request'
 
   export default {
     name: 'bottomMap',
@@ -143,7 +144,12 @@
         this.$emit('changeItem', item)
       },
       getData () {
-
+        request.buildPort({
+          areaName: '西片区'
+        }).then(res => {
+          let data = res.data.data.resultList
+          console.log(data)
+        })
       }
     },
     mounted () {

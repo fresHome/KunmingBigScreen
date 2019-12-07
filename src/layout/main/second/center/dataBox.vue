@@ -35,8 +35,6 @@
 </template>
 
 <script>
-  import request from '@/api/request'
-
   export default {
     name: 'dataBox',
     data () {
@@ -49,15 +47,7 @@
     },
     methods: {
       getData () {
-        request.normalPort({
-          codeArray: ['Xm00001', 'Xm00002', 'Xm00003', 'Xm00004']
-        }).then(res => {
-          let data = res.data.data.resultList
-          this.ysze = data[0].value
-          this.ssze = data[1].value
-          this.qysl = data[2].value
-          this.bgmj = data[3].value
-        })
+
       }
     },
     mounted () {
