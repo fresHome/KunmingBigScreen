@@ -1,148 +1,36 @@
 <template>
-  <div class="BoxFive">
-    <box title="发展成果" line-with="short" :tab-content="tabContent">
-      <pop-table :tableCol="col[activeTab]" :tableData="tableData"></pop-table>
+  <div class="thirdBoxFive">
+    <box title="人才趋势">
+      <chart ref="chart35" :skey="'jjqs35'" :option="option"></chart>
     </box>
   </div>
 </template>
 
 <script>
-  import box from '../../../../components/box/index'
-  import popTable from '../../../../components/popTable/popTable'
-  import request from '@/api/request'
+import box from '../../../../components/box/index'
+import chart from '../../../../components/charts/echarts/chart'
+import {twoLinePeople} from "../../../../mixins";
 
-  export default {
-    name: 'BoxFive',
-    data () {
-      return {
-        activeTab: 0,
-        tabContent: [
-          {
-            num: 0,
-            name: '按营收规模',
-            chart: 5
-          },
-          {
-            num: 1,
-            name: '按行业',
-            chart: 5
-          }
-        ],
-        col: [
-          [
-            {
-              name: '',
-              key: 'name'
-            },
-            {
-              name: '50人以下',
-              key: '50人以下'
-            },
-            {
-              name: '50-99人',
-              key: '50-99人'
-            },
-            {
-              name: '100-499人',
-              key: '100-499人'
-            },
-            {
-              name: '500-999人',
-              key: '500-999人'
-            },
-            {
-              name: '1千-5千人',
-              key: '1千-5千人'
-            },
-            {
-              name: '5千-1万人',
-              key: '5千-1万人'
-            },
-            {
-              name: '1万人以上',
-              key: '1万人以上'
-            }
-          ],
-          []
-        ],
-        tableData: [
-          {
-            name: '1000万+',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          },
-          {
-            name: '500万-1000万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          },
-          {
-            name: '100万-500万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          },
-          {
-            name: '0-100万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          }
-        ]
-      }
-    },
-    components: {
-      box,
-      popTable
-    },
-    methods: {
-      getData (code) {
-        request.normalPort({
-          codeArray: code
-        }).then(res => {
-          console.log(res)
-        })
-      }
-    },
-    mounted () {
-      this.getData()
-      window.eventHub.$on('changeTab', (item) => {
-        if (item.chart == 5) {
-          this.activeTab = item.num
-          if (item.num == 0) {
-            this.getData(['Xm00025'])
-          } else {
-            this.getData(['Xm00026'])
-          }
-        }
-      })
-    },
-    beforeDestroy () {
-      window.eventHub.$off('changeTab')
-    }
+export default {
+  name: 'thirdBoxFive',
+  data () {
+    return {}
+  },
+  mixins:[twoLinePeople],
+//  props: ['delayShow'],
+  methods: {
+  },
+  mounted () {
+    this.getLine(['Xs00030','Xs00031'])
+  },
+  components: {
+    box, chart
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .BoxFive {
+  .thirdBoxFive {
 
   }
 </style>

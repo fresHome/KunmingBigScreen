@@ -8,7 +8,6 @@ export function imgLoad (target) {
         target.backgroundSize = `100% 100%`
       }
     })
-    console.log(target)
     return target
   } else {
     return {}
