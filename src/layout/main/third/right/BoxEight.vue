@@ -1,5 +1,5 @@
 <template>
-  <div class="thirdBoxFive">
+  <div class="thirdBoxEight">
     <box title="行政处罚信息" line-with="short">
       <div v-for="item in list" :key="item.id" class="line">
         <div class="left">
@@ -17,7 +17,7 @@
   import request from '@/api/request'
 
   export default {
-    name: 'thirdBoxFive',
+    name: 'thirdBoxEight',
     data () {
       return {
         list:[]
@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss">
-  .thirdBoxFive {
+  .thirdBoxEight {
     .content {
       flex-wrap:wrap;
       flex-direction:column;
