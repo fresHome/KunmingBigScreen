@@ -1,7 +1,36 @@
 <template>
-  <div class="BoxFive">
-    <box title="企业发展趋势" line-with="short">
-      <chart ref="chart24" :skey="'jjqs24'" :option="option"></chart>
+  <div class="thirdBoxFour">
+    <box title="知识产权">
+      <div class="container">
+        <div class="left">
+          <div class="pinkDiv" v-for="(item) in pinkArr" :key="item.id">
+            <div>{{item.value}}</div>
+            <div class="name">{{item.codeRemark.slice(0,item.codeRemark.indexOf('/t'))}}</div>
+            <div class="circle4">
+              <div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+              </div>
+              <div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div>知识产权总量</div>
+          <div>
+            <div class="barDiv" v-for="item in barData" :key="item.id">
+<!--              <div class="barDiv" v-for="item in barData" :key="item.id" :style="{marginTop:(3000-item.value)/3000*0.7+'rem'}">-->
+              <div class="text">{{ item.value }}</div>
+              <div class="littleBlue"></div>
+              <div :style="{height:(item.value/Math.max.apply(null, barData.map(o=> {return o.value})))*0.7+'rem'}" class="bar"></div>
+              <div class="text2">{{ item.time.slice(0,4) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </box>
   </div>
 </template>
@@ -9,125 +38,13 @@
 <script>
 import box from '../../../../components/box/index'
 import request from '@/api/request'
-import chart from '../../../../components/charts/echarts/chart'
-import { convertRem } from '../../../../utils'
 
 export default {
-  name: 'BoxFive',
+  name: 'thirdBoxFour',
   data () {
     return {
-      option: {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        legend: {
-          data: ['月累计', '月新增'],
-          textStyle: {
-            color: 'rgba(55,255,249,1)'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [{
-          type: 'category',
-          data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: 'rgba(55,255,249,1)',
-            }
-          },
-          axisLabel: {
-            color: 'rgba(55,255,249,1)'
-          }
-        }],
-        yAxis: [{
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: 'rgba(55,255,249,1)',
-            }
-          }
-        }],
-        series: [{
-          name: '月累计',
-          type: 'bar',
-          barWidth: convertRem(0.085),
-          itemStyle: {
-            //   barBorderRadius: 20,
-            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: "rgba(136, 82, 222, 1)"
-            },
-              {
-                offset: 1,
-                color: "rgba(137, 80, 223, 0)"
-              }
-            ])
-          },
-          data: [9, 10, 15, 23, 25, 34, 43, 50, 53, 67, 77, 87]
-        },
-          {
-            name: '月新增',
-            type: 'bar',
-            barWidth: convertRem(0.085),
-            barGap: '-100%',
-            // stack: '广告',
-            itemStyle: {
-              //   barBorderRadius: 20,
-              color: 'transparent'
-            },
-            data: [2, 2, 2, 12, 20, 21, 10, 15, 26, 25, 24, 27],
-            label: {
-              normal: {
-                show: true,
-//                lineHeight: 30,
-                width: convertRem(0.07),
-                height: convertRem(0.01),
-                // backgroundColor: 'rgba(50, 240, 254, 1)',
-//                borderRadius: 200,
-                position: [-convertRem(0.14), -convertRem(0.1)],
-//                position: [0, 0],
-                distance: 1,
-                formatter: [
-                  // '    {d|}',
-                  ' {a|{c}}\n',
-                  '    {b|}'
-                ].join(''),
-                // formatter:[{b}],
-                rich: {
-                  d: {
-                    color: '#3CDDCF',
-                  },
-                  a: {
-                    color: '#32F0FE',
-                    align: 'left',
-                  },
-                  b: {
-                    width: convertRem(0.1),
-                    height: convertRem(0.01),
-                    borderWidth: convertRem(0.01),
-                    borderColor: '#32F0FE',
-                    align: 'left'
-                  },
-                }
-              }
-            }
-          }
-        ]
-      }
+      pinkArr: [],
+      barData: [],
     }
   },
   methods: {
@@ -135,31 +52,187 @@ export default {
       request.normalPort({
         codeArray: code
       }).then(res => {
-        let newData1 = [];
-        let newData2 = [];
-        res.data.data.resultList.map((item) => {
-          if (item.code == 'Xm00023') {
-            newData1.push(item.value)
-          } else if (item.code == 'Xm00024') {
-            newData2.push(item.value)
+        this.pinkArr = []
+        let newBarData = []
+        res.data.data.resultList.map(item => {
+          if (item.code.slice(-2) > 22 && item.code.slice(-2) < 29) {
+            this.pinkArr.push(item)
+          } else if (item.code.slice(-2) == 29) {
+            newBarData.push(item)
+            this.barData = newBarData
           }
-          this.option.series[0].data = newData1;
-          this.option.series[1].data = newData2;
         })
       })
     }
   },
   mounted () {
-    this.getData(['Xm00023', 'Xm00024'])
+    this.getData(['Xs00023', 'Xs00024', 'Xs00025', 'Xs00026', 'Xs00027', 'Xs00028','Xs00029'])
+  },
+  beforeDestroy () {
+    window.eventHub.$off('changeTab')
   },
   components: {
-    box, chart
+    box
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .BoxFive {
+  .thirdBoxFour {
+    .container {
+      display: flex;
+      justify-content: flex-start;
 
+      .left {
+        width: 2rem;
+        margin-top: 0.1rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        .pinkDiv {
+          width: 0.515rem;
+          height: 0.515rem;
+          border: 0.005rem dashed #D7087E;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          flex-direction: column;
+          margin-right: 0.1rem;
+          position: relative;
+          opacity: 0;
+
+          > div:first-child {
+            font: 0.1rem bold NotoSansHans-Bold;
+            color: #ECEFF5;
+            margin-bottom: 0.1rem;
+          }
+
+          > .name {
+            font: 0.1rem bold NotoSansHans-Bold;
+            color: #32F0FE;
+          }
+
+          .circle4 {
+            position: absolute;
+            top: 0.035rem;
+            left: 0.035rem;
+            width: 0.445rem;
+            height: 0.44rem;
+            flex-wrap: wrap;
+            align-content: space-between;
+
+            > div {
+              flex-basis: 100%;
+              display: flex;
+              justify-content: space-between;
+
+              > .circle {
+                background-color: #D7087E;
+                width: 0.002rem;
+                height: 0.002rem;
+                border-radius: 0.001rem;
+              }
+            }
+
+          }
+        }
+
+        .pinkDiv:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        .pinkDiv:nth-child(1) {
+          animation: opacityChange 0.2s 0.2s forwards;
+        }
+
+        .pinkDiv:nth-child(2) {
+          animation: opacityChange 0.2s 0.4s forwards;
+        }
+
+        .pinkDiv:nth-child(3) {
+          animation: opacityChange 0.2s 0.6s forwards;
+        }
+
+        .pinkDiv:nth-child(4) {
+          animation: opacityChange 0.2s 0.8s forwards;
+        }
+
+        .pinkDiv:nth-child(5) {
+          animation: opacityChange 0.2s 1s forwards;
+        }
+
+        .pinkDiv:nth-child(6) {
+          animation: opacityChange 0.2s 1.2s forwards;
+        }
+      }
+
+      .right {
+        margin-top: 0.1rem;
+        width: 1.26rem;
+        opacity: 0;
+        animation: goUp 1s 0.2s forwards;
+
+        > div:first-child {
+          font: 0.1rem NotoSansHans-Regular;
+          color: #33C9AC;
+        }
+
+        > div:last-child {
+          display: flex;
+          flex-direction: row;
+
+          .barDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .text {
+              font: 0.1rem bold NotoSansHans-Bold;
+              color: #fff;
+            }
+
+            .littleBlue {
+              width: 0.1305rem;
+              height: 0.015rem;
+              margin-bottom: 0.02rem;
+              background-color: #32F0FE;
+            }
+
+            .text2 {
+              font-size: 0.075rem;
+              color: #A5ADCB;
+              margin-top: 0.06rem;
+            }
+
+            .bar {
+              width: 0.1305rem;
+              background-image: linear-gradient(#32F0FE, #003DF9);
+            }
+          }
+        }
+
+        @keyframes goUp {
+          from {
+            margin-top: 2.1rem;
+            opacity: 0;
+          }
+          to {
+            margin-top: 0.1rem;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @keyframes opacityChange {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   }
 </style>
