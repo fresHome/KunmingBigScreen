@@ -8,7 +8,7 @@
           :value="item.val1"
           :value2="item.val2">
     </bars>
-    <div class="bg" :style="{img:'bottom-map-dpq.png'} | imgLoad()"></div>
+    <div class="bg" :class="type" :style="{img:'bottom-map-'+type+'.png'} | imgLoad()"></div>
   </div>
 </template>
 
@@ -132,6 +132,7 @@
         ]
       }
     },
+    props: ['type'],
     components: {
       bars
     },
@@ -160,7 +161,7 @@
 
 <style lang="scss" scoped>
   .bottomMap {
-    width: 8.33rem;
+    width: 8.695rem;
     margin: 0 auto;
     height: 2.5rem;
     position: relative;
@@ -174,6 +175,35 @@
       height: 1.89rem;
       position: absolute;
       bottom: 0;
+
+      &.xpq {
+        width: 8.695rem;
+        height: 2.165rem;
+        position: relative;
+        margin-top: 0.15rem;
+
+        &:before {
+          content: '';
+          width: 100%;
+          height: 1rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 6;
+          background-image: linear-gradient(to bottom, #050527 0%, #050527 20%, rgba(0, 0, 0, 0) 80%);
+        }
+
+        &:after {
+          content: '';
+          width: 100%;
+          height: 1rem;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          z-index: 6;
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, #050527 80%, #050527 100%);
+        }
+      }
     }
   }
 </style>

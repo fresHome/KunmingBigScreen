@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <video-build></video-build>
-    <bottom-map></bottom-map>
+    <bottom-map type="xpq"></bottom-map>
     <data-box></data-box>
     <position :style="positionArr[0]"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
@@ -56,7 +56,7 @@
       position: absolute;
       bottom: 0.7rem;
       left: 50%;
-      z-index: 999999;
+      z-index: 999;
       transform: translate(-50%, 0);
     }
 
@@ -72,7 +72,7 @@
       height: 1.17rem;
       left: 0.38rem;
       bottom: 0.37rem;
-      z-index: 2;
+      z-index: 1888;
     }
   }
 </style>

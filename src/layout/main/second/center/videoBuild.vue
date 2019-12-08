@@ -24,6 +24,17 @@
     height: 5.4rem;
     position: relative;
 
+    &:before {
+      content: '';
+      width: 100%;
+      height: 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 6;
+      background-image: linear-gradient(to bottom, #050527, rgba(0, 0, 0, 0));
+    }
+
     .bg {
       position: absolute;
       width: 9.6rem;
