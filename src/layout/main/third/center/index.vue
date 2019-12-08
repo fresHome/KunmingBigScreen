@@ -23,6 +23,7 @@
   import labelList from './labelList'
   import sChart from '../../../../components/charts/echarts/chart'
   import { deepClone, convertRem } from '../../../../utils'
+  import sanjiao from '../../../../../public/static/image/sanjiao-small.png'
 
   export default {
     name: 'index',
@@ -133,12 +134,31 @@
               label: {
                 normal: {
                   show: true,
-                  position: 'top',
+                  lineHeight: convertRem(0.075),
+                  position: [-convertRem(0.075), -convertRem(0.11)],
                   textStyle: {
                     color: '#ffffff',
                     fontSize: convertRem(0.1)
                   },
-                  formatter: '{c}%'
+                  formatter: [
+                    '\t\t{a|{c}%}\n',
+                    '{b|}',
+                  ].join(''),
+                  rich: {
+                    a: {
+                      color: '#fff',
+                      textAlign: 'center',
+                      fontSize: convertRem(0.1)
+                    },
+                    b: {
+                      width: convertRem(0.055),
+                      height: convertRem(0.065),
+                      position: 'relative',
+                      backgroundColor: {
+                        image: sanjiao
+                      }
+                    }
+                  }
                 }
               },
               barWidth: '20%',//宽度
@@ -152,7 +172,7 @@
                       offset: 1,
                       color: '#001942'
                     }
-                  ])
+                  ]),
                 }
               },
             },
