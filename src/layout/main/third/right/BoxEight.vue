@@ -1,9 +1,13 @@
 <template>
-  <div class="BoxFive">
-    <box title="明星企业榜单" line-with="short" :tab-content="tabContent">
-      <sort :col="colArr[activeTab]" v-if="activeTab==0" :sortData="sortData"></sort>
-      <sort :col="colArr[activeTab]" v-if="activeTab==1" :sortData="sortData"></sort>
-      <sort :col="colArr[activeTab]" v-if="activeTab==2" :sortData="sortData"></sort>
+  <div class="thirdBoxFive">
+    <box title="行政处罚信息" line-with="short">
+      <div v-for="item in list" :key="item.id" class="line">
+        <div class="left">
+          <div class="img" :style="{img:item.y1==1?'sound.png':'redWarning.png'} | imgLoad()"></div>
+          <div class="text">{{ item.y2 }}</div>
+        </div>
+        <div class="time">{{ item.y3 }}</div>
+      </div>
     </box>
   </div>
 </template>
@@ -11,99 +15,67 @@
 <script>
   import box from '../../../../components/box/index'
   import request from '@/api/request'
-  import sort from '../../../../components/sort/sort'
 
   export default {
-    name: 'BoxFive',
+    name: 'thirdBoxFive',
     data () {
       return {
-        activeTab: 0,
-        tabContent: [
-          {
-            chart: 8,
-            num: 0,
-            name: '经济贡献最佳',
-            code: ['Xm00038']
-          },
-          {
-            chart: 8,
-            num: 1,
-            name: '人效最佳',
-            code: ['Xm00043']
-          },
-          {
-            chart: 8,
-            num: 2,
-            name: '科技创新最佳',
-            code: ['Xm00048']
-          }
-        ],
-        colArr: [
-          [
-            {
-              name: '企业名称',
-              key: 'y2'
-            },
-            {
-              name: '企业企业累计税收（万元）',
-              key: 'y3'
-            }
-          ],
-          [
-            {
-              name: '企业名称',
-              key: 'y2'
-            },
-            {
-              name: '人才数(人)',
-              key: 'y3'
-            }
-          ],
-          [
-            {
-              name: '企业名称',
-              key: 'y2'
-            },
-            {
-              name: '知识产权数(个)',
-              key: 'y3'
-            }
-          ]
-        ],
-        sortData: []
+        list:[]
       }
     },
     components: {
-      box,
-      sort
+      box
     },
     methods: {
       getData (code) {
         request.normalPort({
           codeArray: code
         }).then(res => {
-          let list = JSON.parse(res.data.data.resultList[0].value)
-          this.sortData = list
+          this.list=JSON.parse(res.data.data.resultList[0].value)
+          console.log(JSON.parse(res.data.data.resultList[0].value));
         })
       }
     },
     mounted () {
-      this.getData(['Xm00038'])
-      window.eventHub.$on('changeTab', (item) => {
-        if (item.chart == 8) {
-          this.activeTab = item.num
-          this.getData(item.code)
-        }
-      })
-    },
-    beforeDestroy () {
-      window.eventHub.$off('changeTab')
+      this.getData(['Xs00037'])
     }
   }
 </script>
 
-<style lang="scss" scoped>
-  .BoxFive {
+<style lang="scss">
+  .thirdBoxFive {
+    .content {
+      flex-wrap:wrap;
+      flex-direction:column;
+      .line {
+        font: 0.075rem NotoSansHans-Regular;
+        color: #FAFBFF;
+        display: flex;
+        justify-content: space-between;
+        width: 3.36rem;
+        height:0.215rem;
+        line-height:0.215rem;
+        margin-bottom:0.045rem;
+        background-color:#131F4A;
 
+        .left{
+          display:flex;
+          align-items:center;
+          .img {
+            width:0.08rem;
+            height:0.08rem;
+            margin-left:0.135rem;
+            margin-right:0.1rem;
+          }
+          .text {
+
+          }
+        }
+        .time {
+          text-align:right;
+          padding-right:0.175rem;
+        }
+      }
+    }
   }
 </style>
