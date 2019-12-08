@@ -57,6 +57,11 @@ export default {
             show: false
           },
           name: '月份',
+          nameGap: convertRem(0.055),
+          nameTextStyle:{
+            color: '#B5BDDB',
+            fontSize: convertRem(0.075)
+          },
           axisLabel: {
             color: '#8FCEEF',
             interval: 0,
@@ -68,10 +73,6 @@ export default {
             lineStyle: {
               color: 'rgba(102, 185, 251, 0.24)'
             }
-          },
-          nameTextStyle: {
-            color: '#9DA4BF',
-            fontSize: convertRem(0.075)
           },
           axisTick: {
             show: false
@@ -85,15 +86,16 @@ export default {
               show: false
             },
             name: '亿元',
+            nameGap: convertRem(0.055),
+            nameTextStyle:{
+              color: '#B5BDDB',
+              fontSize: convertRem(0.075)
+            },
             axisLabel: {
               textStyle: {
                 color: '#8FCEEF',
                 fontSize: convertRem(0.07)
               }
-            },
-            nameTextStyle: {
-              color: '#9DA4BF',
-              fontSize: convertRem(0.075)
             },
             splitLine: {
               show: false

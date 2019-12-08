@@ -73,6 +73,11 @@
 					},
 					yAxis: {
 						name: '个',
+            nameGap: convertRem(0.055),
+            nameTextStyle:{
+              color: '#B5BDDB',
+              fontSize: convertRem(0.075)
+            },
 						splitLine: {
 							lineStyle: {
 								color: '#354471',
@@ -88,10 +93,6 @@
 						},
 						axisTick: {
 							show: false
-						},
-						nameTextStyle: {
-							color: '#9DA4BF',
-							fontSize: convertRem(0.075)
 						},
 						axisLabel: {
 							textStyle: {
