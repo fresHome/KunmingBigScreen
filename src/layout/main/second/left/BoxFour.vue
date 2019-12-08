@@ -54,7 +54,7 @@
               },
               name: '月份',
               nameGap: convertRem(0.055),
-              nameTextStyle:{
+              nameTextStyle: {
                 color: '#B5BDDB',
                 fontSize: convertRem(0.075)
               },
@@ -85,7 +85,7 @@
               },
               name: '个',
               nameGap: convertRem(0.055),
-              nameTextStyle:{
+              nameTextStyle: {
                 color: '#B5BDDB',
                 fontSize: convertRem(0.075)
               },
@@ -133,7 +133,7 @@
               data: [9, 10, 15, 23, 25, 34, 43, 50, 53, 67, 77, 87]
             },
             {
-              name: '月新增',
+              name: '',
               type: 'bar',
               barWidth: convertRem(0.085),
               barGap: '-100%',
@@ -167,6 +167,17 @@
                   }
                 }
               }
+            },
+            {
+              name: '月新增',
+              type: 'bar',
+              barWidth: convertRem(0.085),
+              barGap: '-100%',
+              itemStyle: {
+                color: '#32F0FE',
+                opacity: 0,
+              },
+              data: [2, 2, 2, 12, 20, 21, 10, 15, 26, 25, 24, 27],
             }
           ]
         }
