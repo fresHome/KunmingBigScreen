@@ -1,7 +1,7 @@
 <template>
   <div class="videoBuild">
-    <div class="bg" :style="{backgroundImage:'url(/static/image/secondBuild/'+bgArr[0]+')'}"></div>
-    <div class="line" :style="{backgroundImage:'url(/static/image/secondBuild/'+lineArr[0]+')'}"></div>
+    <div class="bg" :style="{backgroundImage:'url(/static/image/secondBuild/'+current.name+'.png)'}"></div>
+    <div class="line" :style="{backgroundImage:'url(/static/image/secondBuild/'+current.name+'.gif)'}"></div>
   </div>
 </template>
 
@@ -9,11 +9,9 @@
   export default {
     name: 'videoBuild',
     data () {
-      return {
-        bgArr: ['和成国际-背景.png', '高新招商大厦-背景.png'],
-        lineArr: ['和成国际飞线.gif', '高新招商大厦飞线.gif']
-      }
+      return {}
     },
+    props: ['current'],
     methods: {}
   }
 </script>

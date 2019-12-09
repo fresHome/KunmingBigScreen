@@ -1,9 +1,9 @@
 <template>
   <div class="index">
-    <video-build></video-build>
-    <bottom-map type="xpq"></bottom-map>
+    <video-build :current="current"></video-build>
+    <bottom-map @changeCurrent="changeCurrent"></bottom-map>
     <data-box></data-box>
-    <position :style="positionArr[0]"></position>
+    <position :style="current"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>
 </template>
@@ -18,8 +18,10 @@
     name: 'index',
     data () {
       return {
+        current: '',
         positionArr: [
           {
+            name: '',
             left: '40%',
             top: '50%'
           }
@@ -27,8 +29,10 @@
       }
     },
     components: { videoBuild, dataBox, bottomMap, position },
-    methods: {},
-    mounted () {
+    methods: {
+      changeCurrent (item) {
+        this.current = item
+      }
     }
   }
 </script>

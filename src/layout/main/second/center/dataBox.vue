@@ -1,6 +1,6 @@
 <template>
   <div class="dataBox" :style="{img:'dataBox-bg.png'}|imgLoad()">
-    <p class="name">云南昊邦医药技术研发基地</p>
+    <p class="name">{{ name }}</p>
     <div class="item">
       <div class="barValue">
         <p class="title">营收总额</p>
@@ -35,19 +35,32 @@
 </template>
 
 <script>
+  import request from '../../../../api/request'
+
   export default {
     name: 'dataBox',
     data () {
       return {
-        ysze: 123,
-        ssze: 213,
-        qysl: 123,
-        bgmj: 23
+        name: '',
+        ysze: 0,
+        ssze: 0,
+        qysl: 0,
+        bgmj: 0
       }
     },
     methods: {
       getData () {
-
+        request.normalPort({
+          areaName: '西片区',
+          codeArray: ['Xm00010', 'Xm00011', 'Xm00012', 'Xm00013', 'Xm00014']
+        }).then(res => {
+          let data = res.data.data.resultList
+          this.name = data[0].value
+          this.ysze = data[1].value
+          this.ssze = data[2].value
+          this.qysl = data[3].value
+          this.bgmj = data[4].value
+        })
       }
     },
     mounted () {

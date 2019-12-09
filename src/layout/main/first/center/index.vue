@@ -1,8 +1,8 @@
 <template>
   <div class="index">
     <animateMap v-show="false" class="map"></animateMap>
-    <LittleBox v-if="show&&type" :show="type" type="dpq" id="littleBox1"></LittleBox>
-    <LittleBox v-if="show&&!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
+    <LittleBox @click.native="goPath('东片区')" v-if="show&&type" :show="type" type="dpq" id="littleBox1"></LittleBox>
+    <LittleBox @click.native="goPath('西片区')" v-if="show&&!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
   </div>
 </template>
 
@@ -21,6 +21,16 @@
         show: false,
         delayShow: 1,
         type: true
+      }
+    },
+    methods: {
+      goPath (area) {
+        this.$router.push({
+          path: '/second',
+          query: {
+            area: area
+          }
+        })
       }
     },
     mounted () {
