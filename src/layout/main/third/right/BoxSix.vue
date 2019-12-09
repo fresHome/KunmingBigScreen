@@ -1,248 +1,162 @@
 <template>
   <div class="BoxOne">
-    <box title="人才趋势" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart26" :skey="'jjqs26'" :option="option" v-if="activeTab==1"></chart>
-      <div class="container" v-if="activeTab==2">
-        <sort :col="colArr" :sortData="sortData"></sort>
-      </div>
+    <box title="人才需求">
+      <!--      <div id="container" style="height: 150px; min-width: 300px; max-width: 350px; margin: 0 auto"></div>-->
+      <div id="container" style="height: 1.5rem; min-width: 3rem; max-width: 3.5rem; margin: 0 auto"></div>
     </box>
   </div>
 </template>
 
 <script>
 import box from '../../../../components/box/index'
-import chart from '../../../../components/charts/echarts/chart'
-import { deepClone, convertRem } from '../../../../utils'
+//import chart from '../../../../components/charts/echarts/chart'
+import { convertRem } from '../../../../utils'
+//import { deepClone, convertRem } from '../../../../utils'
 import request from '@/api/request'
-import sort from '../../../../components/sort/sort'
+//import sort from '../../../../components/sort/sort'
+import Highcharts from 'highcharts'
+import highchartsMore from 'highcharts/highcharts-more';
+
+highchartsMore(Highcharts);
 
 export default {
   name: 'BoxOne',
   data () {
     return {
-      activeTab: 1,
-      tabContent: [
-        {
-          num: 1,
-          name: '趋势',
-          chart: 26
-        },
-        {
-          num: 2,
-          name: '榜单',
-          chart: 26
-        }
-      ],
-      option: {
-        grid: {
-          top: convertRem(0.2),
-          left: 0,
-          right: convertRem(0.25),
-          bottom: 0,
-          containLabel: true
+      highchartData: {
+        chart: {
+          type: 'packedbubble',
+//        height: '100%',
+          height: convertRem(1.5),
+          width: convertRem(3.5),
+          backgroundColor: 'transparent',
         },
         legend: {
-          top: 'top',
-          right: 'right',
-          orient: 'horizontal',
-          width: '100%',
-          textStyle: {
-            color: '#AAECFF',
-            fontSize: convertRem(0.075)
-          },
-          icon: 'rect',
-          itemWidth: convertRem(0.075),
-          itemHeight: convertRem(0.075),
-          data: []
+          enabled: false //不显示图例
         },
-        xAxis: {
-          type: 'category',
-          axisLine: {
-            show: false
-          },
-          name: '月份',
-          axisLabel: {
-            color: '#8FCEEF',
-            interval: 0,
-            textStyle: {
-              fontSize: convertRem(0.075)
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: 'rgba(102, 185, 251, 0.24)'
-            }
-          },
-          nameTextStyle: {
-            color: '#9DA4BF',
-            fontSize: convertRem(0.075)
-          },
-          axisTick: {
-            show: false
-          },
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        credits: {
+          enabled: false //不显示LOGO
         },
-        yAxis: [
-          {
-            type: 'value',
-            axisLine: {
-              show: false
+        colors: ['#900E78', '#133493', '#118BC8', '#8A4FDF'],
+        title: {
+          text: null
+        },
+        tooltip: {
+          useHTML: true,
+//        pointFormat: '<b>{point.name}:</b> {point.y}m CO<sub>2</sub>'
+          pointFormat: '{point.y}人'
+        },
+        plotOptions: {
+          packedbubble: {
+            minSize: '1%',
+            maxSize: '100%',
+            zMin: 0,
+            zMax: 20,
+            layoutAlgorithm: {
+              splitSeries: false,
+              gravitationalConstant: 0.02
             },
-            name: '亿元',
-            axisLabel: {
-              textStyle: {
-                color: '#8FCEEF',
-                fontSize: convertRem(0.07)
+            dataLabels: {
+              enabled: true,
+              format: '{point.name} <br/> {point.value}人',
+              filter: {
+                property: 'y',
+                operator: '>',
+                value: 10
+              },
+              style: {
+                color: '#fff',
+                textOutline: 'none',
+                fontWeight: 'normal',
+                textAlign: 'center'
               }
-            },
-            nameTextStyle: {
-              color: '#9DA4BF',
-              fontSize: convertRem(0.075)
-            },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
             }
           }
-        ],
+        },
         series: [
           {
-            type: 'line',
-            name: '人才流入',
-            color: '#32F0FE',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-
-                colorStops: [{
-                  offset: 0,
-                  color: '#20186E' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#D7087E' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
+            name: '产品经理',
+            data: [
+              {
+                name: "产品经理",
+                value: 13
+              },
+              {
+                name: "产品经理",
+                value: 3
+              },
+              {
+                name: "产品经理",
+                value: 2
+              },
+              {
+                name: "产品经理",
+                value: 5
+              },
+            ]
           },
-          {
-            type: 'line',
-            name: '人才流出',
-            color: '#D7087E',
-            smooth: true,
-            lineStyle: {
-              width: convertRem(0.03),
-              shadowColor: 'rgba(201,255,146,0.2)',
-              shadowBlur: convertRem(0.2),
-              color: {
-                type: 'linear',
-                colorStops: [{
-                  offset: 0,
-                  color: '#0F2088' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#32F0FE' // 100% 处的颜色
-                }]
-              }
-            },
-            showSymbol: false,
-            data: []
-          }
+//          {
+//            name: '开发',
+//            data: [
+//              {
+//                name: "开发",
+//                value: 15
+//              }]
+//          },
+//          {
+//            name: '行政',
+//            data: [
+//              {
+//                name: '行政',
+//                value: 15
+//              }
+//            ]
+//          }
         ]
-      },
-      colArr: [
-        {
-          name: '名称',
-          key: 'y2'
-        },
-        {
-          name: '人数（个）',
-          key: 'y3'
-        }
-      ],
-      sortData: [
-        {
-          y1: "1",
-          y2: "爱德华信息科技有限公司",
-          y3: "4512"
-        }
-      ]
+      }
     }
   },
-  props: ['delayShow'],
+//  props: ['delayShow'],
   methods: {
-    getLine (code) {
-      let newOption1 = deepClone(this.option)
+    getData (code) {
       request.normalPort({
         codeArray: code
       }).then(res => {
-        let arr1 = []
-        let arr2 = []
-        let time = []
-        res.data.data.resultList.map((item) => {
-          if (item.code == 'Xm00028') {
-            arr1.push(item.value)
-            this.option.legend.data.push('人才流入')
-            this.option.series[0].name = '人才流入'
-            time.push(item.time)
-          }
-          if (item.code == 'Xm00029') {
-            arr2.push(item.value)
-            this.option.legend.data.push('人才流出')
-            this.option.series[1].name = '人才流出'
-            time.push(item.time)
-          }
-          if (item.code == 'Xm00027') {
-//            arr1.push(item.value)
-//            this.option.legend.data.push('榜单')
-//            this.option.series[0].name = '榜单'
-            if (typeof (item.value) == String) {
-              let list = JSON.parse(item.value)
-              this.sortData = list
-            }
+        console.log(JSON.parse(res.data.data.resultList[0].value));
+        let arr = JSON.parse(res.data.data.resultList[0].value);
+        let newArr = []
+        arr.forEach(item => {
+          let a = newArr.findIndex(i => (
+            i.name == item.x1
+          ))
+          if (a != -1) {
+            newArr[a].data.push({ name: item.x1, value: Number(item.y1) })
+          } else {
+            newArr.push({ name: item.x1, data: [{ name: item.x1, value: Number(item.y1) }] })
           }
         })
-        newOption1.xAxis.data = [...new Set(time)]
-        newOption1.series[0].data = arr1
-        newOption1.series[1].data = arr2
-        this.option1 = newOption1
+        this.highchartData.series = newArr;
       })
+      console.log(111, this.highchartData);
+      Highcharts.chart('container', this.highchartData);
     }
   },
   mounted () {
-    this.option.legend.data = []
-    this.getLine(['Xm00028', 'Xm00029'])
-    window.eventHub.$on('changeTab', (item) => {
-      if (item.chart == 26) {
-        this.option.legend.data = []
-        if (item.num == 1) {
-          this.activeTab = 1
-          this.getLine(['Xm00028', 'Xm00029'])
-        } else {
-          this.activeTab = 2
-          this.getLine(['Xm00027'])
-        }
-      }
-    })
-  },
-  beforeDestroy () {
-    window.eventHub.$off('changeTab')
+    this.getData(['Xs00032'])
   },
   components: {
-    box, chart, sort
+    box
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .BoxOne {
-
+    #container {
+      /*min-width: 300px;*/
+      /*max-width: 350px;*/
+      /*height: 150px;*/
+      /*margin: 0 auto;*/
+    }
   }
 </style>
