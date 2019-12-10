@@ -1,7 +1,7 @@
 <template>
   <div class="videoBuild">
-    <div class="bg" :style="{backgroundImage:'url(/static/image/secondBuild/'+current.name+'.png)'}"></div>
-    <div class="line" :style="{backgroundImage:'url(/static/image/secondBuild/'+current.name+'.gif)'}"></div>
+    <div class="bg animated" :class="show" :style="{backgroundImage:'url(/static/image/secondBuild/'+type+'.png)'}"></div>
+    <div class="line animated" :class="show" :style="{backgroundImage:'url(/static/image/secondBuild/'+type+'.gif)'}"></div>
   </div>
 </template>
 
@@ -9,10 +9,29 @@
   export default {
     name: 'videoBuild',
     data () {
-      return {}
+      return {
+        show: 'fadeIn',
+        type: ''
+      }
     },
     props: ['current'],
-    methods: {}
+    watch: {
+      current () {
+        this.animate()
+      }
+    },
+    methods: {
+      animate () {
+        this.show = 'fadeOut'
+        setTimeout(() => {
+          this.type = this.current.name
+          this.show = 'fadeIn'
+        }, 500)
+      }
+    },
+    mounted () {
+      this.animate()
+    }
   }
 </script>
 

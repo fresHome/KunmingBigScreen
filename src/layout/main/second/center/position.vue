@@ -1,5 +1,5 @@
 <template>
-  <div class="position">
+  <div class="position" :style="style">
     <div class="location" :style="{img:'second-location.gif'}|imgLoad()"></div>
     <div class="circle" :style="{img:'second-circle.gif'}|imgLoad()"></div>
   </div>
@@ -9,7 +9,25 @@
   export default {
     name: 'position',
     data () {
-      return {}
+      return {
+        style: ''
+      }
+    },
+    props: ['current'],
+    watch: {
+      current () {
+        this.style = {
+          opacity: 0,
+          marginTop: '-0.2rem'
+        }
+        setTimeout(() => {
+          this.style = {
+            transition: 'opacity linear 0.5s,margin-top linear 0.5s',
+            opacity: 1,
+            marginTop: 0
+          }
+        }, 1000)
+      }
     },
     methods: {}
   }

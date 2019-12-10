@@ -1,5 +1,5 @@
 <template>
-  <div class="dataBox" :style="{img:'dataBox-bg.png'}|imgLoad()">
+  <div class="dataBox" :style="style|imgLoad()">
     <p class="name">{{ current.name }}</p>
     <div class="item">
       <div class="barValue">
@@ -43,10 +43,26 @@
         ysze: 0,
         ssze: 0,
         qysl: 0,
-        bgmj: 0
+        bgmj: 0,
+        style: {}
       }
     },
-    props: ['current']
+    props: ['current'],
+    watch: {
+      current () {
+        this.style = {
+          opacity: 0,
+          right: '0.35rem'
+        }
+        setTimeout(() => {
+          this.style = {
+            transition: 'opacity linear 0.5s,right linear 0.5s',
+            opacity: 1,
+            right: '0.55rem'
+        }
+        }, 1000)
+      }
+    },
   }
 </script>
 
@@ -56,6 +72,9 @@
     height: 3.76rem;
     box-sizing: border-box;
     padding: 0.4rem 0.3rem;
+    background: {
+      image: url('../../../../../public/static/image/dataBox-bg.png')
+    }
 
     .name {
       font: bold 0.15rem/0.2rem NotoSansHans-Bold;

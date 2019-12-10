@@ -3,7 +3,7 @@
     <video-build v-if="current" :current="current"></video-build>
     <bottom-map @changeCurrent="changeCurrent"></bottom-map>
     <data-box v-if="current" :current="current"></data-box>
-    <position v-if="current" :style="current.center"></position>
+    <position v-if="current" :current="current" :style="current.center"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>
 </template>
@@ -24,6 +24,7 @@
     components: { videoBuild, dataBox, bottomMap, position },
     methods: {
       changeCurrent (item) {
+        console.log(item)
         this.current = item
       }
     }
