@@ -51,20 +51,6 @@
             }
           },
           {
-            val1: 0,
-            val2: 0,
-            show: false,
-            name: '高新火炬大厦',
-            center: {
-              left: '45%',
-              top: '45%'
-            },
-            style: {
-              left: '31%',
-              top: '6%'
-            }
-          },
-          {
             val1: 20,
             val2: 30,
             name: '沃霖科技园',
@@ -237,8 +223,8 @@
         }).then(res => {
           let data = res.data.data.bigScreenBuildingChartResultList
           let arr = this.$route.query.area == '东片区' ? this.dpq : this.xpq
-          let sum1 = 1
-          let sum2 = 1
+          let sum1 = 0
+          let sum2 = 0
           data.map(li => {
             sum1 += li.taxRevenue
             sum2 += li.revenue

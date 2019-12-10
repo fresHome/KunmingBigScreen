@@ -1,15 +1,16 @@
 <template>
   <div class="BoxFive">
     <box title="发展成果" :tab-content="tabContent">
-      <pop-table :tableCol="col[activeTab]" :tableData="tableData"></pop-table>
+      <chart ref="chart25" :skey="'jjqs25'" :option="option"></chart>
     </box>
   </div>
 </template>
 
 <script>
   import box from '../../../../components/box/index'
-  import popTable from '../../../../components/popTable/popTable'
   import request from '@/api/request'
+  import chart from '../../../../components/charts/echarts/chart'
+  import { convertRem, deepClone } from '../../../../utils'
 
   export default {
     name: 'BoxFive',
@@ -28,102 +29,93 @@
             chart: 5
           }
         ],
-        col: [
-          [
-            {
-              name: '',
-              key: 'name'
+        option: {
+          grid: {
+            top: convertRem(0.1),
+            left: 0,
+            right: convertRem(0.1),
+            bottom: 0,
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: [],
+            axisTick: {
+              show: false
             },
-            {
-              name: '50人以下',
-              key: '50人以下'
+            axisLabel: {
+              color: '#fff',
+              interval: 0,
+              fontSize: convertRem(0.075),
             },
-            {
-              name: '50-99人',
-              key: '50-99人'
-            },
-            {
-              name: '100-499人',
-              key: '100-499人'
-            },
-            {
-              name: '500-999人',
-              key: '500-999人'
-            },
-            {
-              name: '1千-5千人',
-              key: '1千-5千人'
-            },
-            {
-              name: '5千-1万人',
-              key: '5千-1万人'
-            },
-            {
-              name: '1万人以上',
-              key: '1万人以上'
+            axisLine: {
+              show: false
             }
-          ],
-          []
-        ],
-        tableData: [
-          {
-            name: '1000万+',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
           },
-          {
-            name: '500万-1000万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
+          yAxis: {
+            type: 'category',
+            data: [],
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              color: '#B5BDDB',
+              fontSize: convertRem(0.075)
+            }
           },
-          {
-            name: '100万-500万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          },
-          {
-            name: '0-100万',
-            '50人以下': 0,
-            '50-99人': 1,
-            '100-499人': 2,
-            '500-999人': 3,
-            '1千-5千人': 1,
-            '5千-1万人': 3,
-            '1万人以上': 2,
-          }
-        ]
+          series: [{
+            name: 'Punch Card',
+            type: 'scatter',
+            symbolSize: (val) => {
+              return val[2] * 2
+            },
+            color: '#D7087E',
+            data: [],
+            animationDelay: (idx) => {
+              return idx * 50
+            }
+          }]
+        }
       }
     },
     components: {
       box,
-      popTable
+      chart
     },
     methods: {
       getData (code) {
         request.normalPort({
           codeArray: code
         }).then(res => {
-          console.log(res)
+          let data = JSON.parse(res.data.data.resultList[0].value)
+          let xArr = []
+          let yArr = []
+          data.map(item => {
+            xArr.push(item.x1)
+            yArr.push(item.y1)
+          })
+          xArr = [...new Set(xArr)]
+          yArr = [...new Set(yArr)]
+          this.buildOption(xArr, yArr, data)
         })
+      },
+      buildOption (x, y, data) {
+        let newOption = deepClone(this.option)
+        newOption.xAxis.data = x
+        newOption.yAxis.data = y
+        let newData = []
+        data.map(item => {
+          newData.push([x.indexOf(item.x1), y.indexOf(item.y1), item.y3])
+        })
+        newOption.series[0].data = newData
+        this.option = newOption
       }
     },
     mounted () {
-      this.getData()
+      this.getData(['Xm00025'])
       window.eventHub.$on('changeTab', (item) => {
         if (item.chart == 5) {
           this.activeTab = item.num
