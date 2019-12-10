@@ -1,9 +1,9 @@
 <template>
   <div class="index">
-    <video-build :current="current"></video-build>
+    <video-build v-if="current" :current="current"></video-build>
     <bottom-map @changeCurrent="changeCurrent"></bottom-map>
-    <data-box :current="current"></data-box>
-    <position :style="current"></position>
+    <data-box v-if="current" :current="current"></data-box>
+    <position v-if="current" :style="current.center"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>
 </template>
@@ -18,14 +18,7 @@
     name: 'index',
     data () {
       return {
-        current: '',
-        positionArr: [
-          {
-            name: '',
-            left: '40%',
-            top: '50%'
-          }
-        ]
+        current: ''
       }
     },
     components: { videoBuild, dataBox, bottomMap, position },

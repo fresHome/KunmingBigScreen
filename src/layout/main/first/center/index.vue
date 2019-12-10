@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <animateMap v-show="false" class="map"></animateMap>
+    <animateMap class="map"></animateMap>
     <LittleBox @click.native="goPath('东片区')" v-if="show&&type" :show="type" type="dpq" id="littleBox1"></LittleBox>
     <LittleBox @click.native="goPath('西片区')" v-if="show&&!type" :show="type" type="xpq" id="littleBox2"></LittleBox>
   </div>
