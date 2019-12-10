@@ -2,7 +2,7 @@
   <div class="index">
     <video-build :current="current"></video-build>
     <bottom-map @changeCurrent="changeCurrent"></bottom-map>
-    <data-box></data-box>
+    <data-box :current="current"></data-box>
     <position :style="current"></position>
     <div class="smallMap" :style="{img:'small-map.png'}|imgLoad()"></div>
   </div>

@@ -9,7 +9,7 @@
           :value="item.val1"
           :value2="item.val2">
     </bars>
-    <div class="bg" :class="type" :style="{img:'bottom-map-'+ ($route.query.area=='东片区'?'dpq.png':'xpq.png')} | imgLoad()"></div>
+    <div class="bg" :class="$route.query.area=='东片区'?'dpq':'xpq'" :style="{img:'bottom-map-'+ ($route.query.area=='东片区'?'dpq.png':'xpq.png')} | imgLoad()"></div>
   </div>
 </template>
 
@@ -102,17 +102,7 @@
               top: '31%'
             }
           },
-          {
-            val1: 20,
-            val2: 30,
-            show: false,
-            name: '沃霖科技园',
-            style: {
-              left: '68%',
-              top: '31%'
-            }
-          },
-          {
+            {
             val1: 20,
             val2: 30,
             show: false,
@@ -176,7 +166,7 @@
 
 <style lang="scss" scoped>
   .bottomMap {
-    width: 8.695rem;
+    width: 8.33rem;
     margin: 0 auto;
     height: 2.5rem;
     position: relative;
@@ -186,10 +176,12 @@
     }
 
     .bg {
-      width: 8.33rem;
-      height: 1.89rem;
-      position: absolute;
-      bottom: 0;
+      &.dpq {
+        width: 8.33rem;
+        height: 1.89rem;
+        position: absolute;
+        bottom: 0;
+      }
 
       &.xpq {
         width: 8.695rem;

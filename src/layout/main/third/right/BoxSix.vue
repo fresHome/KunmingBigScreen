@@ -82,15 +82,15 @@ export default {
                 value: 13
               },
               {
-                name: "产品经理",
+                name: "产品理",
                 value: 3
               },
               {
-                name: "产品经理",
+                name: "品经理",
                 value: 2
               },
               {
-                name: "产品经理",
+                name: "产品",
                 value: 5
               },
             ]
