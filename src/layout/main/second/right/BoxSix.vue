@@ -182,10 +182,10 @@ export default {
         let time = []
         res.data.data.resultList.map((item) => {
           if (item.code == 'Xm00028') {
-//            JSON.parse(item.value).forEach(item => {
-//              arr1.push(Number(item.y1))
-//              time.push(item.x1)
-//            })
+            JSON.parse(item.value).forEach(item => {
+              arr1.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
           if (item.code == 'Xm00029') {
             JSON.parse(item.value).forEach(item => {

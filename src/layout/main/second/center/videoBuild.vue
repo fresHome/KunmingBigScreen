@@ -1,7 +1,7 @@
 <template>
   <div class="videoBuild">
-    <div class="bg animated" :class="show" :style="{backgroundImage:'url(/static/image/secondBuild/'+type+'.png)'}"></div>
-    <div class="line animated" :class="show" :style="{backgroundImage:'url(/static/image/secondBuild/'+type+'.gif)'}"></div>
+    <div class="bg animated" :class="show" :style="{backgroundImage:'url(static/image/secondBuild/'+type+'.png)'}"></div>
+    <div class="line animated" :class="show" :style="{backgroundImage:'url(static/image/secondBuild/'+type+'.gif)'}"></div>
   </div>
 </template>
 

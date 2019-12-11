@@ -24,7 +24,6 @@
     components: { videoBuild, dataBox, bottomMap, position },
     methods: {
       changeCurrent (item) {
-        console.log(item)
         this.current = item
       }
     }

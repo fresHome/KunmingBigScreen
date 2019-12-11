@@ -166,10 +166,10 @@ export default {
                 type: 'linear',
                 colorStops: [{
                   offset: 0,
-                  color: '#0F2088' // 0% 处的颜色
+                  color: '#D6EF3C' // 0% 处的颜色
                 }, {
                   offset: 1,
-                  color: '#32F0FE' // 100% 处的颜色
+                  color: '#D6EF3C' // 100% 处的颜色
                 }]
               }
             },
@@ -192,22 +192,22 @@ export default {
         let arr3 = []
         let time = []
         res.data.data.resultList.map((item) => {
-
-          let cr
-          item.codeRemark.split('').map((i, index) => {
-            if (i.match(/^\s*$/) != null) {
-              cr = item.codeRemark.slice(0, index)
-            }
-          })
-          if (cr == '生物医药产业营收') {
-            arr1.push(item.value)
-          } else if (cr == '') {
-            arr2.push(item.value)
-          } else if (cr == '') {
-            arr3.push(item.value)
+          if (item.code == "Xm00017" || item.code == "Xm00020") {
+            JSON.parse(item.value).forEach(item => {
+              arr1.push(Number(item.y1))
+              time.push(item.x1)
+            })
+          } else if (item.code == "Xm00018" || item.code == "Xm00021") {
+            JSON.parse(item.value).forEach(item => {
+              arr2.push(Number(item.y1))
+              time.push(item.x1)
+            })
+          } else if (item.code == "Xm00019" || item.code == "Xm00022") {
+            JSON.parse(item.value).forEach(item => {
+              arr3.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
-
-          time.push(item.time)
         })
         newOption.xAxis.data = [...new Set(time)]
         newOption.series[0].data = arr1
@@ -221,7 +221,6 @@ export default {
     this.getLine(['Xm00017', 'Xm00018', 'Xm00019'])
     window.eventHub.$on('changeTab', (item) => {
       if (item.chart == 23) {
-        console.log(333);
         if (item.num == 1) {
           this.activeTab = 1
           this.getLine(['Xm00017', 'Xm00018', 'Xm00019'])

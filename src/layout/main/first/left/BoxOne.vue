@@ -159,7 +159,7 @@
     },
     methods: {
       getLine (code) {
-        let newOption1 = deepClone(this.option)
+        let newOption = deepClone(this.option)
         request.normalPort({
           codeArray: [code]
         }).then(res => {
@@ -173,12 +173,12 @@
             if (item.time.indexOf(2019) >= 0) {
               arr2.push(item.value)
             }
-            time.push(item.time)
+            time.push(item.time.slice(-2).replace(/^0/,''))
           })
-          newOption1.xAxis.data = [...new Set(time)]
-          newOption1.series[0].data = arr1
-          newOption1.series[1].data = arr2
-          this.option1 = newOption1
+          newOption.xAxis.data = [...new Set(time)]
+          newOption.series[0].data = arr1
+          newOption.series[1].data = arr2
+          this.option = newOption
         })
       }
     },

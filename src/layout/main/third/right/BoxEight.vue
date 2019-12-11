@@ -32,7 +32,6 @@
           codeArray: code
         }).then(res => {
           this.list=JSON.parse(res.data.data.resultList[0].value)
-          console.log(JSON.parse(res.data.data.resultList[0].value));
         })
       }
     },

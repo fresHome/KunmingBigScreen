@@ -122,7 +122,6 @@ export default {
       request.normalPort({
         codeArray: code
       }).then(res => {
-        console.log(JSON.parse(res.data.data.resultList[0].value));
         let arr = JSON.parse(res.data.data.resultList[0].value);
         let newArr = []
         arr.forEach(item => {
@@ -137,7 +136,6 @@ export default {
         })
         this.highchartData.series = newArr;
       })
-      console.log(111, this.highchartData);
       Highcharts.chart('container', this.highchartData);
     }
   },
