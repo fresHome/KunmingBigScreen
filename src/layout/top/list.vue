@@ -46,6 +46,7 @@
     methods: {
       getIndexList () {
         request.normalPort({
+          area:'全区',
           codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00004']
         }).then(res => {
           let data = res.data.data.resultList

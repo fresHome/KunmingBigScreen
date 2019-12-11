@@ -3,10 +3,9 @@
     <box title="发展成果">
       <!--      <chart ref="chart5" :skey="'jjqs5'" :option="option" v-if="delayShow"></chart>-->
       <div :style="{img:'blueBox2.png',left:item.left,top:item.top} | imgLoad()" class="blueBox" v-for="item in boxData" :key="item.id">
-        <div class="name">上市公司</div>
-        <div class="number">10家</div>
+        <div class="name">{{ item.name }}</div>
+        <div class="number">{{ item.number }}家</div>
       </div>
-
       <div :style="{img:'lightBlueBox.png',left:item.left,top:item.top} | imgLoad()" class="lightblueBox" v-for="item in lightBoxData" :key="item.id"></div>
     </box>
   </div>
@@ -22,32 +21,32 @@ export default {
     return {
       boxData: [
         {
-          name: '上市公司',
-          numbaer: '10家',
+          name: '',
+          number: '',
           top: '0.2rem',
           left: '0.615rem'
         },
         {
-          name: '上市公司',
-          numbaer: '10家',
+          name: '',
+          number: '',
           top: '0.2rem',
           left: '2.195rem'
         },
         {
-          name: '上市公司',
-          numbaer: '10家',
+          name: '',
+          number: '',
           top: '0.635rem',
           left: '0.93rem'
         },
         {
-          name: '上市公司',
-          numbaer: '10家',
+          name: '',
+          number: '',
           top: '1.055rem',
           left: '0.385rem'
         },
         {
-          name: '上市公司',
-          numbaer: '10家',
+          name: '',
+          number: '',
           top: '1.055rem',
           left: '2.19rem'
         }
@@ -70,18 +69,20 @@ export default {
   },
   props: ['delayShow'],
   methods: {
-    changeJJqs () {
+    getData () {
       request.normalPort({
         codeArray: ['Xh00054']
       }).then(res => {
-        let arr = []
-        res.data.data.resultList.map((item) => {
-          arr.push({ number: item.value })
+        let data = JSON.parse(res.data.data.resultList[0].value)
+        data.map((item, index) => {
+          this.boxData[index].name = item.x1
+          this.boxData[index].number = item.y1
         })
       })
     }
   },
   mounted () {
+    this.getData()
   },
   components: {
     box

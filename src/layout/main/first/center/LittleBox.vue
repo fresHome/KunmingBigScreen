@@ -8,7 +8,7 @@
         <li v-for="item in data" :key="item.key">
           <i></i>
           <span>{{ item.name }}</span>
-          <span class="value">{{ item.number }}</span>
+          <span class="value">{{ item.number }}{{ item.unit }}</span>
         </li>
       </ol>
     </div>
@@ -30,26 +30,36 @@
 </template>
 
 <script>
+import request from '@/api/request'
+
 export default {
   name: 'LittleBox',
   data () {
     return {
       data: [
         {
-          name: '企业总数',
-          number: '320个'
+          name: '企业数',
+          code: 'Xh00001',
+          number: '',
+          unit: ''
         },
         {
-          name: '企业总数',
-          number: '320个'
+          name: '本年累营收',
+          code: 'Xh00002',
+          number: '',
+          unit: ''
         },
         {
-          name: '企业总数',
-          number: '320个'
+          name: '累计税收',
+          code: 'Xh00003',
+          number: '',
+          unit: ''
         },
         {
-          name: '企业总数',
-          number: '320个'
+          name: '主导行业',
+          code: 'Xh00070',
+          number: '',
+          unit: ''
         }
       ],
       startLength: 0,
@@ -107,13 +117,47 @@ export default {
       setTimeout(() => {
         this.opacity = 0
       }, 4000)
+    },
+    getData () {
+      request.normalPort({
+        area: this.type == 'dpq' ? '东片区' : '西片区',
+        codeArray: ['Xh00001', 'Xh00002', 'Xh00003', 'Xh00070']
+      }).then(res => {
+        let data = res.data.data.resultList
+        this.data.map(item => {
+          data.map(resd => {
+            if (item.code == resd.code) {
+              switch (item.code) {
+                case 'Xh00001':
+                  item.number = resd.value
+                  item.unit = resd.codeRemark.slice(-1)
+                  break
+                case 'Xh00002':
+                  item.number = resd.value
+                  item.unit = resd.codeRemark.slice(-2)
+                  break
+                case 'Xh00003':
+                  item.number = resd.value
+                  item.unit = resd.codeRemark.slice(-2)
+                  break
+                case 'Xh00070':
+                  item.number = JSON.parse(resd.value).join()
+                  break
+                default:
+              }
+            }
+          })
+        })
+      })
     }
   },
   mounted () {
+    this.getData()
     this.animated()
   },
   watch: {
     show () {
+      this.getData()
       this.animated()
     }
   }
