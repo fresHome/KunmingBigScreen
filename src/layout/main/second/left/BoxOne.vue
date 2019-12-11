@@ -3,14 +3,29 @@
     <box title="基本信息">
       <div class="virtual">
         <div>
-          <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">成立时间</div>
-          <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">区域面积</div>
+          <div :style="{img:'yuanjiaojuxing.png'} | imgLoad()" id="rec1">
+            成立时间
+            {{ createTime }}
+          </div>
+          <div :style="{img:'yuanjiaojuxing1.png'} | imgLoad()" id="rec2">
+            区域面积
+            {{ area }}
+          </div>
         </div>
         <div>
-          <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">工业用地面积</div>
-          <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">商业用地面积</div>
+          <div :style="{img:'yuanjiaojuxing2.png'} | imgLoad()" id="rec3">
+            工业用地面积
+            {{ area1 }}
+          </div>
+          <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec4">
+            商业用地面积
+            {{ area2 }}
+          </div>
         </div>
-        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">片区简介</div>
+        <div :style="{img:'yuanjiaojuxing3.png'} | imgLoad()" id="rec5">
+          片区简介
+          {{ brief }}
+        </div>
       </div>
 
     </box>
@@ -24,22 +39,34 @@ import request from '@/api/request'
 export default {
   name: 'BoxOne',
   data () {
-    return {}
+    return {
+      createTime: '',
+      area: '',
+      area1: '',
+      area2: '',
+      brief: ''
+    }
   },
   components: {
     box
   },
   methods: {
-    getData () {
+    getData (code) {
       request.normalPort({
-        codeArray: ['Xh00054']
+        codeArray: code
       }).then(res => {
-        console.log(res)
+        res.data.data.resultList.forEach(item => {
+          item.code == "Xm00005" && (this.createTime = item.value)
+          item.code == "Xm00006" && (this.area = item.value)
+          item.code == "Xm00007" && (this.area1 = item.value)
+          item.code == "Xm00008" && (this.area2 = item.value)
+          item.code == "Xm00009" && (this.brief = item.value)
+        })
       })
     }
   },
   mounted () {
-    this.getData()
+    this.getData(['Xm00005', 'Xm00006', 'Xm00007', 'Xm00008', 'Xm00009'])
   }
 }
 </script>

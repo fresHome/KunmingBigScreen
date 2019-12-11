@@ -1,7 +1,7 @@
 <template>
   <div class="BoxOne">
     <box title="经济趋势" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
+      <chart ref="chart22" :skey="'jjqs22'" :option="option"></chart>
     </box>
   </div>
 </template>
@@ -21,12 +21,12 @@ export default {
         {
           num: 1,
           name: '营收',
-          chart: 1
+          chart: 22
         },
         {
           num: 2,
           name: '税收',
-          chart: 1
+          chart: 22
         }
       ],
       option: {
@@ -158,33 +158,38 @@ export default {
   props: ['delayShow'],
   methods: {
     getLine (code) {
-      let newOption1 = deepClone(this.option)
+      let newOption = deepClone(this.option)
       request.normalPort({
         codeArray: [code]
       }).then(res => {
         let arr1 = []
         let arr2 = []
         let time = []
-        res.data.data.resultList.map((item) => {
-          if (item.time.indexOf(2018) >= 0) {
-            arr1.push(item.value)
+        res.data.data.resultList.forEach((item) => {
+          if (item.time.slice(0, 4) == '2018') {
+            JSON.parse(item.value).forEach(item => {
+              arr1.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
-          if (item.time.indexOf(2019) >= 0) {
-            arr2.push(item.value)
+          if (item.time.slice(0, 4) == '2019') {
+            JSON.parse(item.value).forEach(item => {
+              arr2.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
-          time.push(item.time)
         })
-        newOption1.xAxis.data = [...new Set(time)]
-        newOption1.series[0].data = arr1
-        newOption1.series[1].data = arr2
-        this.option1 = newOption1
+        newOption.xAxis.data = [...new Set(time)]
+        newOption.series[0].data = arr1
+        newOption.series[1].data = arr2
+        this.option = newOption
       })
     }
   },
   mounted () {
     this.getLine('Xm00015')
     window.eventHub.$on('changeTab', (item) => {
-      if (item.chart == 1) {
+      if (item.chart == 22) {
         if (item.num == 1) {
           this.activeTab = 1
           this.getLine('Xm00015')

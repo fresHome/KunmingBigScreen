@@ -1,7 +1,7 @@
 <template>
   <div class="secondBoxThree">
     <box title="产业结构" :active-tab="activeTab" :tab-content="tabContent">
-      <chart ref="chart1" :skey="'jjqs1111'" :option="option"></chart>
+      <chart ref="chart23" :skey="'jjqs23'" :option="option"></chart>
     </box>
   </div>
 </template>
@@ -21,12 +21,12 @@ export default {
         {
           num: 1,
           name: '营收',
-          chart: 1
+          chart: 23
         },
         {
           num: 2,
           name: '税收',
-          chart: 1
+          chart: 23
         }
       ],
       option: {
@@ -58,7 +58,7 @@ export default {
           },
           name: '月份',
           nameGap: convertRem(0.055),
-          nameTextStyle:{
+          nameTextStyle: {
             color: '#B5BDDB',
             fontSize: convertRem(0.075)
           },
@@ -87,7 +87,7 @@ export default {
             },
             name: '亿元',
             nameGap: convertRem(0.055),
-            nameTextStyle:{
+            nameTextStyle: {
               color: '#B5BDDB',
               fontSize: convertRem(0.075)
             },
@@ -183,7 +183,7 @@ export default {
   props: ['delayShow'],
   methods: {
     getLine (code) {
-      let newOption1 = deepClone(this.option)
+      let newOption = deepClone(this.option)
       request.normalPort({
         codeArray: code
       }).then(res => {
@@ -209,18 +209,19 @@ export default {
 
           time.push(item.time)
         })
-        newOption1.xAxis.data = [...new Set(time)]
-        newOption1.series[0].data = arr1
-        newOption1.series[1].data = arr2
-        newOption1.series[2].data = arr3
-        this.option1 = newOption1
+        newOption.xAxis.data = [...new Set(time)]
+        newOption.series[0].data = arr1
+        newOption.series[1].data = arr2
+        newOption.series[2].data = arr3
+        this.option = newOption
       })
     }
   },
   mounted () {
     this.getLine(['Xm00017', 'Xm00018', 'Xm00019'])
     window.eventHub.$on('changeTab', (item) => {
-      if (item.chart == 1) {
+      if (item.chart == 23) {
+        console.log(333);
         if (item.num == 1) {
           this.activeTab = 1
           this.getLine(['Xm00017', 'Xm00018', 'Xm00019'])
