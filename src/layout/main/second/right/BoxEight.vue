@@ -20,19 +20,19 @@
         activeTab: 0,
         tabContent: [
           {
-            chart: 8,
+            chart: 28,
             num: 0,
             name: '经济贡献最佳',
             code: ['Xm00038']
           },
           {
-            chart: 8,
+            chart: 28,
             num: 1,
             name: '人效最佳',
             code: ['Xm00043']
           },
           {
-            chart: 8,
+            chart: 28,
             num: 2,
             name: '科技创新最佳',
             code: ['Xm00048']
@@ -90,7 +90,7 @@
     mounted () {
       this.getData(['Xm00038'])
       window.eventHub.$on('changeTab', (item) => {
-        if (item.chart == 8) {
+        if (item.chart == 28) {
           this.activeTab = item.num
           this.getData(item.code)
         }

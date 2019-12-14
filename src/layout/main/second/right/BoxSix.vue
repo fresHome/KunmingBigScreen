@@ -160,26 +160,20 @@ export default {
       colArr: [
         {
           name: '名称',
-          key: 'y2'
+          key: 'y1'
         },
         {
           name: '人数（个）',
           key: 'y3'
         }
       ],
-      sortData: [
-        {
-          y1: "1",
-          y2: "爱德华信息科技有限公司",
-          y3: "4512"
-        }
-      ]
+      sortData: []
     }
   },
   props: ['delayShow'],
   methods: {
     getLine (code) {
-      let newOption1 = deepClone(this.option)
+      let newOption = deepClone(this.option)
       request.normalPort({
         codeArray: code
       }).then(res => {
@@ -188,31 +182,28 @@ export default {
         let time = []
         res.data.data.resultList.map((item) => {
           if (item.code == 'Xm00028') {
-            arr1.push(item.value)
-            this.option.legend.data.push('人才流入')
-            this.option.series[0].name = '人才流入'
-            time.push(item.time)
+            JSON.parse(item.value).forEach(item => {
+              arr1.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
           if (item.code == 'Xm00029') {
-            arr2.push(item.value)
-            this.option.legend.data.push('人才流出')
-            this.option.series[1].name = '人才流出'
-            time.push(item.time)
+            JSON.parse(item.value).forEach(item => {
+              arr2.push(Number(item.y1))
+              time.push(item.x1)
+            })
           }
           if (item.code == 'Xm00027') {
-//            arr1.push(item.value)
-//            this.option.legend.data.push('榜单')
-//            this.option.series[0].name = '榜单'
-            if (typeof (item.value) == String) {
+            if (typeof (item.value) == 'string') {
               let list = JSON.parse(item.value)
               this.sortData = list
             }
           }
         })
-        newOption1.xAxis.data = [...new Set(time)]
-        newOption1.series[0].data = arr1
-        newOption1.series[1].data = arr2
-        this.option1 = newOption1
+        newOption.xAxis.data = [...new Set(time)]
+        newOption.series[0].data = arr1
+        newOption.series[1].data = arr2
+        this.option = newOption
       })
     }
   },
