@@ -12,7 +12,7 @@
     "core-js": "^3.4.3",
     "countup.js": "^2.0.4",
     "echarts": "^4.5.0",
-    "highcharts": "^7.2.1",
+    "highcharts": "^9.0.0",
     "highcharts-more": "^0.1.7",
     "vue": "^2.6.10",
     "vue-countup-v2": "^4.0.0",
